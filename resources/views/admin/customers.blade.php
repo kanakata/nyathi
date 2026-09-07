@@ -13,9 +13,9 @@ $customers = [
   ['id'=>5,'name'=>'Paul Mutua',  'email'=>'paul@example.com', 'orders'=>0,'spent'=>0,   'joined'=>'Mar 2025','status'=>'inactive'],
 ];
 
-include __DIR__ . '/../includes/admin-header.php';
-?>
 
+?>
+<x-admin.header></x-admin.header>
 <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;flex-wrap:wrap;gap:1rem">
   <form method="GET" style="display:flex;gap:0.5rem">
     <input type="search" name="q" class="form-control" placeholder="Name or email…" style="width:260px">
@@ -62,4 +62,4 @@ include __DIR__ . '/../includes/admin-header.php';
   </table>
 </div>
 
-<?php include __DIR__ . '/../includes/admin-footer.php'; ?>
+<x-admin.footer></x-admin.footer>

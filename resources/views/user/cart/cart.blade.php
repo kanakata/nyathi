@@ -1,20 +1,9 @@
-<?php
-/**
- * LUXE SHOP — Cart Page
- */
-// require_once __DIR__ . '/../includes/config';
-
-$pageTitle  = 'Your Cart — Luxe Shop';
-$activePage = 'shop';
-
-
-?>
 <x-user.header></x-user.header>
 <div class="page-hero">
   <div class="container">
     <h1>Your Cart</h1>
     <nav class="breadcrumb">
-      <a href="/index">Home</a>
+      <a href="/">Home</a>
       <span class="breadcrumb-sep">›</span>
       <span>Cart</span>
     </nav>
@@ -24,8 +13,6 @@ $activePage = 'shop';
 <section class="section">
   <div class="container">
     <div class="cart-layout">
-
-      <!-- ===== CART ITEMS ===== -->
       <div>
         <div id="cart-items-container">
           <!-- Rendered by main.js Cart.renderCartPage() -->
@@ -33,7 +20,6 @@ $activePage = 'shop';
         </div>
       </div>
 
-      <!-- ===== ORDER SUMMARY ===== -->
       <div class="order-summary">
         <h3>Order Summary</h3>
 
@@ -54,7 +40,6 @@ $activePage = 'shop';
           <span class="price" id="summary-total">—</span>
         </div>
 
-        <!-- Coupon -->
         <div class="coupon-row">
           <input type="text" class="form-control" placeholder="Coupon code" id="coupon-input">
           <button class="btn btn-ghost btn-sm" id="apply-coupon">Apply</button>
@@ -68,10 +53,7 @@ $activePage = 'shop';
         <div style="margin-top:1.5rem;text-align:center">
           <p style="font-size:0.72rem;margin-bottom:0.5rem">Secure payment powered by</p>
           <div class="footer-payment-icons" style="justify-content:center">
-            <span>Visa</span>
-            <span>Mastercard</span>
-            <span>PayPal</span>
-            <span>Stripe</span>
+            <span>Mpesa</span>
           </div>
         </div>
       </div>

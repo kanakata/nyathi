@@ -12,7 +12,8 @@ class CheckoutController extends Controller
      */
     public function index()
     {
-        return view("user.cart.checkout");
+        $counties = ["NB" => "Nairobi", "MB" => "Mombasa", "NK" => "Nakuru", "LD" => "Eldoret", "ND" => "Nandi", "BG" => "Bungoma", "KS" => "Kisumu", "VH" => "Vihiga", "KK" => "Kakamega"];
+        return view("user.cart.checkout", ["counties" => $counties]);
     }
 
     /**

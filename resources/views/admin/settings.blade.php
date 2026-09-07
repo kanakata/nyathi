@@ -1,13 +1,13 @@
 <?php
 /**
- * LUXE SHOP — Admin: Settings
+ * Nyathi SHOP — Admin: Settings
  */
 $adminTitle   = 'Settings';
 $adminSection = 'settings';
 
-include __DIR__ . '/../includes/admin-header.php';
-?>
 
+?>
+<x-admin.header></x-admin.header>
 <form method="POST" action="/admin/pages/settings-save.php">
 
   <!-- General -->
@@ -15,11 +15,11 @@ include __DIR__ . '/../includes/admin-header.php';
     <div class="checkout-section-title">General Settings</div>
     <div class="form-group">
       <label>Store Name</label>
-      <input type="text" name="store_name" class="form-control" value="Luxe Shop">
+      <input type="text" name="store_name" class="form-control" value="Nyathi Shop">
     </div>
     <div class="form-group">
       <label>Store Email</label>
-      <input type="email" name="store_email" class="form-control" value="hello@luxeshop.com">
+      <input type="email" name="store_email" class="form-control" value="hello@Nyathishop.com">
     </div>
     <div class="form-group">
       <label>Store Phone</label>
@@ -107,4 +107,4 @@ include __DIR__ . '/../includes/admin-header.php';
 
 </form>
 
-<?php include __DIR__ . '/../includes/admin-footer.php'; ?>
+<x-admin.footer></x-admin.footer>

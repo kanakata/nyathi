@@ -6,8 +6,8 @@
     <div class="hero-overlay"></div>
     <div class="container">
         <div class="hero-content">
-            <div class="hero-eyebrow">New Collection · Spring 2025</div>
-            <h1>Dress with <em>Intention</em></h1>
+            <div class="hero-eyebrow">New Collection · Season 2026/2027</div>
+            <h1>Buckle up with <em>Intention</em></h1>
             <p>Timeless pieces crafted for those who understand that true luxury lies in the details — not the label.
             </p>
             <div class="hero-actions">
@@ -67,38 +67,16 @@
             <p>Explore our carefully curated collections, from everyday essentials to statement pieces.</p>
         </div>
         <div class="categories-grid">
-            <div class="category-card">
-                <div class="category-bg" style="background-image:url('/assets/images/banners/cat-women.jpg')"></div>
-                <div class="category-info">
-                    <h3>Women</h3>
-                    <p>240+ pieces</p>
-                    <a href="/shop/women" class="category-link">Shop Now →</a>
+            @foreach ($categories as $cat)
+                <div class="category-card">
+                    <div class="category-bg" style="background-image:url('{{ $cat["image"] }}')"></div>
+                    <div class="category-info">
+                        <h3>{{ $cat["name"] }}</h3>
+                        <p>In Stock {{ $cat["count"] }}</p>
+                        <a href="/shop/women" class="category-link">Shop Now →</a>
+                    </div>
                 </div>
-            </div>
-            <div class="category-card">
-                <div class="category-bg" style="background-image:url('/assets/images/banners/cat-men.jpg')"></div>
-                <div class="category-info">
-                    <h3>Men</h3>
-                    <p>180+ pieces</p>
-                    <a href="/shop/men" class="category-link">Shop Now →</a>
-                </div>
-            </div>
-            <div class="category-card">
-                <div class="category-bg" style="background-image:url('/assets/images/banners/cat-acc.jpg')"></div>
-                <div class="category-info">
-                    <h3>Accessories</h3>
-                    <p>90+ pieces</p>
-                    <a href="/shop/accessories" class="category-link">Shop Now →</a>
-                </div>
-            </div>
-            <div class="category-card">
-                <div class="category-bg" style="background-image:url('/assets/images/banners/cat-home.jpg')"></div>
-                <div class="category-info">
-                    <h3>Home & Living</h3>
-                    <p>60+ pieces</p>
-                    <a href="/shop/home" class="category-link">Shop Now →</a>
-                </div>
-            </div>
+            @endforeach
         </div>
     </div>
 </section>
@@ -112,9 +90,9 @@
             <p>Hand-picked by our style team for effortless elegance.</p>
         </div>
         <div class="products-grid">
-            <?php foreach ($featured as $product): ?>
-            <x-user.product-card :product="$product"></x-user.product-card>
-            <?php endforeach; ?>
+            @foreach ($featured as $product)
+                <x-user.product-card :product="$product"></x-user.product-card>
+            @endforeach
         </div>
         <div class="text-center mt-4">
             <a href="/shop" class="btn btn-outline">View All Products</a>
@@ -131,7 +109,7 @@
             <h2>End-of-Season Sale — Up to 40% Off</h2>
             <p>Don't miss our biggest sale of the year. Premium pieces at unbeatable prices, for a limited time only.
             </p>
-            <div class="promo-timer" data-end="<?= date('Y-m-d', strtotime('+5 days')) ?>T23:59:00"></div>
+            <div class="promo-timer" data-end="{{ date('Y-m-d', strtotime('+5 days')) }}T23:59:00"></div>
             <a href="/shop/sale" class="btn btn-primary">Shop the Sale</a>
         </div>
     </div>
