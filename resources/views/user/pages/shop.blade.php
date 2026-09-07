@@ -101,7 +101,7 @@
 
                 <!-- Toolbar -->
                 <div class="shop-toolbar">
-                    <span class="shop-count">Showing {{ count($products) }} of {{ $total }} products</span>
+                    <span class="shop-count">Showing {{ $product_cumulative }} of {{ $total }} products</span>
                     <div class="toolbar-right">
                         <select class="sort-select" name="sort">
                             <option value="newest">Newest First</option>
@@ -128,15 +128,15 @@
                 @if ($totalPages > 1)
                     <nav class="pagination" aria-label="Page navigation">
                         @if ($currentPage > 1)
-                            <a href="?page={{ $currentPage - 1 }}" class="page-btn">‹</a>
+                            <a href="/shop/page/{{ $currentPage - 1 }}" class="page-btn">‹</a>
                         @endif
 
                         @for ($i = 1; $i <= $totalPages; $i++)
-                            <a href="?page={{ $i }}" class="page-btn {{ $i === $currentPage ? 'active' : '' }}">{{ $i }}</a>
+                            <a href="/shop/page/{{ $i }}" class="page-btn {{ $i === $currentPage ? 'active' : '' }}">{{ $i }}</a>
                         @endfor
 
                         @if ($currentPage < $totalPages)
-                            <a href="?page={{ $currentPage + 1 }}" class="page-btn">›</a>
+                            <a href="/shop/page/{{ $currentPage + 1 }}" class="page-btn">›</a>
                         @endif
 
                     </nav>

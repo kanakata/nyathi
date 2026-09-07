@@ -33,7 +33,8 @@ Route::get("/faq", [FaqController::class, "index"]);
 Route::get("/cart", [CartController::class, "index"]);
 
 Route::get("/shop", [ShopController::class, "index"]);
-Route::get("/shop/category/{category}", [ShopController::class, "index"]);
+Route::get("/shop/page/{id}", [ShopController::class, "page"])->whereNumber("id");
+Route::get("/shop/category/{category}", [ShopController::class, "category"]);
 
 Route::get("/terms", [TermsController::class, "index"]);
 
@@ -57,7 +58,7 @@ Route::get("/press", [PressController::class, "index"]);
 Route::get("/size-guide", [SizeGuideController::class, "index"]);
 Route::get("/categories", [CategoriesController::class, "index"]);
 
-Route::get("/product/{slug}", [ProductController::class, "index"]);
+Route::get("/product/{id}", [ProductController::class, "index"])->whereNumber("id");
 
 // admin
 Route::get("/admin/login", function () {

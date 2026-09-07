@@ -69,11 +69,11 @@
         <div class="categories-grid">
             @foreach ($categories as $cat)
                 <div class="category-card">
-                    <div class="category-bg" style="background-image:url('{{ $cat["image"] }}')"></div>
+                    <div class="category-bg" style="background-image:url('/assets/images/{{ $cat->product_image }}')"></div>
                     <div class="category-info">
-                        <h3>{{ $cat["name"] }}</h3>
-                        <p>In Stock {{ $cat["count"] }}</p>
-                        <a href="/shop/women" class="category-link">Shop Now →</a>
+                        <h3>{{ $cat->product_category }}</h3>
+                        <p>In Stock {{ $cat->product_count }}</p>
+                        <a href="/shop/category/{{ $cat->product_category  }}" class="category-link">Shop Now →</a>
                     </div>
                 </div>
             @endforeach

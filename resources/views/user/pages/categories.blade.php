@@ -15,11 +15,15 @@
     <div class="container">
         <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.5px">
             @foreach ($categories as $cat)
-                <a href="/shop/category/{{ urlencode($cat['slug']) }}" class="category-card" style="text-decoration:none">
-                    <div class="category-bg" style="background-image:url('{{ e($cat['image']) }}')"></div>
+                <a href="/shop/category/{{ urlencode($cat->product_category) }}" class="category-card"
+                    style="text-decoration:none">
+                    <div class="category-bg" style="background-image:url('/assets/images/{{ e($cat->product_image) }}')">
+                    </div>
                     <div class="category-info">
-                        <h3>{{ e($cat['name']) }}</h3>
-                        <p>{{ e($cat['desc']) }} · {{ $cat['count'] }}+ items</p>
+                        <h3>{{ e($cat->product_category) }}</h3>
+                        <p>{{ e($cat->product_description) }} ·
+                            {{ number_format($cat->product_count - $cat->product_count / 2, 0) }} + items
+                        </p>
                         <span class="category-link">Shop Now →</span>
                     </div>
                 </a>

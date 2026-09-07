@@ -6,11 +6,11 @@
         <nav class="breadcrumb">
             <a href="/">Home</a>
             <span class="breadcrumb-sep">›</span>
-            <a href="/shop/category/{{ urlencode($product['category']) }}">{{ e($product['category']) }}</a>
+            <a href="/shop/category/{{ urlencode($product->product_category) }}">{{ e($product->product_category) }}</a>
             <span class="breadcrumb-sep">›</span>
             <a href="/shop">Shop</a>
             <span class="breadcrumb-sep">›</span>
-            <span>{{ e($product['name']) }}</span>
+            <span>{{ e($product->product_name) }}</span>
         </nav>
     </div>
 </div>
@@ -22,57 +22,59 @@
             <!-- ===== GALLERY ===== -->
             <div class="product-gallery">
                 <div class="gallery-main">
-                    <img src="{{ e($product['images'][0]) }}" alt="{{ e($product['name']) }}" id="main-image">
+                    <img src="/assets/images/{{ e($product->product_image) }}" alt="{{ e($product->product_name) }}"
+                        id="main-image">
                 </div>
                 <div class="gallery-thumbs">
-
-                    @foreach ($product['images'] as $i => $img)
+                    @for ($i = 0; $i < count(explode(",", $product->product_images)); $i++)
                         <div class="gallery-thumb {{ $i === 0 ? 'active' : '' }}">
-                            <img src="{{ e($img) }}" alt="View {{ $i + 1 }}">
+                            <img src="/assets/images/{{ e(explode(",", $product->product_images)[$i]) }}"
+                                alt="View {{ $i + 1 }}">
                         </div>
-                    @endforeach
-
+                    @endfor
                 </div>
             </div>
 
             <!-- ===== PRODUCT INFO ===== -->
             <div class="product-info-detail">
-                <div class="product-detail-brand">{{ e($product['brand']) }}</div>
-                <h1 class="product-detail-title">{{ e($product['name']) }}</h1>
+                <div class="product-detail-brand">{{ e($product->product_brand) }}</div>
+                <h1 class="product-detail-title">{{ e($product->product_name) }}</h1>
 
                 <!-- Rating -->
                 <div class="product-detail-rating">
                     <span class="stars">{{ $stars }}</span>
-                    <a href="#reviews" class="rating-link">{{ $product['review_count'] }} reviews</a>
+                    {{-- <a href="#reviews" class="rating-link">{{ $product['review_count'] }} reviews</a> --}}
                 </div>
 
                 <!-- Price -->
                 <div class="product-detail-price">
-                    <span class="price-big">{{ price($product['price']) }}</span>
-                    @if ($product['old_price'])
-                        <span class="price-old">{{ price($product['old_price']) }}</span>
+                    <span class="price-big">{{ price($product->product_price) }}</span>
+                    @if (($product->product_price - $product->product_discount))
+                        <span class="price-old">{{ price(($product->product_price - $product->product_discount)) }}</span>
                         <span class="badge badge-sale" style="font-size:0.75rem;padding:0.3rem 0.75rem">
-                            {{ round((1 - $product['price'] / $product['old_price']) * 100) }}% Off
+                            {{ round((1 - $product->product_price / ($product->product_price - $product->product_discount)) * 100) }}%
+                            Off
                         </span>
                     @endif
 
                 </div>
 
                 <!-- Description -->
-                <p class="product-detail-desc">{{ e($product['description']) }}</p>
+                <p class="product-detail-desc">{{ e($product->product_description) }}</p>
 
                 <!-- Size Selector -->
                 <div class="variant-group">
                     <div class="variant-label">Select Size <a href="/size-guide"
                             style="color:var(--gold);font-size:0.75rem;margin-left:1rem">Size Guide →</a></div>
                     <div class="size-options">
-                        @foreach ($product['sizes'] as $size)
-                            <button
+                        @foreach (explode(",", $product->product_sizes) as $size)
+                            <button class="size-btn">{{ e($size) }}</button>
+                            {{-- <button
                                 class="size-btn {{ in_array($size, $product['unavailable_sizes']) ? 'unavailable' : '' }}"
-                                data-size="{{ e($size) }}" {{ in_array($size, $product['unavailable_sizes']) ? 'disabled' : '' }}>{{ e($size) }}
-                            </button>
+                                data-size="{{ e($size) }}" {{ in_array($size, $product['unavailable_sizes']) ? 'disabled'
+                                : '' }}>{{ e($size) }}
+                            </button> --}}
                         @endforeach
-
                     </div>
                 </div>
 
@@ -95,12 +97,13 @@
                         <button class="qty-btn" data-action="inc">+</button>
                     </div>
                     <button class="btn btn-primary" style="flex:1" data-action="add-to-cart"
-                        data-id="{{ e($product['id']) }}" data-name="{{ e($product['name']) }}"
-                        data-price="{{ e($product['price']) }}" data-image="{{ e($product['images'][0]) }}">Add to
+                        data-id="{{ e($product->id) }}" data-name="{{ e($product->product_name) }}"
+                        data-price="{{ e($product->product_price) }}" data-image="{{ e($product->product_price) }}">Add
+                        to
                         Cart</button>
-                    <button class="btn btn-ghost" data-action="toggle-wishlist" data-id="{{ e($product['id']) }}"
-                        data-name="{{ e($product['name']) }}" data-price="{{ e($product['price']) }}"
-                        data-image="{{ e($product['images'][0]) }}" style="width:52px;height:52px;padding:0"
+                    <button class="btn btn-ghost" data-action="toggle-wishlist" data-id="{{ e($product->id) }}"
+                        data-name="{{ e($product->product_name) }}" data-price="{{ e($product->product_price) }}"
+                        data-image="{{ e($product->product_price) }}" style="width:52px;height:52px;padding:0"
                         aria-label="Add to wishlist">♡</button>
                 </div>
 
@@ -126,13 +129,13 @@
 
                 <!-- Product Meta -->
                 <div class="product-meta">
-                    <div class="meta-row"><span class="label">SKU:</span> <span
-                            class="value">{{ e($product['sku']) }}</span></div>
-                    <div class="meta-row"><span class="label">Category:</span> <span
-                            class="value">{{ e($product['category']) }}</span></div>
+                    <div class="meta-row"><span class="label">SKU:</span> <span class="value">{{
+    /*e($product['sku'])*/ "" }}</span></div>
+                    <div class="meta-row"><span class="label">Category:</span> <span class="value">{{
+    e($product->product_category) }}</span></div>
                     <div class="meta-row">
                         <span class="label">Tags:</span>
-                        <span class="value">{{ implode(', ', array_map('e', $product['tags'])) }}</span>
+                        {{-- <span class="value">{{ implode(', ', array_map('e', $product['tags'])) }}</span> --}}
                     </div>
                 </div>
 

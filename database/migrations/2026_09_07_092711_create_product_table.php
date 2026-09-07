@@ -11,22 +11,23 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('product', function (Blueprint $table) {
+        Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->string("product-name", 60);
-            $table->string("product-description", 60);
-            $table->string("product-category", 60);
-            $table->string("product-brand", 60)->nullable(true);
-            $table->string("product-cupon", 60)->nullable(true);
-            $table->string("product-tags", 60)->nullable(true);
-            $table->string("product-color", 60);
-            $table->integer("product-price");
-            $table->integer("product-count");
-            $table->integer("product-discount")->nullable(true);
-            $table->integer("product-size")->nullable(true);
-            $table->integer("product-rating");
-            $table->string("product-image", 60);
+            $table->string("product_name", 60);
+            $table->string("product_description", 150);
+            $table->string("product_category", 60);
+            $table->string("product_brand", 60)->nullable(true);
+            $table->string("product_cupon", 60)->nullable(true);
+            $table->string("product_tags", 60)->nullable(true);
+            $table->string("product_color", 60);
+            $table->integer("product_price");
+            $table->integer("product_count");
+            $table->integer("product_discount")->nullable(true);
+            $table->string("product_sizes", 60)->nullable(true);
+            $table->integer("product_rating");
+            $table->string("product_image", 60);
+            $table->string("product_images", 255);
         });
     }
 

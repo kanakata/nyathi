@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ProductsModel;
 use Illuminate\Http\Request;
 
 class LandingController extends Controller
@@ -15,6 +16,6 @@ class LandingController extends Controller
             ['id' => 4, 'name' => 'Linen Wide-Leg Trousers', 'slug' => 'linen-wide-leg-trousers', 'price' => 175, 'image' => '/assets/images/IMG-20260822-WA0012.jpg', 'category' => 'Bottoms', 'rating' => 4.5, 'review_count' => 203, 'badge' => null],
         ];
 
-        return view("user.pages.landing", ["featured" => $featured, "categories" => $this->categories()]);
+        return view("user.pages.landing", ["featured" => ProductsModel::featured(), "categories" => $this->categories()]);
     }
 }

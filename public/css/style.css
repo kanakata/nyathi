@@ -573,7 +573,7 @@ select.form-control {
     cursor: auto;
 }
 .announcement-bar:hover {
-    font-size: 0.70rem;
+    background: var(--success);
 }
 
 /* ============================================================
