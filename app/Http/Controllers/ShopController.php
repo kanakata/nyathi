@@ -53,9 +53,9 @@ class ShopController extends Controller
         return view("user.pages.shop", [
             "products" => $products,
             "total" => $total,
-            "currentPage" => $currentPage,
-            "perPage" => $this->perPage,
-            "totalPages" => $totalPages,
+            "current_page" => $currentPage,
+            "per_page" => $this->perPage,
+            "total_pages" => $totalPages,
             "product_cumulative" => $product_cumulative,
             "categories" => $this->categories_count(),
         ]);

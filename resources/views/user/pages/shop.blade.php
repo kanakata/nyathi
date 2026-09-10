@@ -98,61 +98,9 @@
                 <!-- Active Filters -->
                 <div class="active-filters"></div>
 
+                <x-user.shop_toolbar :product-cumulative="$product_cumulative" :total="$total"></x-user.shop_toolbar>
 
-                <!-- Toolbar -->
-                <div class="shop-toolbar">
-                    <span class="shop-count">Showing {{ $product_cumulative }} of {{ $total }} products</span>
-                    <div class="toolbar-right">
-                        <select class="sort-select" name="sort">
-                            <option value="newest">Newest First</option>
-                            <option value="price_asc">Price: Low to High</option>
-                            <option value="price_desc">Price: High to Low</option>
-                            <option value="rating">Top Rated</option>
-                            <option value="popular">Most Popular</option>
-                        </select>
-                        <div class="view-toggle">
-                            <button class="view-btn active" data-view="grid" title="Grid view">⊞</button>
-                            <button class="view-btn" data-view="list" title="List view">☰</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Pagination -->
-                @if (isset($category))
-                    @if ($totalPages > 1)
-                        <nav class="pagination" aria-label="Page navigation">
-                            @if ($currentPage > 1)
-                                <div class="page-btn">‹</div>
-                            @endif
-
-                            @for ($i = 1; $i <= $totalPages; $i++)
-                                <div class="page-btn page {{ $i === $currentPage ? 'active' : '' }}" data-page="{{ $i }}">{{ $i }}</div>
-                            @endfor
-
-                            @if ($currentPage < $totalPages)
-                                <div class="page-btn">›</div>
-                            @endif
-
-                        </nav>
-                    @endif
-                @else
-                    @if ($totalPages > 1)
-                        <nav class="pagination" aria-label="Page navigation">
-                            @if ($currentPage > 1)
-                                <div class="page-btn">‹</div>
-                            @endif
-
-                            @for ($i = 1; $i <= $totalPages; $i++)
-                                <div class="page-btn page {{ $i === $currentPage ? 'active' : '' }}" data-page="{{ $i }}">{{ $i }}</div>
-                            @endfor
-
-                            @if ($currentPage < $totalPages)
-                                <div class="page-btn">›</div>
-                            @endif
-
-                        </nav>
-                    @endif
-                @endif
+                <x-user.pagination :total-pages="$total_pages" :current-page="$current_page"></x-user.pagination>
 
                 <!-- Products Grid -->
                 <div class="products-grid">
@@ -161,60 +109,10 @@
                     @endforeach
                 </div>
 
-                <!-- Toolbar -->
-                <div class="shop-toolbar">
-                    <span class="shop-count">Showing {{ $product_cumulative }} of {{ $total }} products</span>
-                    <div class="toolbar-right">
-                        <select class="sort-select" name="sort">
-                            <option value="newest">Newest First</option>
-                            <option value="price_asc">Price: Low to High</option>
-                            <option value="price_desc">Price: High to Low</option>
-                            <option value="rating">Top Rated</option>
-                            <option value="popular">Most Popular</option>
-                        </select>
-                        <div class="view-toggle">
-                            <button class="view-btn active" data-view="grid" title="Grid view">⊞</button>
-                            <button class="view-btn" data-view="list" title="List view">☰</button>
-                        </div>
-                    </div>
-                </div>
+                <x-user.shop_toolbar :product-cumulative="$product_cumulative" :total="$total"></x-user.shop_toolbar>
 
-                <!-- Pagination -->
-                @if (isset($category))
-                    @if ($totalPages > 1)
-                        <nav class="pagination" aria-label="Page navigation">
-                            @if ($currentPage > 1)
-                                <div class="page-btn">‹</div>
-                            @endif
+                <x-user.pagination :total-pages="$total_pages" :current-page="$current_page"></x-user.pagination>
 
-                            @for ($i = 1; $i <= $totalPages; $i++)
-                                <div class="page-btn page {{ $i === $currentPage ? 'active' : '' }}" data-page="{{ $i }}">{{ $i }}</div>
-                            @endfor
-
-                            @if ($currentPage < $totalPages)
-                                <div class="page-btn">›</div>
-                            @endif
-
-                        </nav>
-                    @endif
-                @else
-                    @if ($totalPages > 1)
-                        <nav class="pagination" aria-label="Page navigation">
-                            @if ($currentPage > 1)
-                                <div class="page-btn">‹</div>
-                            @endif
-
-                            @for ($i = 1; $i <= $totalPages; $i++)
-                                <div class="page-btn page {{ $i === $currentPage ? 'active' : '' }}" data-page="{{ $i }}">{{ $i }}</div>
-                            @endfor
-
-                            @if ($currentPage < $totalPages)
-                                <div class="page-btn">›</div>
-                            @endif
-
-                        </nav>
-                    @endif
-                @endif
 
             </div>
         </div>

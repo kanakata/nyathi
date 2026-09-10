@@ -97,7 +97,7 @@
             @endforeach
         </div>
         <div class="text-center mt-4">
-            <a href="/shop" class="btn btn-outline">View All Products</a>
+            <a href="/user/shop" class="btn btn-outline">View All Products</a>
         </div>
     </div>
 </section>
