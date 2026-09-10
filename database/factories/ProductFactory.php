@@ -18,14 +18,12 @@ class ProductFactory extends Factory
     public function definition(): array
     {
         $categories = [
-            "boots",
-            "fan kit",
-            "training kit",
-            "shorts",
-            "tracksuits",
-            "socks",
-            "headgear",
+            "foot wear",
             "protective gear",
+            "medical",
+            "equipment",
+            "training",
+            "fan kit",
         ];
 
         $brand = [
@@ -46,18 +44,17 @@ class ProductFactory extends Factory
             'XXL',
         ];
 
-        $images = [
-            "IMG-20260829-WA0000.jpg",
-            "IMG-20260829-WA0000.jpg",
-            "IMG-20260829-WA0001.jpg",
-            "IMG-20260829-WA0000.jpg",
-            "IMG-20260829-WA0001.jpg",
-        ];
+        $category = fake()->randomElement($categories);
 
+        $images = [
+            $category . ".jpg",
+            $category . ".jpg",
+            $category . ".jpg",
+        ];
         return [
             "product_name" => Str::random(10),
             "product_description" => fake()->sentence(7),
-            "product_category" => fake()->randomElement($categories),
+            "product_category" => $category,
             "product_brand" => fake()->randomElement($brand),
             "product_cupon" => strtoupper(Str::random(5)),
             "product_color" => fake()->colorName(),
@@ -66,8 +63,10 @@ class ProductFactory extends Factory
             "product_discount" => fake()->numberBetween(1, 100),
             "product_sizes" => implode(",", $sizes),
             "product_rating" => fake()->numberBetween(1, 5),
-            "product_image" => "IMG-20260829-WA0000.jpg",
+            "product_image" => $category . ".jpg",
             "product_images" => implode(",", $images),
+            "product_reviews" => fake()->numberBetween(1, 1000),
+            "product_badge" => fake()->randomElement(["available", "sold"]),
         ];
     }
 }

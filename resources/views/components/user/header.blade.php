@@ -12,7 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="{{ e($pageDesc ?? 'Discover curated luxury fashion and lifestyle products.') }}">
     <title>{{ e($pageTitle ?? 'Nyathi Shop — Premium Fashion') }}</title>
-    <link rel="icon" type="image/svg+xml" href="/assets/images/favicon.svg">
+    <link rel="icon" type="image/svg+xml" href="/nyathi.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -29,14 +29,16 @@
     </div>
 
     <header class="site-header">
-        <a href="/" class="logo">Nyathi<span>.</span></a>
+
+        <a href="/" class="logo" style="display: flex; align-items: center;"><img src="/nyathi.svg"
+                alt="">Nyathi<span>.store</span></a>
 
         <nav class="nav-menu" aria-label="Main navigation">
             <a href="/" class="{{ $activePage === 'home' ? 'active' : '' }}">Home</a>
-            <a href="/shop" class="{{ $activePage === 'shop' ? 'active' : '' }}">Shop</a>
-            <a href="/categories" class="{{ $activePage === 'cats' ? 'active' : '' }}">Categories</a>
-            <a href="/about" class="{{ $activePage === 'about' ? 'active' : '' }}">About</a>
-            <a href="/contact" class="{{ $activePage === 'contact' ? 'active' : '' }}">Contact</a>
+            <a href="/user/shop" class="{{ $activePage === 'shop' ? 'active' : '' }}">Shop</a>
+            <a href="/user/categories" class="{{ $activePage === 'cats' ? 'active' : '' }}">Categories</a>
+            <a href="/user/about" class="{{ $activePage === 'about' ? 'active' : '' }}">About</a>
+            <a href="/user/contact" class="{{ $activePage === 'contact' ? 'active' : '' }}">Contact</a>
         </nav>
 
         <div class="nav-actions">
@@ -48,7 +50,7 @@
             </button>
 
 
-            <a href="/wishlist" class="nav-icon" aria-label="Wishlist">
+            <a href="/user/wishlist" class="nav-icon" aria-label="Wishlist">
                 <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24">
                     <path
                         d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
@@ -57,7 +59,7 @@
             </a>
 
 
-            <a href="/login" class="nav-icon" aria-label="Account">
+            <a href="/user/login" class="nav-icon" aria-label="Account">
                 <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24">
                     <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
                     <circle cx="12" cy="7" r="4" />
@@ -65,7 +67,7 @@
             </a>
 
 
-            <a href="/cart" class="nav-icon" aria-label="Cart">
+            <a href="/user/cart" class="nav-icon" aria-label="Cart">
                 <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24">
                     <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
                     <line x1="3" y1="6" x2="21" y2="6" />

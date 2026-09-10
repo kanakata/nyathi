@@ -3,7 +3,7 @@
     <div class="container">
         <h1>My Wishlist</h1>
         <nav class="breadcrumb">
-            <a href="/p">Home</a>
+            <a href="/">Home</a>
             <span class="breadcrumb-sep">›</span>
             <span>Wishlist</span>
         </nav>

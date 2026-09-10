@@ -28,6 +28,8 @@ return new class extends Migration
             $table->integer("product_rating");
             $table->string("product_image", 60);
             $table->string("product_images", 255);
+            $table->integer("product_reviews")->nullable(true);
+            $table->string("product_badge")->default('available');
         });
     }
 

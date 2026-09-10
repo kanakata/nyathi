@@ -27,10 +27,10 @@
           <span>Subtotal</span>
           <span id="summary-subtotal">—</span>
         </div>
-        <div class="summary-row">
+        {{-- <div class="summary-row">
           <span>Shipping</span>
           <span id="summary-shipping">—</span>
-        </div>
+        </div> --}}
         <div class="summary-row">
           <span>Tax (estimated)</span>
           <span>Calculated at checkout</span>

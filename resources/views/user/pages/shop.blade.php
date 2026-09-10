@@ -22,11 +22,11 @@
                 <div class="sidebar-section">
                     <div class="sidebar-title">Categories</div>
                     <div class="filter-options">
-                        @foreach (['Women (240)', 'Men (180)', 'Accessories (90)', 'Home & Living (60)', 'Sale (45)'] as $cat)
+                        @foreach ($categories as $cat => $count)
                             <label class="filter-option">
                                 <div class="filter-option-left">
-                                    <div class="filter-checkbox"></div>
-                                    <span class="filter-label">{{ $cat }}</span>
+                                    <div class="filter-checkbox" data-category="{{ $cat }}"></div>
+                                    <span class="filter-label">{{ $cat . " ($count)" }}</span>
                                 </div>
                             </label>
                         @endforeach
@@ -38,25 +38,25 @@
                     <div class="price-range">
                         <input type="range" id="price-range" min="0" max="1000" value="500">
                         <div class="price-display">
-                            <span>$0</span>
-                            <span class="price-max">$500</span>
+                            <span>Ksh: 0</span>
+                            <span class="price-max">Ksh: 500</span>
                         </div>
                     </div>
                 </div>
 
-                <div class="sidebar-section">
+                {{-- <div class="sidebar-section">
                     <div class="sidebar-title">Size</div>
                     <div class="filter-options">
                         @foreach (['XS (12)', 'S (45)', 'M (78)', 'L (63)', 'XL (29)', 'XXL (14)'] as $s)
-                            <label class="filter-option">
-                                <div class="filter-option-left">
-                                    <div class="filter-checkbox"></div>
-                                    <span class="filter-label">{{ $s }}</span>
-                                </div>
-                            </label>
+                        <label class="filter-option">
+                            <div class="filter-option-left">
+                                <div class="filter-checkbox"></div>
+                                <span class="filter-label">{{ $s }}</span>
+                            </div>
+                        </label>
                         @endforeach
                     </div>
-                </div>
+                </div> --}}
 
                 <div class="sidebar-section">
                     <div class="sidebar-title">Colour</div>
@@ -94,10 +94,10 @@
 
             </aside>
 
-            <!-- ===== PRODUCT AREA ===== -->
             <div>
                 <!-- Active Filters -->
                 <div class="active-filters"></div>
+
 
                 <!-- Toolbar -->
                 <div class="shop-toolbar">
@@ -117,6 +117,43 @@
                     </div>
                 </div>
 
+                <!-- Pagination -->
+                @if (isset($category))
+                    @if ($totalPages > 1)
+                        <nav class="pagination" aria-label="Page navigation">
+                            @if ($currentPage > 1)
+                                <div class="page-btn">‹</div>
+                            @endif
+
+                            @for ($i = 1; $i <= $totalPages; $i++)
+                                <div class="page-btn page {{ $i === $currentPage ? 'active' : '' }}" data-page="{{ $i }}">{{ $i }}</div>
+                            @endfor
+
+                            @if ($currentPage < $totalPages)
+                                <div class="page-btn">›</div>
+                            @endif
+
+                        </nav>
+                    @endif
+                @else
+                    @if ($totalPages > 1)
+                        <nav class="pagination" aria-label="Page navigation">
+                            @if ($currentPage > 1)
+                                <div class="page-btn">‹</div>
+                            @endif
+
+                            @for ($i = 1; $i <= $totalPages; $i++)
+                                <div class="page-btn page {{ $i === $currentPage ? 'active' : '' }}" data-page="{{ $i }}">{{ $i }}</div>
+                            @endfor
+
+                            @if ($currentPage < $totalPages)
+                                <div class="page-btn">›</div>
+                            @endif
+
+                        </nav>
+                    @endif
+                @endif
+
                 <!-- Products Grid -->
                 <div class="products-grid">
                     @foreach ($products as $product)
@@ -124,24 +161,60 @@
                     @endforeach
                 </div>
 
+                <!-- Toolbar -->
+                <div class="shop-toolbar">
+                    <span class="shop-count">Showing {{ $product_cumulative }} of {{ $total }} products</span>
+                    <div class="toolbar-right">
+                        <select class="sort-select" name="sort">
+                            <option value="newest">Newest First</option>
+                            <option value="price_asc">Price: Low to High</option>
+                            <option value="price_desc">Price: High to Low</option>
+                            <option value="rating">Top Rated</option>
+                            <option value="popular">Most Popular</option>
+                        </select>
+                        <div class="view-toggle">
+                            <button class="view-btn active" data-view="grid" title="Grid view">⊞</button>
+                            <button class="view-btn" data-view="list" title="List view">☰</button>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Pagination -->
-                @if ($totalPages > 1)
-                    <nav class="pagination" aria-label="Page navigation">
-                        @if ($currentPage > 1)
-                            <a href="/shop/page/{{ $currentPage - 1 }}" class="page-btn">‹</a>
-                        @endif
+                @if (isset($category))
+                    @if ($totalPages > 1)
+                        <nav class="pagination" aria-label="Page navigation">
+                            @if ($currentPage > 1)
+                                <div class="page-btn">‹</div>
+                            @endif
 
-                        @for ($i = 1; $i <= $totalPages; $i++)
-                            <a href="/shop/page/{{ $i }}" class="page-btn {{ $i === $currentPage ? 'active' : '' }}">{{ $i }}</a>
-                        @endfor
+                            @for ($i = 1; $i <= $totalPages; $i++)
+                                <div class="page-btn page {{ $i === $currentPage ? 'active' : '' }}" data-page="{{ $i }}">{{ $i }}</div>
+                            @endfor
 
-                        @if ($currentPage < $totalPages)
-                            <a href="/shop/page/{{ $currentPage + 1 }}" class="page-btn">›</a>
-                        @endif
+                            @if ($currentPage < $totalPages)
+                                <div class="page-btn">›</div>
+                            @endif
 
-                    </nav>
+                        </nav>
+                    @endif
+                @else
+                    @if ($totalPages > 1)
+                        <nav class="pagination" aria-label="Page navigation">
+                            @if ($currentPage > 1)
+                                <div class="page-btn">‹</div>
+                            @endif
+
+                            @for ($i = 1; $i <= $totalPages; $i++)
+                                <div class="page-btn page {{ $i === $currentPage ? 'active' : '' }}" data-page="{{ $i }}">{{ $i }}</div>
+                            @endfor
+
+                            @if ($currentPage < $totalPages)
+                                <div class="page-btn">›</div>
+                            @endif
+
+                        </nav>
+                    @endif
                 @endif
-
 
             </div>
         </div>

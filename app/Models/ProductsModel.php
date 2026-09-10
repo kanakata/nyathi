@@ -7,9 +7,13 @@ use Illuminate\Support\Facades\DB;
 
 class ProductsModel extends Model
 {
-    public static function categories()
+    public static function categories($default = "landing")
     {
-        return DB::table("products")->select("product_category", "product_image", "product_count", "product_description", "product_name")->distinct()->limit(7)->get();
+        if ($default == "landing") {
+            return DB::table("products")->select("product_category")->distinct()->limit(7)->get();
+        } else {
+            return DB::table("products")->select("product_category")->distinct()->get();
+        }
     }
     public static function featured()
     {
@@ -18,6 +22,10 @@ class ProductsModel extends Model
     public static function product_count()
     {
         return DB::table("products")->count();
+    }
+    public static function categories_count(string $category)
+    {
+        return DB::table("products")->where("product_category", "=", $category)->count();
     }
     public static function collect_product(int $id)
     {
@@ -33,6 +41,9 @@ class ProductsModel extends Model
     }
     public static function collect_categorized_products_paginated(string $category, int $perPage, int $offset)
     {
-        return DB::table("products")->where("product_category", "=", $category)->limit($perPage)->offset($offset)->get();
+        return [
+            "data" => DB::table("products")->where("product_category", "=", $category)->limit($perPage)->offset($offset)->get(),
+            "count" => DB::table("products")->select()->where("product_category", "=", $category)->count(),
+        ];
     }
 }

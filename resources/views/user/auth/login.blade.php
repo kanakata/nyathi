@@ -56,7 +56,7 @@ $pageTitle = 'Sign In — Nyathi Shop';
             <div class="alert alert-success"><?= e($_GET['success']) ?></div>
             <?php endif; ?>
 
-            <form method="POST" action="/login">
+            <form method="POST" action="/auth/user/login">
                 <?php if (!empty($_GET['redirect'])): ?>
                 <input type="hidden" name="redirect" value="<?= e($_GET['redirect']) ?>">
                 <?php endif; ?>

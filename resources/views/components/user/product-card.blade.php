@@ -1,31 +1,40 @@
 @php
-    $badge = /*$product['badge']*/ "" ?? null;
+    use Illuminate\Support\Facades\Crypt;
+    $badge = $product->product_badge;
     $rating = (float) ($product->product_rating ?? 0);
     $reviews = (int) (/*$product['review_count']*/ "" ?? 0);
     $in_wish = (bool) (/*$product['in_wishlist']*/ "" ?? false);
     $stars = str_repeat('★', round($rating)) . str_repeat('☆', 5 - round($rating));
+    $id = Crypt::encryptString((str($product->id)));
 @endphp
 
 <div class="product-card">
 
     <div class="product-image-wrap">
 
-        <a href="/product/{{ e($product->id) }}">
-            <img src="/assets/images/{{ e($product->product_image ?? '/IMG-20260822-WA0023.jpg') }}"
-                alt="{{ e($product->product_name) }}" loading="lazy">
-        </a>
+        @if($badge == "available")
+            <a href="/user/product/{{ $id }}" class="product-link">
+                <img src="/assets/images/{{ e($product->product_image ?? '/IMG-20260822-WA0023.jpg') }}"
+                    alt="{{ e($product->product_name) }}" loading="lazy">
+            </a>
+        @else
+            <a class="product-link">
+                <img src="/assets/images/{{ e($product->product_image ?? '/IMG-20260822-WA0023.jpg') }}"
+                    alt="{{ e($product->product_name) }}" loading="lazy">
+            </a>
+        @endif
 
-        {{-- @if ($badge)
-        <div class="product-badges">
-            <span class="product-badge badge-{{ e($badge) }}">
-                {{ ucfirst(e($badge)) }}
-            </span>
-        </div>
-        @endif --}}
+        @if ($badge)
+            <div class="product-badges">
+                <span class="product-badge badge-{{ e($badge) }}">
+                    {{ ucfirst(e($badge)) }}
+                </span>
+            </div>
+        @endif
 
         <div class="product-actions-hover">
             <button class="btn-add-cart" data-action="add-to-cart" data-id="{{ e($product->id) }}"
-                data-name="{{ e($product->product_name) }}" data-price="{{   e($product->product_price) }}"
+                data-name="{{ e($product->product_name) }}" data-price="{{ e($product->product_price) }}"
                 data-image="/assets/images/{{ e($product->product_image ?? '') }}" {{ ($badge === 'sold') ? 'disabled' : '' }}>
                 {{ ($badge === 'sold') ? 'Sold Out' : 'Add to Cart' }}
             </button>
@@ -45,9 +54,16 @@
             </div>
         @endif
 
-        <a href="/product/{{ e($product->product_name) }}">
-            <h3 class="product-name">{{ e($product->product_name) }}</h3>
-        </a>
+        @if ($badge == "available")
+            <a class="product-link" href="/user/product/{{ e($id) }}">
+                <h3 class="product-name">{{ e($product->product_name) }}</h3>
+            </a>
+        @else
+            <a class="product-link">
+                <h3 class="product-name">{{ e($product->product_name) }}</h3>
+            </a>
+        @endif
+
 
         @if ($rating > 0)
             <div class="product-rating">
@@ -63,13 +79,13 @@
 
         <div class="product-price">
             <span class="price-current">
-                {{ price($product->product_price) }}
+                {{ price($product->product_price - $product->product_discount) }}
             </span>
-            {{-- @if ($old_price)
-            <span class="price-old">
-                {{ price($old_price) }}
-            </span>
-            @endif --}}
+            @if ($product->product_discount)
+                <span class="price-old">
+                    {{ price($product->product_price) }}
+                </span>
+            @endif
         </div>
     </div>
 

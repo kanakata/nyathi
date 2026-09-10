@@ -22,13 +22,13 @@
             <!-- ===== GALLERY ===== -->
             <div class="product-gallery">
                 <div class="gallery-main">
-                    <img src="/assets/images/{{ e($product->product_image) }}" alt="{{ e($product->product_name) }}"
+                    <img title="{{ e($product->product_name) }}" src="/assets/images/{{ e($product->product_image) }}" alt="{{ e($product->product_name) }}"
                         id="main-image">
                 </div>
                 <div class="gallery-thumbs">
                     @for ($i = 0; $i < count(explode(",", $product->product_images)); $i++)
                         <div class="gallery-thumb {{ $i === 0 ? 'active' : '' }}">
-                            <img src="/assets/images/{{ e(explode(",", $product->product_images)[$i]) }}"
+                            <img title="{{ e($product->product_name) }}" src="/assets/images/{{ e(explode(",", $product->product_images)[$i]) }}"
                                 alt="View {{ $i + 1 }}">
                         </div>
                     @endfor
@@ -37,30 +37,31 @@
 
             <!-- ===== PRODUCT INFO ===== -->
             <div class="product-info-detail">
-                <div class="product-detail-brand">{{ e($product->product_brand) }}</div>
-                <h1 class="product-detail-title">{{ e($product->product_name) }}</h1>
+                <div class="product-detail-brand">Brand --- {{ e($product->product_brand) }}</div>
+                <h1 class="product-detail-title">Name --- {{ e($product->product_name) }}</h1>
 
                 <!-- Rating -->
                 <div class="product-detail-rating">
                     <span class="stars">{{ $stars }}</span>
-                    {{-- <a href="#reviews" class="rating-link">{{ $product['review_count'] }} reviews</a> --}}
+                    <a href="#reviews" class="rating-link">{{ $product->product_reviews }} reviews</a>
                 </div>
 
                 <!-- Price -->
                 <div class="product-detail-price">
-                    <span class="price-big">{{ price($product->product_price) }}</span>
-                    @if (($product->product_price - $product->product_discount))
-                        <span class="price-old">{{ price(($product->product_price - $product->product_discount)) }}</span>
+                    @if ($product->product_discount != null)
+                        <span class="price-big">{{ price($product->product_price - $product->product_discount) }}</span>
+                        <span class="price-old">{{ price(($product->product_price)) }}</span>
                         <span class="badge badge-sale" style="font-size:0.75rem;padding:0.3rem 0.75rem">
-                            {{ round((1 - $product->product_price / ($product->product_price - $product->product_discount)) * 100) }}%
+                            {{ number_format((1 - ($product->product_price - $product->product_discount) / $product->product_price) * 100, 2) }}%
                             Off
                         </span>
+                    @else
+                        <span class="price-big">{{ price($product->product_price) }}</span>
                     @endif
-
                 </div>
 
                 <!-- Description -->
-                <p class="product-detail-desc">{{ e($product->product_description) }}</p>
+                <p class="product-detail-desc">Description --- {{ e($product->product_description) }}</p>
 
                 <!-- Size Selector -->
                 <div class="variant-group">

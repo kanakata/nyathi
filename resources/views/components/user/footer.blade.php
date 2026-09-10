@@ -39,32 +39,32 @@
             <div class="footer-col">
                 <h5>Shop</h5>
                 <ul>
-                    <li><a href="/shop">All Products</a></li>
-                    <li><a href="/shop/new">New Arrivals</a></li>
-                    <li><a href="/shop/sale">Sale</a></li>
-                    <li><a href="/categories">Categories</a></li>
-                    <li><a href="/shop/bestsellers">Best Sellers</a></li>
+                    <li><a href="/user/shop">All Products</a></li>
+                    <li><a href="/user/shop/new">New Arrivals</a></li>
+                    <li><a href="/user/shop/sale">Sale</a></li>
+                    <li><a href="/user/categories">Categories</a></li>
+                    <li><a href="/user/shop/bestsellers">Best Sellers</a></li>
                 </ul>
             </div>
 
             <div class="footer-col">
                 <h5>Company</h5>
                 <ul>
-                    <li><a href="/about">About Us</a></li>
-                    <li><a href="/contact">Contact</a></li>
-                    <li><a href="/careers">Careers</a></li>
-                    <li><a href="/press">Press</a></li>
+                    <li><a href="/user/about">About Us</a></li>
+                    <li><a href="/user/contact">Contact</a></li>
+                    <li><a href="/user/careers">Careers</a></li>
+                    <li><a href="/user/press">Press</a></li>
                 </ul>
             </div>
 
             <div class="footer-col">
                 <h5>Support</h5>
                 <ul>
-                    <li><a href="/faq">FAQ</a></li>
-                    <li><a href="/shipping">Shipping & Returns</a></li>
-                    <li><a href="/size-guide">Size Guide</a></li>
-                    <li><a href="/privacy">Privacy Policy</a></li>
-                    <li><a href="/terms">Terms of Service</a></li>
+                    <li><a href="/user/faq">FAQ</a></li>
+                    <li><a href="/user/shipping">Shipping & Returns</a></li>
+                    <li><a href="/user/size-guide">Size Guide</a></li>
+                    <li><a href="/user/privacy">Privacy Policy</a></li>
+                    <li><a href="/user/terms">Terms of Service</a></li>
                 </ul>
             </div>
 
@@ -80,7 +80,7 @@
 
     </div>
 </footer>
-
+<script src="/js/ajax.js"></script>
 <script src="/js/main.js"></script>
 </body>
 

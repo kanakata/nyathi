@@ -23,72 +23,83 @@ use App\Http\Controllers\TermsController;
 use App\Http\Controllers\WishlistController;
 use Illuminate\Support\Facades\Route;
 
+Route::get("/", [LandingController::class, "index"])->name("/");
 
-// LANDING
-Route::get("/", [LandingController::class, "index"]);
-
-
-Route::get("/faq", [FaqController::class, "index"]);
-
-Route::get("/cart", [CartController::class, "index"]);
-
-Route::get("/shop", [ShopController::class, "index"]);
-Route::get("/shop/page/{id}", [ShopController::class, "page"])->whereNumber("id");
-Route::get("/shop/category/{category}", [ShopController::class, "category"]);
-
-Route::get("/terms", [TermsController::class, "index"]);
-
-Route::get("/login", [LoginController::class, "index"]);
-Route::post("/login", function () {
-    return redirect("/account");
+Route::prefix("user")->group(function () {
+    Route::get("/faq", [FaqController::class, "index"]);
+    Route::get("/cart", [CartController::class, "index"]);
+    Route::get("/terms", [TermsController::class, "index"]);
+    Route::get("/register", [RegisterController::class, "index"]);
+    Route::get("/order-detail", [RegisterController::class, "index"]);
+    Route::get("/forgot-password", [ForgotPasswordController::class, "index"]);
+    Route::get("/about", [AboutController::class, "index"]);
+    Route::get("/privacy", [PrivacyController::class, "index"]);
+    Route::get("/contact", [ContactController::class, "index"]);
+    Route::get("/account", [AccountController::class, "index"]);
+    Route::get("/wishlist", [WishlistController::class, "index"]);
+    Route::get("/checkout", [CheckoutController::class, "index"]);
+    Route::get("/shipping", [ShippingController::class, "index"]);
+    Route::get("/careers", [CareersController::class, "index"]);
+    Route::get("/press", [PressController::class, "index"]);
+    Route::get("/size-guide", [SizeGuideController::class, "index"]);
+    Route::get("/categories", [CategoriesController::class, "index"]);
+    Route::get("/product/{id}", [ProductController::class, "index"])->whereAlphaNumeric("id");
+    Route::prefix("login")->group(function () {
+        Route::get("", [LoginController::class, "index"]);
+    });
 });
 
-Route::get("/register", [RegisterController::class, "index"]);
-Route::get("/order-detail", [RegisterController::class, "index"]);
-Route::get("/forgot-password", [ForgotPasswordController::class, "index"]);
-Route::get("/about", [AboutController::class, "index"]);
-Route::get("/privacy", [PrivacyController::class, "index"]);
-Route::get("/contact", [ContactController::class, "index"]);
-Route::get("/account", [AccountController::class, "index"]);
-Route::get("/wishlist", [WishlistController::class, "index"]);
-Route::get("/checkout", [CheckoutController::class, "index"]);
-Route::get("/shipping", [ShippingController::class, "index"]);
-Route::get("/careers", [CareersController::class, "index"]);
-Route::get("/press", [PressController::class, "index"]);
-Route::get("/size-guide", [SizeGuideController::class, "index"]);
-Route::get("/categories", [CategoriesController::class, "index"]);
+Route::controller(ShopController::class)->group(
+    function () {
+        Route::prefix("user/shop")->group(function () {
+            Route::get("/category/{category}", "category");
+            Route::get("/filter/category/{category}", "filter");
+            Route::get("/category/{category}/page/{page}", "category");
+            Route::get("", "index");
+            Route::get("/page/{page}", "page")->whereNumber("page");
+            Route::get("/category", function () {
+                return redirect("/shop");
+            });
+        });
+    }
+);
 
-Route::get("/product/{id}", [ProductController::class, "index"])->whereNumber("id");
 
 // admin
-Route::get("/admin/login", function () {
-    return view("admin.auth.login");
+Route::prefix("admin")->group(function () {
+    Route::get("/login", function () {
+        return view("admin.auth.login");
+    });
+    Route::get("/dashboard", [DashboardController::class, "index"]);
+    Route::get("/settings", function () {
+        return view("admin.settings");
+    });
+    Route::get("/customers", function () {
+        return view("admin.customers");
+    });
+    Route::get("/products", function () {
+        return view("admin.products");
+    });
+    Route::get("/orders", function () {
+        return view("admin.orders");
+    });
+    Route::get("/logout", function () {
+        return redirect("admin/login");
+    });
+    Route::get("/account", function () {
+        return view("admin.account");
+    });
+    Route::get("/analytics", function () {
+        return view("admin.analytics");
+    });
+    Route::get("/product-form", function () {
+        return view("admin.product-form");
+    });
 });
-Route::get("/admin/dashboard", [DashboardController::class, "index"]);
-Route::get("/admin/settings", function () {
-    return view("admin.settings");
-});
-Route::get("/admin/customers", function () {
-    return view("admin.customers");
-});
-Route::get("/admin/products", function () {
-    return view("admin.products");
-});
-Route::get("/admin/orders", function () {
-    return view("admin.orders");
-});
-Route::get("/admin/logout", function () {
-    return redirect("admin/login");
-});
-Route::get("/admin/account", function () {
-    return view("admin.account");
-});
-Route::get("/admin/analytics", function () {
-    return view("admin.analytics");
-});
-Route::get("/admin/product-form", function () {
-    return view("admin.product-form");
-});
+
 Route::post("/auth/admin/login", function () {
     return redirect("admin/dashboard");
+});
+Route::post("/auth/user/login", function () {
+    return redirect("/user/account");
 });

@@ -7,6 +7,7 @@
     <div class="container">
         <div class="hero-content">
             <div class="hero-eyebrow">New Collection · Season 2026/2027</div>
+            <h1>NYATHI <em> Sports wear</em></h1>
             <h1>Buckle up with <em>Intention</em></h1>
             <p>Timeless pieces crafted for those who understand that true luxury lies in the details — not the label.
             </p>
@@ -30,7 +31,7 @@
                 <div class="feature-icon">✦</div>
                 <div class="feature-text">
                     <h4>Free Shipping</h4>
-                    <p>On all orders above $150</p>
+                    <p>On all orders above Ksh: 5500</p>
                 </div>
             </div>
             <div class="feature-item">
@@ -64,16 +65,17 @@
         <div class="section-header">
             <h2>Shop by Category</h2>
             <div class="divider"></div>
-            <p>Explore our carefully curated collections, from everyday essentials to statement pieces.</p>
+            <p>Explore our carefully curated collections.</p>
         </div>
         <div class="categories-grid">
             @foreach ($categories as $cat)
                 <div class="category-card">
-                    <div class="category-bg" style="background-image:url('/assets/images/{{ $cat->product_image }}')"></div>
+                    <div class="category-bg"
+                        style="background-image:url('/assets/category/{{ $cat->product_category . ".jpg" }}')"></div>
                     <div class="category-info">
                         <h3>{{ $cat->product_category }}</h3>
-                        <p>In Stock {{ $cat->product_count }}</p>
-                        <a href="/shop/category/{{ $cat->product_category  }}" class="category-link">Shop Now →</a>
+                        {{-- <p>In Stock {{ $cat->product_count }}</p> --}}
+                        <a href="/user/shop/category/{{ $cat->product_category  }}" class="category-link">Shop Now →</a>
                     </div>
                 </div>
             @endforeach
@@ -125,7 +127,7 @@
         <div class="testimonials-grid">
             <div class="testimonial-card">
                 <div class="testimonial-stars">★★★★★</div>
-                <p class="testimonial-text">The cashmere coat I ordered is absolutely stunning. The quality far exceeded
+                <p class="testimonial-text">The SA fankit I ordered is absolutely stunning. The quality far exceeded
                     my expectations — worth every penny.</p>
                 <div class="testimonial-author">
                     <div class="author-avatar" style="background:var(--surface-2)"></div>
@@ -137,13 +139,13 @@
             </div>
             <div class="testimonial-card">
                 <div class="testimonial-stars">★★★★★</div>
-                <p class="testimonial-text">Fast shipping, beautiful packaging, and the dress fits like it was made for
+                <p class="testimonial-text">Fast shipping, beautiful packaging, and the boots fits like it was made for
                     me. I've already recommended Luxe to all my friends.</p>
                 <div class="testimonial-author">
                     <div class="author-avatar" style="background:var(--surface-2)"></div>
                     <div>
-                        <div class="author-name">Sofia Mendez</div>
-                        <div class="author-title">Verified Buyer · Lagos</div>
+                        <div class="author-name">Josh Hadi</div>
+                        <div class="author-title">Verified Buyer · Mombasa</div>
                     </div>
                 </div>
             </div>
@@ -155,7 +157,7 @@
                     <div class="author-avatar" style="background:var(--surface-2)"></div>
                     <div>
                         <div class="author-name">James Kariuki</div>
-                        <div class="author-title">Verified Buyer · Mombasa</div>
+                        <div class="author-title">Verified Buyer · Nakuru</div>
                     </div>
                 </div>
             </div>
