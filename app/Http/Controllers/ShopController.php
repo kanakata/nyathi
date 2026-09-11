@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Crypt;
 
 class ShopController extends Controller
 {
-    private int $perPage = 9;
+    private int $perPage = 30;
 
     private function categories_count()
     {
@@ -28,18 +28,26 @@ class ShopController extends Controller
         $data = ProductsModel::collect_categorized_products_paginated(category: str_replace(["+"], " ", $category), perPage: $this->perPage, offset: ($this->perPage * $page) - $this->perPage);
         $products = $data['data'];
         $total = $data['count'];
-        $currentPage = (int) ($page ?? 1);
-        $product_cumulative = $currentPage * $this->perPage > $total ? $total : $currentPage * $this->perPage;
-        $totalPages = (int) ceil($total / $this->perPage);
+        $current_page = (int) ($page ?? 1);
+        $product_cumulative = $current_page * $this->perPage > $total ? $total : $current_page * $this->perPage;
+        $total_pages = (int) ceil($total / $this->perPage);
+
+        $products_id = [];
+        foreach ($products as $product) {
+            array_push($products_id, Crypt::encryptString($product->id));
+            unset($product->id);
+        }
+
         return json_encode([
             "products" => $products,
             "total" => $total,
-            "currentPage" => $currentPage,
-            "perPage" => $this->perPage,
-            "totalPages" => $totalPages,
+            "current_page" => $current_page,
+            "per_page" => $this->perPage,
+            "total_pages" => $total_pages,
             "product_cumulative" => $product_cumulative,
             "category" => $category,
             "categories" => $this->categories_count(),
+            "products_id" => $products_id,
         ]);
     }
     public function index()
@@ -47,15 +55,15 @@ class ShopController extends Controller
         $offset = 0;
         $products = ProductsModel::collect_products_paginated($this->perPage, $offset);
         $total = ProductsModel::product_count();
-        $currentPage = (int) ($_GET['page'] ?? 1);
-        $product_cumulative = $currentPage * $this->perPage > $total ? $total : $currentPage * $this->perPage;
-        $totalPages = (int) ceil($total / $this->perPage);
+        $current_page = (int) ($_GET['page'] ?? 1);
+        $product_cumulative = $current_page * $this->perPage > $total ? $total : $current_page * $this->perPage;
+        $total_pages = (int) ceil($total / $this->perPage);
         return view("user.pages.shop", [
             "products" => $products,
             "total" => $total,
-            "current_page" => $currentPage,
+            "current_page" => $current_page,
             "per_page" => $this->perPage,
-            "total_pages" => $totalPages,
+            "total_pages" => $total_pages,
             "product_cumulative" => $product_cumulative,
             "categories" => $this->categories_count(),
         ]);
@@ -65,9 +73,9 @@ class ShopController extends Controller
         $page = $page ?? 1;
         $products = ProductsModel::collect_products_paginated($this->perPage, ($this->perPage * $page) - $this->perPage);
         $total = ProductsModel::product_count();
-        $currentPage = (int) ($page ?? 1);
-        $product_cumulative = $currentPage * $this->perPage > $total ? $total : $currentPage * $this->perPage;
-        $totalPages = (int) ceil($total / $this->perPage);
+        $current_page = (int) ($page ?? 1);
+        $product_cumulative = $current_page * $this->perPage > $total ? $total : $current_page * $this->perPage;
+        $total_pages = (int) ceil($total / $this->perPage);
         $products_id = [];
 
         foreach ($products as $product) {
@@ -79,9 +87,9 @@ class ShopController extends Controller
             "products" => $products,
             "products_id" => $products_id,
             "total" => $total,
-            "current_page" => $currentPage,
+            "current_page" => $current_page,
             "per_page" => $this->perPage,
-            "total_pages" => $totalPages,
+            "total_pages" => $total_pages,
             "product_cumulative" => $product_cumulative,
             "categories" => $this->categories_count(),
         ]);
@@ -92,18 +100,48 @@ class ShopController extends Controller
         $data = ProductsModel::collect_categorized_products_paginated(category: str_replace(["+"], " ", $category), perPage: $this->perPage, offset: ($this->perPage * $page) - $this->perPage);
         $products = $data['data'];
         $total = $data['count'];
-        $currentPage = (int) ($page ?? 1);
-        $product_cumulative = $currentPage * $this->perPage > $total ? $total : $currentPage * $this->perPage;
-        $totalPages = (int) ceil($total / $this->perPage);
-        return view("user.pages.shop", [
+        $current_page = (int) ($page ?? 1);
+        $product_cumulative = $current_page * $this->perPage > $total ? $total : $current_page * $this->perPage;
+        $total_pages = (int) ceil($total / $this->perPage);
+
+        return  view("user.pages.shop", [
             "products" => $products,
             "total" => $total,
-            "currentPage" => $currentPage,
-            "perPage" => $this->perPage,
-            "totalPages" => $totalPages,
+            "current_page" => $current_page,
+            "per_page" => $this->perPage,
+            "total_pages" => $total_pages,
             "product_cumulative" => $product_cumulative,
             "category" => $category,
             "categories" => $this->categories_count(),
+        ]);
+    }
+
+    public function ajax_category(string $category, int $page = 1)
+    {
+        $page = $page ?? 1;
+        $data = ProductsModel::collect_categorized_products_paginated(category: str_replace(["+"], " ", $category), perPage: $this->perPage, offset: ($this->perPage * $page) - $this->perPage);
+        $products = $data['data'];
+        $total = $data['count'];
+        $current_page = (int) ($page ?? 1);
+        $product_cumulative = $current_page * $this->perPage > $total ? $total : $current_page * $this->perPage;
+        $total_pages = (int) ceil($total / $this->perPage);
+        $products_id = [];
+
+        foreach ($products as $product) {
+            array_push($products_id, Crypt::encryptString($product->id));
+            unset($product->id);
+        }
+
+        return  json_encode([
+            "products" => $products,
+            "total" => $total,
+            "current_age" => $current_page,
+            "per_page" => $this->perPage,
+            "total_pages" => $total_pages,
+            "product_cumulative" => $product_cumulative,
+            "category" => $category,
+            "categories" => $this->categories_count(),
+            "products_id" => $products_id,
         ]);
     }
 }

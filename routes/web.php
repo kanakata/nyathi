@@ -54,7 +54,7 @@ Route::controller(ShopController::class)->group(
         Route::prefix("user/shop")->group(function () {
             Route::get("/category/{category}", "category");
             Route::get("/filter/category/{category}", "filter");
-            Route::get("/category/{category}/page/{page}", "category");
+            Route::get("/category/{category}/page/{page}", "ajax_category");
             Route::get("", "index");
             Route::get("/page/{page}", "page")->whereNumber("page");
             Route::get("/category", function () {

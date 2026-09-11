@@ -100,7 +100,8 @@
 
                 <x-user.shop_toolbar :product-cumulative="$product_cumulative" :total="$total"></x-user.shop_toolbar>
 
-                <x-user.pagination :total-pages="$total_pages" :current-page="$current_page"></x-user.pagination>
+                <x-user.pagination class="pagination top" :totalPages="$total_pages"
+                    :currentPage="$current_page"></x-user.pagination>
 
                 <!-- Products Grid -->
                 <div class="products-grid">
@@ -111,8 +112,8 @@
 
                 <x-user.shop_toolbar :product-cumulative="$product_cumulative" :total="$total"></x-user.shop_toolbar>
 
-                <x-user.pagination :total-pages="$total_pages" :current-page="$current_page"></x-user.pagination>
-
+                <x-user.pagination class="pagination bottom" :totalPages="$total_pages"
+                    :currentPage="$current_page"></x-user.pagination>
 
             </div>
         </div>

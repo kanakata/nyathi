@@ -63,6 +63,28 @@
         });
     })();
 
+    (function () {
+        const [pagination_top, pagination_bottom] = [
+            $$(".pagination.top .page"),
+            $$(".pagination.bottom .page"),
+        ];
+
+        if (window.screen.width <= 750) {
+            if (pagination_top.length > 10) {
+                pagination_top.forEach((pag) => {
+                    pag.remove();
+                });
+            }
+        }
+        if (window.screen.width <= 750) {
+            if (pagination_bottom.length > 10) {
+                pagination_bottom.forEach((pag) => {
+                    pag.remove();
+                });
+            }
+        }
+    })();
+
     const Toast = {
         container: null,
         init() {
