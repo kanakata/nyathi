@@ -384,7 +384,7 @@
         const display = $(".price-display .price-max");
         if (!slider || !display) return;
         slider.addEventListener("input", () => {
-            display.textContent = `$${slider.value}`;
+            display.textContent = `Ksh: ${slider.value}`;
         });
     }
 

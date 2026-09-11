@@ -260,7 +260,7 @@ select.form-control {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 1rem;
+    padding: 0 10px;
     height: 72px;
     background: rgba(13, 13, 13, 0.92);
     backdrop-filter: blur(20px);
@@ -280,7 +280,7 @@ select.form-control {
     color: var(--white);
     & img {
         height: 55px;
-        transform: rotate(45deg);
+        transform: rotate(90deg);
     }
 }
 .logo span {

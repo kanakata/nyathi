@@ -3,17 +3,58 @@
         (sel) => document.querySelector(sel),
         (sel, ctx = document) => [...ctx.querySelectorAll(sel)],
     ];
-
+    initApp();
     const [pagination_holder, pagination, categories] = [
         $$(".pagination"),
         $$(".pagination .page-btn"),
         $$(".shop-sidebar .filter-checkbox"),
     ];
 
-    function update_pagination(parent, page, position = false) {
+    function store(name, data) {
+        localStorage.setItem(name, data);
+    }
+
+    function get(name) {
+        return localStorage.getItem(name);
+    }
+
+    function del(name) {
+        localStorage.removeItem(name);
+    }
+
+    function priceRange() {
+        const slider = $("#price-range");
+        const display = $(".price-display .price-max");
+        let price;
+        if (!slider || !display) return;
+        slider.addEventListener("input", () => {
+            price = `${slider.value}`;
+        });
+        slider.addEventListener("mouseup", () => {
+            ajax(``, () => {});
+        });
+    }
+
+    function initCurrentPag() {
+        const page = get(`${window.location.hostname}-current-page`);
+        if (page == null || page == undefined) {
+            store(`${window.location.hostname}-current-page`, 1);
+        } else if (page > 1) {
+            store(`${window.location.hostname}-current-page`, 1);
+        }
+    }
+
+    function initCategorySelect() {
+        del(`${window.location.hostname}-category`);
+    }
+
+    function updatePagination(parent, page, position = false) {
         if (position == false) {
             const pagination = document.createElement("div");
-            pagination.setAttribute("class", "page-btn page");
+            pagination.setAttribute(
+                "class",
+                `page-btn page ${page == 1 ? "active" : ""}`
+            );
             pagination.setAttribute("data-page", page);
             pagination.textContent = page;
             parent.appendChild(pagination);
@@ -34,34 +75,36 @@
             categories.forEach((cat) => {
                 cat.classList.remove("checked");
             });
-
             category.classList.remove("checked");
+            initCurrentPag();
             const category_select = category.dataset.category;
+            store(`${window.location.hostname}-category`, category_select);
             ajax(`/user/shop/filter/category/${category_select}`, (data) => {
                 $$(".pagination .page-btn").forEach((pag) => {
                     pag.remove();
                 });
-                product_update(data);
+                productUpdate(data);
                 pagination_holder.forEach((pag_holder) => {
                     for (let i = 1; i <= data.total_pages; i++) {
                         if (i == 1) {
-                            update_pagination(pag_holder, "", "‹");
+                            updatePagination(pag_holder, "", "‹");
                         }
-                        update_pagination(pag_holder, i);
+                        updatePagination(pag_holder, i);
                         if (i == data.total_pages) {
-                            update_pagination(pag_holder, "", "›");
+                            updatePagination(pag_holder, "", "›");
                         }
                     }
                 });
-                pagination_init("category", category_select);
+                paginationInit(
+                    (type = "category"),
+                    (category = category_select)
+                );
             });
         });
     });
 
-    pagination_init();
-
-    function pagination_init(type = "general", category = null) {
-        $$(".pagination .page-btn").forEach((pag) => {
+    function paginationInit(type = "general", category = null) {
+        $$(".pagination .page-btn.page").forEach((pag) => {
             pag.addEventListener("click", function () {
                 $$(".pagination .page-btn").forEach((element) => {
                     element.classList.remove("active");
@@ -73,21 +116,77 @@
                         ajax(
                             `/user/shop/category/${category}/page/${page}`,
                             (result) => {
-                                product_update(result);
+                                productUpdate(result);
                             }
                         );
                         break;
                     default:
                         ajax(`/user/shop/page/${page}`, (result) => {
-                            product_update(result);
+                            productUpdate(result);
                         });
                         break;
                 }
+                store(`${window.location.hostname}-current-page`, page);
+            });
+        });
+        pagMove(true, type, category);
+        pagMove(false, type, category);
+    }
+
+    function pagMove(direction, type, category) {
+        $$(
+            `.pagination ${direction ? ".page-btn.next" : ".page-btn.prev"}`
+        ).forEach((dir) => {
+            dir.addEventListener("click", () => {
+                let [max_page, current_page] = [
+                    $$(".pagination .page-btn.page").length / 2,
+                    Number(get(`${window.location.hostname}-current-page`)),
+                ];
+
+                if (direction) {
+                    if (current_page >= max_page) {
+                        current_page = max_page;
+                    } else {
+                        current_page += 1;
+                    }
+                } else {
+                    if (current_page <= 1) {
+                        current_page = 1;
+                    } else {
+                        current_page -= 1;
+                    }
+                }
+
+                $$(".pagination .page-btn").forEach((element) => {
+                    element.classList.remove("active");
+                    $$(".pagination .page-btn.page").forEach((pag) => {
+                        if (pag.dataset.page == current_page) {
+                            pag.classList.add("active");
+                        }
+                    });
+                });
+
+                switch (type) {
+                    case "category":
+                        ajax(
+                            `/user/shop/category/${category}/page/${current_page}`,
+                            (result) => {
+                                productUpdate(result);
+                            }
+                        );
+                        break;
+                    default:
+                        ajax(`/user/shop/page/${current_page}`, (result) => {
+                            productUpdate(result);
+                        });
+                        break;
+                }
+                store(`${window.location.hostname}-current-page`, current_page);
             });
         });
     }
 
-    function product_update(data) {
+    function productUpdate(data) {
         // console.log(data);
         $$(".shop-toolbar .shop-count").forEach((shop_count) => {
             shop_count.textContent = `Showing ${data.product_cumulative} of ${data.total} products`;
@@ -164,6 +263,12 @@
         });
     }
 
+    function initApp() {
+        paginationInit();
+        initCurrentPag();
+        initCategorySelect();
+        priceRange();
+    }
     function ajax(url, callback) {
         const http = fetch(url, {
             method: "GET",
@@ -184,7 +289,7 @@
                 callback(data);
             })
             .catch((error) => {
-                console.log(error);
+                // handle error
             });
     }
 })();

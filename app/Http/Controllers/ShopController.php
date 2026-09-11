@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Crypt;
 
 class ShopController extends Controller
 {
-    private int $perPage = 30;
+    private int $perPage = 6;
 
     private function categories_count()
     {

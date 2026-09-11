@@ -36,10 +36,10 @@
                 <div class="sidebar-section">
                     <div class="sidebar-title">Price Range</div>
                     <div class="price-range">
-                        <input type="range" id="price-range" min="0" max="1000" value="500">
+                        <input type="range" id="price-range" min="0" max="13000" value="1500">
                         <div class="price-display">
                             <span>Ksh: 0</span>
-                            <span class="price-max">Ksh: 500</span>
+                            <span class="price-max">Ksh: 1500</span>
                         </div>
                     </div>
                 </div>
