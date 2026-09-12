@@ -287,6 +287,13 @@ select.form-control {
     color: var(--gold);
 }
 
+.no-products {
+    text-align: center;
+    font-size: 1rem;
+    color: var(--danger);
+    padding: 2rem 0;
+}
+
 .nav-menu {
     display: flex;
     align-items: center;

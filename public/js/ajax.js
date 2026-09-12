@@ -7,7 +7,7 @@
     const [pagination_holder, pagination, categories] = [
         $$(".pagination"),
         $$(".pagination .page-btn"),
-        $$(".shop-sidebar .filter-checkbox"),
+        $(".shop-sidebar"),
     ];
 
     function store(name, data) {
@@ -70,36 +70,35 @@
         }
     }
 
-    categories.forEach((category) => {
-        category.addEventListener("click", () => {
-            categories.forEach((cat) => {
-                cat.classList.remove("checked");
+    categories.addEventListener("click", (event) => {
+        // Check if the clicked element (or its parent) is a category item
+        const category = event.target.closest("[data-category]");
+        if (!category) return;
+        // Remove 'checked' from all categories and add to the clicked one
+        document.querySelectorAll("[data-category]").forEach((cat) => {
+            cat.classList.remove("checked");
+        });
+        category.classList.add("checked");
+        initCurrentPag();
+        const category_select = category.dataset.category;
+        store(`${window.location.hostname}-category`, category_select);
+        ajax(`/user/shop/filter/category/${category_select}`, (data) => {
+            $$(".pagination .page-btn").forEach((pag) => {
+                pag.remove();
             });
-            category.classList.remove("checked");
-            initCurrentPag();
-            const category_select = category.dataset.category;
-            store(`${window.location.hostname}-category`, category_select);
-            ajax(`/user/shop/filter/category/${category_select}`, (data) => {
-                $$(".pagination .page-btn").forEach((pag) => {
-                    pag.remove();
-                });
-                productUpdate(data);
-                pagination_holder.forEach((pag_holder) => {
-                    for (let i = 1; i <= data.total_pages; i++) {
-                        if (i == 1) {
-                            updatePagination(pag_holder, "", "‹");
-                        }
-                        updatePagination(pag_holder, i);
-                        if (i == data.total_pages) {
-                            updatePagination(pag_holder, "", "›");
-                        }
+            productUpdate(data);
+            pagination_holder.forEach((pag_holder) => {
+                for (let i = 1; i <= data.total_pages; i++) {
+                    if (i == 1) {
+                        updatePagination(pag_holder, "", "‹");
                     }
-                });
-                paginationInit(
-                    (type = "category"),
-                    (category = category_select)
-                );
+                    updatePagination(pag_holder, i);
+                    if (i == data.total_pages) {
+                        updatePagination(pag_holder, "", "›");
+                    }
+                }
             });
+            paginationInit((type = "category"), (category = category_select));
         });
     });
 
@@ -187,80 +186,140 @@
     }
 
     function productUpdate(data) {
-        // console.log(data);
-        $$(".shop-toolbar .shop-count").forEach((shop_count) => {
-            shop_count.textContent = `Showing ${data.product_cumulative} of ${data.total} products`;
-        });
-        data.products.forEach((product, index) => {
-            const product_card = document.createElement("div");
-            product_card.setAttribute("class", "product-card");
-            product_card.innerHTML = `
-                <div class="product-image-wrap">
-                    <a ${
-                        product.product_badge == "available"
-                            ? "href=/user/product/" + data.products_id[index]
-                            : ""
-                    } class="product-link">
-                        <img src="/assets/images/${
-                            product.product_image
-                        }" alt="${product.product_image}" loading="lazy">
-                    </a>
+            
+        const grid = $(".shop-layout .products-grid");
+        if (!grid) return;
+        grid.innerHTML = "";
 
-                    <div class="product-badges">
-                        <span class="product-badge badge-${
-                            product.product_badge
-                        }">
-                            ${product.product_badge.toUpperCase()}
-                        </span>
-                    </div>
+        if (products.length === 0) {
+            const not_found = document.createElement("div");
+            not_found.className = "no-products";
+            not_found.textContent = "Oop !!! No products found.";
+            grid.appendChild(not_found);
+            return;
+        } else {
+            $$(".shop-toolbar .shop-count").forEach((shop_count) => {
+                shop_count.textContent = `Showing ${data.product_cumulative} of ${data.total} products`;
+            });
 
-                    <div class="product-actions-hover">
-                        <button class="btn-add-cart" data-action="add-to-cart" data-id="${
-                            data.products_id[index]
-                        }" data-name="${product.product_name}" data-price="${
-                product.product_price
-            }" data-image="/assets/images/${product.product_image}" ${
-                product.product_badge == "sold" ? "disabled" : ""
-            } >${
-                product.product_badge == "sold" ? "sold out" : "add to cart"
-            }</button>
-                        <button class="btn-wishlist " data-action="toggle-wishlist" data-id="${
-                            data.products_id[index]
-                        }" data-name="${product.product_name}" data-price="${
-                product.product_price
-            }" data-image="/assets/images/${
-                product.product_image
-            }" aria-label="Add to wishlist">♡</button>
-                    </div>
-                </div>
+            products.forEach((product, index) => {
+                const productId = data.products_id[index];
+                const isAvailable = product.product_badge === "available";
+                const isSold = product.product_badge === "sold";
+                const badgeText = product.product_badge.toUpperCase();
 
-                <div class="product-info">
+                // Create main card container
+                const productCard = document.createElement("div");
+                productCard.className = "product-card";
 
-                    <div class="product-category">${
-                        product.product_category
-                    }</div>
-                    <a class="product-link" ${
-                        product.product_badge == "available"
-                            ? "href=/user/product/" + data.products_id[index]
-                            : ""
-                    }>
-                        <h3 class="product-name">${product.product_name}</h3>
-                    </a>
+                // Image wrap structure
+                const imageWrap = document.createElement("div");
+                imageWrap.className = "product-image-wrap";
 
-                    <div class="product-rating">
-                        <span class="stars" title="2 out of 5">★★☆☆☆</span>
-                    </div>
+                const link1 = document.createElement("a");
+                link1.className = "product-link";
+                if (isAvailable) {
+                    link1.setAttribute("href", `/user/product/${productId}`);
+                }
 
-                    <div class="product-price">
-                        <span class="price-current">Ksh: ${product.product_price.toFixed(
-                            2
-                        )}</span>
-                        <span class="price-old">Ksh: 582.00</span>
-                    </div>
-                </div>
-            `;
-            $(".shop-layout .products-grid").appendChild(product_card);
-        });
+                const img = document.createElement("img");
+                img.src = `/assets/images/${product.product_image}`;
+                img.alt = product.product_image;
+                img.loading = "lazy";
+                link1.appendChild(img);
+                imageWrap.appendChild(link1);
+
+                // Badges
+                const badgesDiv = document.createElement("div");
+                badgesDiv.className = "product-badges";
+                const badgeSpan = document.createElement("span");
+                badgeSpan.className = `product-badge badge-${product.product_badge}`;
+                badgeSpan.textContent = badgeText;
+                badgesDiv.appendChild(badgeSpan);
+                imageWrap.appendChild(badgesDiv);
+
+                // Actions hover
+                const actionsDiv = document.createElement("div");
+                actionsDiv.className = "product-actions-hover";
+
+                const btnCart = document.createElement("button");
+                btnCart.className = "btn-add-cart";
+                btnCart.dataset.action = "add-to-cart";
+                btnCart.dataset.id = productId;
+                btnCart.dataset.name = product.product_name;
+                btnCart.dataset.price = product.product_price;
+                btnCart.dataset.image = `/assets/images/${product.product_image}`;
+                if (isSold) btnCart.disabled = true;
+                btnCart.textContent = isSold ? "sold out" : "add to cart";
+
+                const btnWishlist = document.createElement("button");
+                btnWishlist.className = "btn-wishlist";
+                btnWishlist.dataset.action = "toggle-wishlist";
+                btnWishlist.dataset.id = productId;
+                btnWishlist.dataset.name = product.product_name;
+                btnWishlist.dataset.price = product.product_price;
+                btnWishlist.dataset.image = `/assets/images/${product.product_image}`;
+                btnWishlist.setAttribute("aria-label", "Add to wishlist");
+                btnWishlist.textContent = "♡";
+
+                actionsDiv.appendChild(btnCart);
+                actionsDiv.appendChild(btnWishlist);
+                imageWrap.appendChild(actionsDiv);
+                productCard.appendChild(imageWrap);
+
+                // Product info
+                const infoDiv = document.createElement("div");
+                infoDiv.className = "product-info";
+
+                const categoryDiv = document.createElement("div");
+                categoryDiv.className = "product-category";
+                categoryDiv.textContent = product.product_category;
+                infoDiv.appendChild(categoryDiv);
+
+                const link2 = document.createElement("a");
+                link2.className = "product-link";
+                if (isAvailable) {
+                    link2.setAttribute("href", `/user/product/${productId}`);
+                }
+
+                const h3 = document.createElement("h3");
+                h3.className = "product-name";
+                h3.textContent = product.product_name;
+                link2.appendChild(h3);
+                infoDiv.appendChild(link2);
+
+                const ratingDiv = document.createElement("div");
+                ratingDiv.className = "product-rating";
+                const starsSpan = document.createElement("span");
+                starsSpan.className = "stars";
+                starsSpan.title = "2 out of 5";
+                starsSpan.textContent = "★★☆☆☆";
+                ratingDiv.appendChild(starsSpan);
+                infoDiv.appendChild(ratingDiv);
+
+                const priceDiv = document.createElement("div");
+                priceDiv.className = "product-price";
+
+                const priceCurrent = document.createElement("span");
+                priceCurrent.className = "price-current";
+                priceCurrent.textContent = `Ksh: ${Number(
+                    product.product_price
+                ).toFixed(2)}`;
+
+                const priceOld = document.createElement("span");
+                priceOld.className = "price-old";
+                priceOld.textContent = "Ksh: 582.00";
+
+                priceDiv.appendChild(priceCurrent);
+                priceDiv.appendChild(priceOld);
+                infoDiv.appendChild(priceDiv);
+
+                productCard.appendChild(infoDiv);
+                grid.appendChild(productCard);
+            });
+        }
+
+
     }
 
     function initApp() {
@@ -269,13 +328,14 @@
         initCategorySelect();
         priceRange();
     }
+
     function ajax(url, callback) {
         const http = fetch(url, {
             method: "GET",
         })
             .then((response) => {
                 if (!response.ok) {
-                    // error handler
+                    return "Not Found.";
                 } else {
                     return response.json();
                 }
@@ -289,7 +349,7 @@
                 callback(data);
             })
             .catch((error) => {
-                // handle error
+                callback("Not Found");
             });
     }
 })();

@@ -30,7 +30,7 @@
 
     <header class="site-header">
 
-        <a href="/" class="logo" style="display: flex; align-items: center;"><img src="/nyathi.svg"
+        <a href="/" class="logo" style="display: flex; align-items: center;"><img src=""
                 alt="">Nyathi<span>.store</span></a>
 
         <nav class="nav-menu" aria-label="Main navigation">
