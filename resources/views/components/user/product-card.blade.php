@@ -7,7 +7,6 @@
     $stars = str_repeat('★', round($rating)) . str_repeat('☆', 5 - round($rating));
     $id = Crypt::encryptString((str($product->id)));
 @endphp
-
 <div class="product-card">
 
     <div class="product-image-wrap">

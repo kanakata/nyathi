@@ -23,7 +23,7 @@ use App\Http\Controllers\TermsController;
 use App\Http\Controllers\WishlistController;
 use Illuminate\Support\Facades\Route;
 
-Route::get("/", [LandingController::class, "index"])->name("/");
+Route::get("/", [LandingController::class, "index"])->name("landing");
 
 Route::prefix("user")->group(function () {
     Route::get("/faq", [FaqController::class, "index"]);
@@ -43,7 +43,7 @@ Route::prefix("user")->group(function () {
     Route::get("/press", [PressController::class, "index"]);
     Route::get("/size-guide", [SizeGuideController::class, "index"]);
     Route::get("/categories", [CategoriesController::class, "index"]);
-    Route::get("/product/{id}", [ProductController::class, "index"])->whereAlphaNumeric("id");
+    Route::get("/product/{id}", [ProductController::class, "index"]);
     Route::prefix("login")->group(function () {
         Route::get("", [LoginController::class, "index"]);
     });
@@ -52,18 +52,19 @@ Route::prefix("user")->group(function () {
 Route::controller(ShopController::class)->group(
     function () {
         Route::prefix("user/shop")->group(function () {
-            Route::get("/category/{category}", "category");
-            Route::get("/filter/category/{category}", "filter");
-            Route::get("/category/{category}/page/{page}", "ajax_category");
             Route::get("", "index");
-            Route::get("/page/{page}", "page")->whereNumber("page");
+            Route::get("/category/{category}", "category");
+            Route::get("/filter/price/{price}", "filterPrice");
+            Route::get("/page/{page}", "page");
+            Route::get("/filter/category/{category}", "filterCategory");
+            Route::get("/category/{category}/page/{page}", "ajaxCategory");
+            Route::get("/filter/category/{category}/price/{price}", "filterCategoryPice");
             Route::get("/category", function () {
                 return redirect("/shop");
             });
         });
     }
 );
-
 
 // admin
 Route::prefix("admin")->group(function () {
@@ -103,3 +104,4 @@ Route::post("/auth/admin/login", function () {
 Route::post("/auth/user/login", function () {
     return redirect("/user/account");
 });
+

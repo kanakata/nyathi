@@ -20,6 +20,10 @@
             <aside class="shop-sidebar">
 
                 <div class="sidebar-section">
+                    <button class="clear-filter btn btn-outline btn-sm btn-block">Clear Filter</button>
+                </div>
+
+                <div class="sidebar-section">
                     <div class="sidebar-title">Categories</div>
                     <div class="filter-options">
                         @foreach ($categories as $cat => $count)
@@ -58,7 +62,7 @@
                     </div>
                 </div> --}}
 
-                <div class="sidebar-section">
+                {{-- <div class="sidebar-section">
                     <div class="sidebar-title">Colour</div>
                     <div class="color-options">
                         <div class="color-swatch" style="background:#1a1a1a;border:1px solid #555" title="Black"></div>
@@ -70,26 +74,26 @@
                         <div class="color-swatch" style="background:#922b21" title="Burgundy"></div>
                         <div class="color-swatch" style="background:#1e8449" title="Forest Green"></div>
                     </div>
-                </div>
+                </div> --}}
 
-                <div class="sidebar-section">
+                {{-- <div class="sidebar-section">
                     <div class="sidebar-title">Rating</div>
                     <div class="filter-options">
                         @foreach ([5, 4, 3] as $r)
-                            <label class="filter-option">
-                                <div class="filter-option-left">
-                                    <div class="filter-checkbox"></div>
-                                    <span class="filter-label">{{ str_repeat('★', $r) }}
-                                        {{ str_repeat('☆', 5 - $r) }} & up
-                                    </span>
-                                </div>
-                            </label>
+                        <label class="filter-option">
+                            <div class="filter-option-left">
+                                <div class="filter-checkbox"></div>
+                                <span class="filter-label">{{ str_repeat('★', $r) }}
+                                    {{ str_repeat('☆', 5 - $r) }} & up
+                                </span>
+                            </div>
+                        </label>
                         @endforeach
                     </div>
-                </div>
+                </div> --}}
 
                 <div class="sidebar-section">
-                    <button class="btn btn-outline btn-sm btn-block">Clear All Filters</button>
+                    <button class="clear-filter btn btn-outline btn-sm btn-block">Clear Filter</button>
                 </div>
 
             </aside>

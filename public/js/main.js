@@ -347,47 +347,6 @@
         setInterval(update, 1000);
     }
 
-    function initFilters() {
-        $$(".filter-checkbox").forEach((box) => {
-            box.addEventListener("click", () => {
-                box.classList.add("checked");
-                const label = box
-                    .closest(".filter-option")
-                    ?.querySelector(".filter-label")?.textContent;
-                updateActiveFilters();
-            });
-        });
-
-        function updateActiveFilters() {
-            const container = $(".active-filters");
-            if (!container) return;
-            container.innerHTML = "";
-            $$(".filter-checkbox.checked").forEach((box) => {
-                const label =
-                    box
-                        .closest(".filter-option")
-                        ?.querySelector(".filter-label")?.textContent || "";
-                const tag = document.createElement("span");
-                tag.className = "filter-tag";
-                tag.innerHTML = `${label} <span>×</span>`;
-                tag.addEventListener("click", () => {
-                    box.classList.remove("checked");
-                    updateActiveFilters();
-                });
-                container.appendChild(tag);
-            });
-        }
-    }
-
-    function initPriceRange() {
-        const slider = $("#price-range");
-        const display = $(".price-display .price-max");
-        if (!slider || !display) return;
-        slider.addEventListener("input", () => {
-            display.textContent = `Ksh: ${slider.value}`;
-        });
-    }
-
     function initViewToggle() {
         const grid = $(".products-grid");
         const btns = $$(".view-btn");
@@ -613,8 +572,6 @@
         initSizeSelector();
         initQtyControl();
         initCountdown();
-        initFilters();
-        initPriceRange();
         initViewToggle();
         initSort();
         initCartPage();

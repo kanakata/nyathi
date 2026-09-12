@@ -35,9 +35,26 @@ class ProductsModel extends Model
     {
         return DB::table("products")->select("*")->where("product_category", "=", DB::table("products")->select("product_category")->where("id", "=", $id)->get()[0]->product_category)->limit(4)->get();
     }
+    public static function collect_product_filter_price(int $price, int $perPage, int $offset)
+    {
+        return [
+            "data" => DB::table("products")->select()->where("product_price", "<=", $price)->limit($perPage)->offset($offset)->get(),
+            "count" => DB::table("products")->select()->where("product_price", "<=", $price)->count(),
+        ];
+    }
+    public static function collect_product_related_filter_price(int $price, string $category, int $perPage)
+    {
+        return [
+            "data" => DB::table("products")->select()->where("product_price", "<=", $price)->paginate($perPage),
+            "count" => DB::table("products")->select()->where("product_category", "=", $category)->count(),
+        ];
+    }
     public static function collect_products_paginated(int $perPage, int $offset)
     {
-        return DB::table("products")->limit($perPage)->offset($offset)->get();
+        return [
+            "data" => DB::table("products")->limit($perPage)->offset($offset)->get(),
+            "count" => DB::table("products")->count()
+        ];
     }
     public static function collect_categorized_products_paginated(string $category, int $perPage, int $offset)
     {
