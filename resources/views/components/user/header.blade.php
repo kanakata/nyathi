@@ -18,14 +18,14 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/app.css">
     {{ $extraCss ?? '' }}
 </head>
 
 <body class="{{ e($bodyClass ?? '') }}">
 
     <div class="announcement-bar">
-        ✦ Free shipping on orders over $150 &nbsp;|&nbsp; New arrivals every week ✦
+        ✦ Free shipping on orders over Ksh: {{ number_format(13000) }} &nbsp;|&nbsp; New arrivals every week ✦
     </div>
 
     <header class="site-header">

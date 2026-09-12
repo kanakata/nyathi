@@ -10,7 +10,7 @@ class ShopController extends Controller
 {
     private int $perPage = 6;
 
-    private function fetchProducts(callable $callback, int $page, string $category = "", $paginate = false)
+    private function avail_products(callable $callback, int $page, string $category = "", $paginate = false, int $price = 0)
     {
         $data = $callback();
         $products = $data['data'];
@@ -32,13 +32,13 @@ class ShopController extends Controller
             "per_page" => $this->perPage,
             "total_pages" => $total_pages,
             "product_cumulative" => $product_cumulative,
-            "categories" => $this->categoriesCount(),
+            "categories" => $this->pass_categories_count(),
             "products_id" => $products_id,
         ];
 
         return response()->json($paginate ? array_merge($json_response, ["category" => $category]) : $json_response);
     }
-    private function categoriesCount()
+    private function pass_categories_count()
     {
         $categories = ProductsModel::categories();
         $categories_temp = $categories_count = [];
@@ -49,40 +49,47 @@ class ShopController extends Controller
         return array_combine($categories_temp, $categories_count);
     }
 
-    public function filterCategory(string $category)
+    public function pass_products_filtered_by_category(string $category)
     {
         $page = $page ?? 1;
-        return $this->fetchProducts(function () use ($category, $page) {
-            return ProductsModel::collect_categorized_products_paginated(category: str_replace(["+"], " ", $category), perPage: $this->perPage, offset: ($this->perPage * $page) - $this->perPage);
+        return $this->avail_products(function () use ($category, $page) {
+            return ProductsModel::fetch_categorized_products(category: str_replace(["+"], " ", $category), perPage: $this->perPage, offset: ($this->perPage * $page) - $this->perPage);
+        }, $page, $category);
+    }
+    public function pass_products_filtered_by_category_and_price(string $category, int $price)
+    {
+        $page = $page ?? 1;
+        return $this->avail_products(function () use ($category, $page, $price) {
+            return ProductsModel::fetch_products_filtered_by_category_and_price(category: str_replace(["+"], " ", $category), price: $price, perPage: $this->perPage, offset: ($this->perPage * $page) - $this->perPage);
+        }, page: $page, category: $category, price: $price);
+    }
+
+    public function pass_products_filtered_by_price(int $price)
+    {
+        $page = $page ?? 1;
+        return $this->avail_products(function () use ($price, $page) {
+            return ProductsModel::fetch_product_filtered_by_price(price: $price, perPage: $this->perPage, offset: ($this->perPage * $page) - $this->perPage);
+        }, page: $page);
+    }
+
+    public function pass_requested_categorized_batch_of_products(string $category, int $page = 1)
+    {
+        return $this->avail_products(function () use ($category, $page) {
+            return ProductsModel::fetch_categorized_products(category: str_replace(["+"], " ", $category), perPage: $this->perPage, offset: ($this->perPage * $page) - $this->perPage);
         }, $page, $category);
     }
 
-    public function filterPrice(int $price)
+    public function pass_requested_batch_of_products(int $page = 1)
     {
-        $page = $page ?? 1;
-        return $this->fetchProducts(function () use ($price, $page) {
-            return ProductsModel::collect_product_filter_price(price: $price, perPage: $this->perPage, offset: ($this->perPage * $page) - $this->perPage);
-        }, $page);
-    }
-
-    public function ajaxCategory(string $category, int $page = 1)
-    {
-        return $this->fetchProducts(function () use ($category, $page) {
-            return ProductsModel::collect_categorized_products_paginated(category: str_replace(["+"], " ", $category), perPage: $this->perPage, offset: ($this->perPage * $page) - $this->perPage);
-        }, $page, $category);
-    }
-
-    public function page(int $page = 1)
-    {
-        return $this->fetchProducts(function () use ($page) {
-            return ProductsModel::collect_products_paginated(perPage: $this->perPage, offset: ($this->perPage * $page) - $this->perPage);
+        return $this->avail_products(function () use ($page) {
+            return ProductsModel::fetch_products(perPage: $this->perPage, offset: ($this->perPage * $page) - $this->perPage);
         }, $page, paginate: true);
     }
 
-    public function index()
+    public function pass_products()
     {
         $offset = 0;
-        $data = ProductsModel::collect_products_paginated($this->perPage, $offset);
+        $data = ProductsModel::fetch_products($this->perPage, $offset);
         $products = $data['data'];
         $total = $data['count'];
         $current_page = (int) ($_GET['page'] ?? 1);
@@ -96,14 +103,14 @@ class ShopController extends Controller
             "per_page" => $this->perPage,
             "total_pages" => $total_pages,
             "product_cumulative" => $product_cumulative,
-            "categories" => $this->categoriesCount(),
+            "categories" => $this->pass_categories_count(),
         ]);
     }
 
-    public function category(string $category, int $page = 1)
+    public function pass_categorized_products(string $category, int $page = 1)
     {
         $page = $page ?? 1;
-        $data = ProductsModel::collect_categorized_products_paginated(category: str_replace(["+"], " ", $category), perPage: $this->perPage, offset: ($this->perPage * $page) - $this->perPage);
+        $data = ProductsModel::fetch_categorized_products(category: str_replace(["+"], " ", $category), perPage: $this->perPage, offset: ($this->perPage * $page) - $this->perPage);
         $products = $data['data'];
         $total = $data['count'];
         $current_page = (int) ($page ?? 1);
@@ -118,7 +125,7 @@ class ShopController extends Controller
             "total_pages" => $total_pages,
             "product_cumulative" => $product_cumulative,
             "category" => $category,
-            "categories" => $this->categoriesCount(),
+            "categories" => $this->pass_categories_count(),
         ]);
     }
 }

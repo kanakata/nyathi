@@ -12,8 +12,8 @@
             <p>Timeless pieces crafted for those who understand that true luxury lies in the details — not the label.
             </p>
             <div class="hero-actions">
-                <a href="/shop" class="btn btn-primary">Explore Collection</a>
-                <a href="/categories" class="btn btn-outline">Browse Categories</a>
+                <a href="/user/shop" class="btn btn-primary">Explore Collection</a>
+                <a href="/user/categories" class="btn btn-outline">Browse Categories</a>
             </div>
         </div>
     </div>

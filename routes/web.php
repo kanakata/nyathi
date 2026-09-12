@@ -43,7 +43,7 @@ Route::prefix("user")->group(function () {
     Route::get("/press", [PressController::class, "index"]);
     Route::get("/size-guide", [SizeGuideController::class, "index"]);
     Route::get("/categories", [CategoriesController::class, "index"]);
-    Route::get("/product/{id}", [ProductController::class, "index"]);
+    Route::get("/product/{id}", [ProductController::class, "pass_product"]);
     Route::prefix("login")->group(function () {
         Route::get("", [LoginController::class, "index"]);
     });
@@ -52,13 +52,13 @@ Route::prefix("user")->group(function () {
 Route::controller(ShopController::class)->group(
     function () {
         Route::prefix("user/shop")->group(function () {
-            Route::get("", "index");
-            Route::get("/category/{category}", "category");
-            Route::get("/filter/price/{price}", "filterPrice");
-            Route::get("/page/{page}", "page");
-            Route::get("/filter/category/{category}", "filterCategory");
-            Route::get("/category/{category}/page/{page}", "ajaxCategory");
-            Route::get("/filter/category/{category}/price/{price}", "filterCategoryPice");
+            Route::get("", "pass_products");
+            Route::get("/page/{page}", "pass_requested_batch_of_products");
+            Route::get("/filter/price/{price}", "pass_products_filtered_by_price");
+            Route::get("/category/{category}", "pass_categorized_products");
+            Route::get("/category/{category}/filter", "pass_products_filtered_by_category");
+            Route::get("/category/{category}/page/{page}", "pass_requested_categorized_batch_of_products");
+            Route::get("/category/{category}/filter/price/{price}", "pass_products_filtered_by_category_and_price");
             Route::get("/category", function () {
                 return redirect("/shop");
             });
@@ -104,4 +104,3 @@ Route::post("/auth/admin/login", function () {
 Route::post("/auth/user/login", function () {
     return redirect("/user/account");
 });
-

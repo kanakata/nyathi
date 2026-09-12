@@ -1,10 +1,24 @@
 (function () {
+    window.addEventListener("load", () => {
+        const link = window.location.pathname.split("/").filter((element) => {
+            if (element != undefined || element != null) {
+                return element;
+            }
+        });
+        const category = link.pop();
+        if (link.pop() == "category") {
+            initApp();
+            store(`${window.location.hostname}-category`, category);
+            delegatePaginationListener("category", category);
+        } else {
+            initApp();
+        }
+    });
+
     const [$, $$] = [
         (sel) => document.querySelector(sel),
         (sel, ctx = document) => [...ctx.querySelectorAll(sel)],
     ];
-
-    initApp();
 
     const [categories, clear] = [
         $(".shop-layout .shop-sidebar"),
@@ -55,14 +69,15 @@
                 ajax(`/user/shop/filter/price/${price}`, (data) => {
                     updatePagination(data);
                     delegatePaginationListener();
-                    console.log(data);
                     updateProducts(data);
                 });
             } else {
                 ajax(
-                    `/user/shop/filter/category/${category}/price/${price}`,
+                    `/user/shop/category/${category}/filter/price/${price}`,
                     (data) => {
-                        // console.log(data);
+                        updatePagination(data);
+                        delegatePaginationListener();
+                        updateProducts(data);
                     }
                 );
             }
@@ -113,7 +128,7 @@
         category.classList.add("checked");
         const category_select = category.dataset.category;
         store(`${window.location.hostname}-category`, category_select);
-        ajax(`/user/shop/filter/category/${category_select}`, (data) => {
+        ajax(`/user/shop/category/${category_select}/filter`, (data) => {
             updatePagination(data);
             delegatePaginationListener("category", category_select);
             updateProducts(data);
@@ -226,7 +241,10 @@
         const grid = $(".shop-layout .products-grid");
         if (!grid) return;
         grid.innerHTML = "";
-        if (data == undefined) {
+        if (data == undefined || products.length == 0) {
+            $$(".shop-toolbar .shop-count").forEach((shop_count) => {
+                shop_count.textContent = "Oops !!! No products found";
+            });
             const not_found = document.createElement("div");
             not_found.className = "no-products";
             not_found.textContent = "Oop !!! No products found.";

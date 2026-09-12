@@ -11,6 +11,12 @@
             announcement_bar.remove();
             document.body.setAttribute("style", "overflow: scroll");
         });
+
+        setTimeout(() => {
+            announcement_bar.remove();
+            announcement_bar.removeEventListener("click", () => {});
+            document.body.setAttribute("style", "overflow: scroll");
+        }, 3000);
     }
 
     (function initHeader() {

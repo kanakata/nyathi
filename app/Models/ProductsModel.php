@@ -27,36 +27,46 @@ class ProductsModel extends Model
     {
         return DB::table("products")->where("product_category", "=", $category)->count();
     }
-    public static function collect_product(int $id)
+    public static function fetch_product(int $id)
     {
         return DB::table("products")->select("*")->where("id", "=", $id)->get();
     }
-    public static function collect_product_related(int $id)
+    public static function fetch_related_products(int $id)
     {
         return DB::table("products")->select("*")->where("product_category", "=", DB::table("products")->select("product_category")->where("id", "=", $id)->get()[0]->product_category)->limit(4)->get();
     }
-    public static function collect_product_filter_price(int $price, int $perPage, int $offset)
+    public static function fetch_product_filtered_by_price(int $price, int $perPage, int $offset)
     {
         return [
             "data" => DB::table("products")->select()->where("product_price", "<=", $price)->limit($perPage)->offset($offset)->get(),
             "count" => DB::table("products")->select()->where("product_price", "<=", $price)->count(),
         ];
     }
-    public static function collect_product_related_filter_price(int $price, string $category, int $perPage)
+    public static function fetch_products_filtered_by_category_and_price(string $category, int $price, int $perPage, int $offset)
     {
         return [
-            "data" => DB::table("products")->select()->where("product_price", "<=", $price)->paginate($perPage),
-            "count" => DB::table("products")->select()->where("product_category", "=", $category)->count(),
+            "data" => DB::table("products")
+                ->select()
+                ->where("product_price", "<=", $price, "and")
+                ->where("product_category", "=", $category)
+                ->limit($perPage)
+                ->offset($offset)
+                ->get(),
+            "count" => DB::table("products")
+                ->select()
+                ->where("product_price", "<=", $price, "and")
+                ->where("product_category", "=", $category)
+                ->count(),
         ];
     }
-    public static function collect_products_paginated(int $perPage, int $offset)
+    public static function fetch_products(int $perPage, int $offset)
     {
         return [
             "data" => DB::table("products")->limit($perPage)->offset($offset)->get(),
             "count" => DB::table("products")->count()
         ];
     }
-    public static function collect_categorized_products_paginated(string $category, int $perPage, int $offset)
+    public static function fetch_categorized_products(string $category, int $perPage, int $offset)
     {
         return [
             "data" => DB::table("products")->where("product_category", "=", $category)->limit($perPage)->offset($offset)->get(),

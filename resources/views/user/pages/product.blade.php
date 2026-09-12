@@ -108,7 +108,7 @@
                         aria-label="Add to wishlist">♡</button>
                 </div>
 
-                <a href="/checkout" class="btn btn-outline btn-block">Buy It Now</a>
+                <a href="/user/checkout" class="btn btn-outline btn-block">Buy It Now</a>
 
                 <!-- Delivery Info -->
                 <div class="features-grid" style="grid-template-columns:1fr 1fr;margin-top:2rem;gap:1px">

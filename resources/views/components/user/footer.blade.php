@@ -80,8 +80,12 @@
 
     </div>
 </footer>
-<script src="/js/ajax.js"></script>
-<script src="/js/main.js"></script>
+@if (request()->path() == "/")
+    <script src="/js/app.js"></script>
+@else
+    <script src="/js/app.js"></script>
+    <script src="/js/products.js"></script>
+@endif
 </body>
 
 </html>
