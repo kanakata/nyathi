@@ -1636,7 +1636,7 @@ select.form-control {
 }
 .auth-visual {
     flex: 1;
-    background: url("../images/banners/auth.jpg") center/cover no-repeat;
+    background: url("../assets/images/fan kit.jpg") center/cover no-repeat;
     position: relative;
     display: none;
 }
@@ -1663,7 +1663,17 @@ select.form-control {
 .auth-visual-content p {
     color: rgba(255, 255, 255, 0.6);
 }
-
+#show-password {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    font-size: 0.85rem;
+}
 .auth-panel {
     width: 100%;
     max-width: 480px;
@@ -1894,6 +1904,15 @@ select.form-control {
 .status-cancelled {
     background: rgba(192, 57, 43, 0.15);
     color: var(--danger);
+}
+.contact {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 5rem;
+    align-items: start;
+    & .card{
+        padding:2.5rem
+    }
 }
 
 /* ============================================================
@@ -2159,6 +2178,22 @@ select.form-control {
    RESPONSIVE
    ============================================================ */
 @media (max-width: 1024px) {
+    .contact{
+        display: flex;
+        flex-direction: column;
+        & .card{
+            width: 100%;
+            padding: 20px;
+        }
+    }
+    .auth-page {
+        display: flex;
+        flex-direction: column;
+    }
+    .auth-visual {
+        display: none;
+    }
+
     .site-header {
         padding: 0 2rem;
     }
@@ -2176,6 +2211,16 @@ select.form-control {
     }
     .footer-grid {
         grid-template-columns: 1fr 1fr;
+    }
+    .toolbar-right {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+    }
+    .shop-toolbar {
+        display: flex;
+        flex-direction: column;
     }
     .shop-layout {
         grid-template-columns: 1fr;
@@ -2213,9 +2258,6 @@ select.form-control {
     }
     .hamburger {
         display: flex;
-    }
-    .auth-visual {
-        display: none;
     }
     .auth-panel {
         max-width: 100%;

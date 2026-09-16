@@ -16,7 +16,7 @@
         href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Jost:wght@300;400;500;600&display=swap"
         rel="stylesheet">
     <script src="/js/chart.umd.min.js"></script>
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/app.css">
     <link rel="stylesheet" href="/css/admin.css">
 </head>
 

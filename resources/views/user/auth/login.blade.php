@@ -18,7 +18,7 @@ $pageTitle = 'Sign In — Nyathi Shop';
     <link
         href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Jost:wght@300;400;500;600&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/app.css">
 </head>
 
 <body>
@@ -46,7 +46,8 @@ $pageTitle = 'Sign In — Nyathi Shop';
                 <a href="/" class="logo">Nyathi<span>.</span></a>
             </div>
             <h2 class="auth-title">Sign In</h2>
-            <p class="auth-subtitle">New here? <a href="/register" style="color:var(--gold)">Create an account</a></p>
+            <p class="auth-subtitle">New here? <a href="/user/register" style="color:var(--gold)">Create an account</a>
+            </p>
 
             <?php if (!empty($_GET['error'])): ?>
             <div class="alert alert-error"><?= e($_GET['error']) ?></div>
@@ -57,6 +58,7 @@ $pageTitle = 'Sign In — Nyathi Shop';
             <?php endif; ?>
 
             <form method="POST" action="/auth/user/login">
+
                 <?php if (!empty($_GET['redirect'])): ?>
                 <input type="hidden" name="redirect" value="<?= e($_GET['redirect']) ?>">
                 <?php endif; ?>
@@ -75,8 +77,7 @@ $pageTitle = 'Sign In — Nyathi Shop';
                     <div style="position:relative">
                         <input type="password" id="password" name="password" class="form-control"
                             autocomplete="current-password" required>
-                        <button type="button" data-toggle-password="password"
-                            style="position:absolute;right:1rem;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:0.85rem">👁</button>
+                        <button id="show-password" type="button" data-toggle-password="password">~_~</button>
                     </div>
                 </div>
 
@@ -114,13 +115,13 @@ $pageTitle = 'Sign In — Nyathi Shop';
                 </a>
             </div>
 
-            <p class="auth-footer">By signing in, you agree to our <a href="/pages/terms">Terms</a> and <a
-                    href="/pages/privacy">Privacy Policy</a>.</p>
+            <p class="auth-footer">By signing in, you agree to our <a href="/user/terms">Terms</a> and <a
+                    href="/user/privacy">Privacy Policy</a>.</p>
         </div>
 
     </div>
 
-    <script src="/assets/js/main.js"></script>
+    <script src="/js/app.js"></script>
 </body>
 
 </html>

@@ -82,6 +82,28 @@
                 );
             }
         });
+
+        if (window.screen.width <= 900) {
+            slider.addEventListener("touchend", () => {
+                const category = get(`${window.location.hostname}-category`);
+                if (category == "all") {
+                    ajax(`/user/shop/filter/price/${price}`, (data) => {
+                        updatePagination(data);
+                        delegatePaginationListener();
+                        updateProducts(data);
+                    });
+                } else {
+                    ajax(
+                        `/user/shop/category/${category}/filter/price/${price}`,
+                        (data) => {
+                            updatePagination(data);
+                            delegatePaginationListener();
+                            updateProducts(data);
+                        }
+                    );
+                }
+            });
+        }
     }
 
     function initCurrentPage() {

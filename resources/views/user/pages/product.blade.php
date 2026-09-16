@@ -22,13 +22,14 @@
             <!-- ===== GALLERY ===== -->
             <div class="product-gallery">
                 <div class="gallery-main">
-                    <img title="{{ e($product->product_name) }}" src="/assets/images/{{ e($product->product_image) }}" alt="{{ e($product->product_name) }}"
-                        id="main-image">
+                    <img title="{{ e($product->product_name) }}" src="/assets/images/{{ e($product->product_image) }}"
+                        alt="{{ e($product->product_name) }}" id="main-image">
                 </div>
                 <div class="gallery-thumbs">
                     @for ($i = 0; $i < count(explode(",", $product->product_images)); $i++)
                         <div class="gallery-thumb {{ $i === 0 ? 'active' : '' }}">
-                            <img title="{{ e($product->product_name) }}" src="/assets/images/{{ e(explode(",", $product->product_images)[$i]) }}"
+                            <img title="{{ e($product->product_name) }}"
+                                src="/assets/images/{{ e(explode(",", $product->product_images)[$i]) }}"
                                 alt="View {{ $i + 1 }}">
                         </div>
                     @endfor
@@ -65,7 +66,7 @@
 
                 <!-- Size Selector -->
                 <div class="variant-group">
-                    <div class="variant-label">Select Size <a href="/size-guide"
+                    <div class="variant-label">Select Size <a href="/user/size-guide"
                             style="color:var(--gold);font-size:0.75rem;margin-left:1rem">Size Guide →</a></div>
                     <div class="size-options">
                         @foreach (explode(",", $product->product_sizes) as $size)
@@ -80,7 +81,7 @@
                 </div>
 
                 <!-- Colour -->
-                <div class="variant-group">
+                {{-- <div class="variant-group">
                     <div class="variant-label">Colour</div>
                     <div class="color-options">
                         @foreach (['Camel' => '#8b6f47', 'Black' => '#1a1a1a', 'Ivory' => '#f5f0e8'] as $color)
@@ -88,7 +89,7 @@
                                 title="{{ e($color) }}"></div>
                         @endforeach
                     </div>
-                </div>
+                </div> --}}
 
                 <!-- Quantity + Add to Cart -->
                 <div class="qty-add">
@@ -130,12 +131,12 @@
 
                 <!-- Product Meta -->
                 <div class="product-meta">
-                    <div class="meta-row"><span class="label">SKU:</span> <span class="value">{{
-    /*e($product['sku'])*/ "" }}</span></div>
+                    {{-- <div class="meta-row"><span class="label">SKU:</span> <span class="value">{{
+    /*e($product['sku'])*/ "" }}</span></div> --}}
                     <div class="meta-row"><span class="label">Category:</span> <span class="value">{{
     e($product->product_category) }}</span></div>
                     <div class="meta-row">
-                        <span class="label">Tags:</span>
+                        {{-- <span class="label">Tags:</span> --}}
                         {{-- <span class="value">{{ implode(', ', array_map('e', $product['tags'])) }}</span> --}}
                     </div>
                 </div>

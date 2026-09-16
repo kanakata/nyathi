@@ -13,7 +13,7 @@
 
 <section class="section">
     <div class="container">
-        <div style="display:grid;grid-template-columns:1fr 1.4fr;gap:5rem;align-items:start">
+        <div class="contact">
 
             <!-- Info -->
             <div>
@@ -61,7 +61,7 @@
             </div>
 
             <!-- Form -->
-            <div class="card" style="padding:2.5rem">
+            <div class="card">
                 @if (!empty($_GET['sent']))
                     <div class="alert alert-success">Your message has been received. We'll be in touch soon!</div>
                 @endif

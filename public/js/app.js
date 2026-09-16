@@ -18,7 +18,13 @@
             document.body.setAttribute("style", "overflow: scroll");
         }, 3000);
     }
-
+    paginationHandler();
+    function paginationHandler() {
+        const pagination = $$(".pagination .page");
+        const pagination_count = pagination.length / 2;
+        if (pagination_count > 5) {
+        }
+    }
     (function initHeader() {
         const header = $(".site-header");
         if (!header) return;
@@ -90,6 +96,19 @@
             }
         }
     })();
+
+    const show_password = $("#show-password") ?? null;
+    if (show_password) {
+        $("#show-password").addEventListener("click", () => {
+            if ($("#password").getAttribute("type") == "password") {
+                $("#password").setAttribute("type", "text");
+                $("#show-password").textContent = "^_^";
+            } else {
+                $("#password").setAttribute("type", "password");
+                $("#show-password").textContent = "~_~";
+            }
+        });
+    }
 
     const Toast = {
         container: null,
@@ -587,3 +606,5 @@
         initScrollReveal();
     });
 })();
+
+// window.

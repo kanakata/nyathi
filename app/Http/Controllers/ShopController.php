@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Crypt;
 
 class ShopController extends Controller
 {
-    private int $perPage = 6;
+    private int $perPage = 30;
 
     private function avail_products(callable $callback, int $page, string $category = "", $paginate = false, int $price = 0)
     {

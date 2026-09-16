@@ -95,7 +95,7 @@
         </div>
 
         <p style="text-align:center;margin-top:2rem;font-size:0.85rem">
-            Still unsure? <a href="/contact" style="color:var(--gold)">Contact our stylists</a> for personalized advice.
+            Still unsure? <a href="/user/contact" style="color:var(--gold)">Contact our stylists</a> for personalized advice.
         </p>
     </div>
 </section>

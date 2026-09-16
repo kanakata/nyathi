@@ -12,7 +12,7 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Jost:wght@300;400;500;600&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/app.css">
 </head>
 
 <body>
@@ -38,7 +38,7 @@
                 <a href="/" class="logo">Nyathi<span>.</span></a>
             </div>
             <h2 class="auth-title">Create Account</h2>
-            <p class="auth-subtitle">Already have one? <a href="/login" style="color:var(--gold)">Sign in</a></p>
+            <p class="auth-subtitle">Already have one? <a href="/user/login" style="color:var(--gold)">Sign in</a></p>
 
             @if (!empty($_GET['error']))
                 <div class="alert alert-error">{{ e($_GET['error']) }}</div>
@@ -69,8 +69,7 @@
                     <div style="position:relative">
                         <input type="password" id="password" name="password" class="form-control" minlength="8"
                             required>
-                        <button type="button" data-toggle-password="password"
-                            style="position:absolute;right:1rem;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:0.85rem">👁</button>
+                        <button id="show-password" type="button" data-toggle-password="password">~_~</button>
                     </div>
                     <small style="color:var(--text-muted);font-size:0.72rem;display:block;margin-top:0.3rem">At least 8
                         characters</small>
@@ -91,13 +90,13 @@
                 <button type="submit" class="btn btn-primary btn-block">Create Account</button>
 
                 <p class="auth-footer" style="margin-top:1rem">By creating an account, you agree to our <a
-                        href="/terms">Terms of Service</a> and <a href="/privacy">Privacy Policy</a>.</p>
+                        href="/user/terms">Terms of Service</a> and <a href="/user/privacy">Privacy Policy</a>.</p>
             </form>
         </div>
 
     </div>
 
-    <script src="/js/main.js"></script>
+    <script src="/js/app.js"></script>
     <script>
         // Password match validation
         document.querySelector('form')?.addEventListener('submit', e => {

@@ -45,10 +45,10 @@
           <button class="btn btn-ghost btn-sm" id="apply-coupon">Apply</button>
         </div>
 
-        <a href="/checkout" class="btn btn-primary btn-block" style="margin-bottom:0.75rem">
+        <a href="/user/checkout" class="btn btn-primary btn-block" style="margin-bottom:0.75rem">
           Proceed to Checkout
         </a>
-        <a href="/shop" class="btn btn-ghost btn-block">Continue Shopping</a>
+        <a href="/user/shop" class="btn btn-ghost btn-block">Continue Shopping</a>
 
         <div style="margin-top:1.5rem;text-align:center">
           <p style="font-size:0.72rem;margin-bottom:0.5rem">Secure payment powered by</p>

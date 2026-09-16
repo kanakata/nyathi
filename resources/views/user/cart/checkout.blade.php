@@ -12,13 +12,10 @@
 
 <section class="section">
     <div class="container">
-        <form method="POST" action="/process-order" id="checkout-form">
+        <form method="POST" action="/product/order" id="checkout-form">
+            @csrf
             <div class="checkout-layout">
-
-                <!-- ===== LEFT: FORM ===== -->
                 <div>
-
-                    <!-- Contact Info -->
                     <div class="checkout-section">
                         <div class="checkout-section-title">Contact Information</div>
                         <div class="form-row">
@@ -41,7 +38,6 @@
                         </div>
                     </div>
 
-                    <!-- Shipping Address -->
                     <div class="checkout-section">
                         <div class="checkout-section-title">Shipping Address</div>
                         <div class="form-group">
@@ -73,7 +69,6 @@
                         </div>
                     </div>
 
-                    <!-- Shipping Method -->
                     <div class="checkout-section">
                         <div class="checkout-section-title">Shipping Method</div>
                         <div class="payment-methods">
@@ -95,7 +90,6 @@
                         </div>
                     </div>
 
-                    <!-- Payment Method -->
                     <div class="checkout-section">
                         <div class="checkout-section-title">Payment Method</div>
                         <div class="payment-methods">
