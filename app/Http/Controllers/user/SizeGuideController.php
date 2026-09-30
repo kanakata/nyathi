@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\User;
 
 use Illuminate\Http\Request;
 
-class SizeGuideController extends Controller
+class SizeGuideController 
 {
     public function index()
     {

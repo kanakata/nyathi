@@ -51,13 +51,21 @@ class ProductFactory extends Factory
             $category . ".jpg",
             $category . ".jpg",
         ];
+
+        $colors = [
+            "red",
+            "blue",
+            "orange",
+            "green",
+        ];
+
         return [
             "product_name" => Str::random(10),
             "product_description" => fake()->sentence(7),
             "product_category" => $category,
             "product_brand" => fake()->randomElement($brand),
             "product_cupon" => strtoupper(Str::random(5)),
-            "product_color" => fake()->colorName(),
+            "product_color" => implode(",", $colors),
             "product_price" => fake()->numberBetween(100, 10000),
             "product_count" => fake()->numberBetween(1, 200),
             "product_discount" => fake()->numberBetween(1, 100),

@@ -1,26 +1,27 @@
 <?php
 
-use App\Http\Controllers\AboutController;
-use App\Http\Controllers\AccountController;
-use App\Http\Controllers\CareersController;
-use App\Http\Controllers\CartController;
-use App\Http\Controllers\CategoriesController;
-use App\Http\Controllers\CheckoutController;
-use App\Http\Controllers\ContactController;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\FaqController;
-use App\Http\Controllers\ForgotPasswordController;
-use App\Http\Controllers\LandingController;
-use App\Http\Controllers\LoginController;
-use App\Http\Controllers\PressController;
-use App\Http\Controllers\PrivacyController;
-use App\Http\Controllers\ProductController;
-use App\Http\Controllers\RegisterController;
-use App\Http\Controllers\ShippingController;
-use App\Http\Controllers\ShopController;
-use App\Http\Controllers\SizeGuideController;
-use App\Http\Controllers\TermsController;
-use App\Http\Controllers\WishlistController;
+use App\Http\Controllers\admin\ProductsController;
+use App\Http\Controllers\User\AboutController;
+use App\Http\Controllers\User\AccountController;
+use App\Http\Controllers\User\CareersController;
+use App\Http\Controllers\User\CartController;
+use App\Http\Controllers\User\CategoriesController;
+use App\Http\Controllers\User\CheckoutController;
+use App\Http\Controllers\User\ContactController;
+use App\Http\Controllers\User\DashboardController;
+use App\Http\Controllers\User\FaqController;
+use App\Http\Controllers\User\ForgotPasswordController;
+use App\Http\Controllers\User\LandingController;
+use App\Http\Controllers\User\LoginController;
+use App\Http\Controllers\User\PressController;
+use App\Http\Controllers\User\PrivacyController;
+use App\Http\Controllers\User\ProductController;
+use App\Http\Controllers\User\RegisterController;
+use App\Http\Controllers\User\ShippingController;
+use App\Http\Controllers\User\ShopController;
+use App\Http\Controllers\User\SizeGuideController;
+use App\Http\Controllers\User\TermsController;
+use App\Http\Controllers\User\WishlistController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [LandingController::class, 'index'])->name('landing');
@@ -43,6 +44,7 @@ Route::prefix('user')->group(function () {
     Route::get('/press', [PressController::class, 'index']);
     Route::get('/size-guide', [SizeGuideController::class, 'index']);
     Route::get('/categories', [CategoriesController::class, 'index']);
+    Route::get('/product/{id}', [ProductController::class, 'pass_product']);
     Route::prefix('login')->group(function () {
         Route::get('', [LoginController::class, 'index']);
     });
@@ -50,7 +52,7 @@ Route::prefix('user')->group(function () {
 
 Route::controller(ProductController::class)->group(function () {
     Route::prefix('product')->group(function () {
-        Route::get('/product/{id}', 'pass_product');
+        Route::post('/order', 'process_order');
     });
 });
 
@@ -83,9 +85,7 @@ Route::prefix('admin')->group(function () {
     Route::get('/customers', function () {
         return view('admin.customers');
     });
-    Route::get('/products', function () {
-        return view('admin.products');
-    });
+    Route::get('/products', [ProductsController::class, 'pass_products']);
     Route::get('/orders', function () {
         return view('admin.orders');
     });

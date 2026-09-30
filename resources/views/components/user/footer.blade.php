@@ -4,7 +4,7 @@
         <div class="footer-grid">
             <div class="footer-brand">
                 <a href="/" class="logo">Nyathi<span>.</span></a>
-                <p>Curated collections of premium fashion and lifestyle products. Elevate your everyday.</p>
+                <p>Curated collections of premium sports products. Elevate your game.</p>
                 <div class="social-links">
                     <a href="#" class="social-link" aria-label="Instagram">
                         <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8"
@@ -33,6 +33,12 @@
                                 d="M12 2C6.48 2 2 6.48 2 12c0 4.24 2.65 7.86 6.39 9.29-.09-.78-.17-1.98.04-2.83.18-.76 1.24-5.27 1.24-5.27s-.32-.63-.32-1.57c0-1.47.85-2.57 1.92-2.57.9 0 1.34.68 1.34 1.49 0 .91-.58 2.27-.88 3.53-.25 1.05.52 1.91 1.56 1.91 1.87 0 3.12-2.4 3.12-5.24 0-2.16-1.46-3.77-4.1-3.77-2.99 0-4.85 2.23-4.85 4.72 0 .86.25 1.46.63 1.93.18.21.2.3.13.54l-.23.89c-.08.29-.25.36-.58.21-1.65-.76-2.42-2.82-2.42-5.12 0-3.79 3.2-8.33 9.56-8.33 5.1 0 8.46 3.7 8.46 7.67 0 5.25-2.92 9.18-7.19 9.18-1.43 0-2.78-.77-3.25-1.64l-.88 3.35c-.32 1.2-1.16 2.7-1.73 3.62.65.2 1.34.31 2.05.31 5.52 0 10-4.48 10-10S17.52 2 12 2z" />
                         </svg>
                     </a>
+                    <a href="#" class="social-link" aria-label="whatsapp">
+                        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8"
+                            viewBox="-1 0 24 24">
+                            <text x="12" y="20" font-size="40" text-anchor="middle">w</text>
+                        </svg>
+                    </a>
                 </div>
             </div>
 
@@ -40,10 +46,7 @@
                 <h5>Shop</h5>
                 <ul>
                     <li><a href="/user/shop">All Products</a></li>
-                    <li><a href="/user/shop/new">New Arrivals</a></li>
-                    <li><a href="/user/shop/sale">Sale</a></li>
                     <li><a href="/user/categories">Categories</a></li>
-                    <li><a href="/user/shop/bestsellers">Best Sellers</a></li>
                 </ul>
             </div>
 

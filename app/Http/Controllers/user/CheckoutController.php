@@ -1,18 +1,18 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\User;
 
 use App\Models\CheckoutModel;
 use Illuminate\Http\Request;
 
-class CheckoutController extends Controller
+class CheckoutController 
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $counties = ["NB" => "Nairobi", "MB" => "Mombasa", "NK" => "Nakuru", "LD" => "Eldoret", "ND" => "Nandi", "BG" => "Bungoma", "KS" => "Kisumu", "VH" => "Vihiga", "KK" => "Kakamega"];
+        $counties = ["NB" => "Nairobi", "MB" => "Mombasa", "NK" => "Nakuru", "UG" => "UasinGishu", "ND" => "Nandi", "BG" => "Bungoma", "KS" => "Kisumu", "VH" => "Vihiga", "KK" => "Kakamega"];
         return view("user.cart.checkout", ["counties" => $counties]);
     }
 

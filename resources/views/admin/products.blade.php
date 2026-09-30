@@ -2,19 +2,11 @@
 /**
  * LUXE SHOP — Admin: Product List
  */
-// if (!isAdmin()) redirect('/auth/login.php');
+// if (!isAdmin()) redirect('/auth/login');
 
 $adminTitle = 'Products';
 $adminSection = 'products';
 
-// Backend: $products = $db->getAllProducts(...);
-$products = [
-    ['id' => 1, 'name' => 'Cashmere Blend Coat', 'category' => 'Outerwear', 'price' => 389, 'stock' => 8, 'status' => 'active', 'image' => '/assets/images/products/p1.jpg'],
-    ['id' => 2, 'name' => 'Silk Evening Gown', 'category' => 'Dresses', 'price' => 290, 'stock' => 15, 'status' => 'active', 'image' => '/assets/images/products/p2.jpg'],
-    ['id' => 3, 'name' => 'Leather Tote Bag', 'category' => 'Accessories', 'price' => 445, 'stock' => 3, 'status' => 'active', 'image' => '/assets/images/products/p3.jpg'],
-    ['id' => 4, 'name' => 'Linen Trousers', 'category' => 'Bottoms', 'price' => 175, 'stock' => 22, 'status' => 'active', 'image' => '/assets/images/products/p4.jpg'],
-    ['id' => 5, 'name' => 'Wool Blazer', 'category' => 'Outerwear', 'price' => 280, 'stock' => 0, 'status' => 'draft', 'image' => '/assets/images/products/p1.jpg'],
-];
 
 
 ?>
@@ -38,7 +30,7 @@ $products = [
         </select>
         <button type="submit" class="btn btn-ghost btn-sm">Filter</button>
     </form>
-    <a href="/admin/pages/product-form.php" class="btn btn-primary btn-sm">+ Add Product</a>
+    <a href="/admin/pages/product-form" class="btn btn-primary btn-sm">+ Add Product</a>
 </div>
 
 <!-- Table -->
@@ -56,60 +48,56 @@ $products = [
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($products as $p): ?>
-            <tr>
-                <td><input type="checkbox" class="row-check" value="<?= $p['id'] ?>"></td>
-                <td>
-                    <div style="display:flex;align-items:center;gap:0.75rem">
-                        <img src="<?= e($p['image']) ?>" alt=""
-                            style="width:40px;height:50px;object-fit:cover;border-radius:2px;background:var(--surface-2)">
-                        <div>
-                            <div style="font-weight:500;color:var(--text)"><?= e($p['name']) ?></div>
-                            <div style="font-size:0.72rem;color:var(--text-muted)">ID: <?= $p['id'] ?></div>
+            @foreach ($products as $product)
+                <tr>
+                    <td><input type="checkbox" class="row-check" value="{{ $product->id }}"></td>
+                    <td>
+                        <div style="display:flex;align-items:center;gap:0.75rem">
+                            <img src="{{ $product->product_image }}" alt=""
+                                style="width:40px;height:50px;object-fit:cover;border-radius:2px;background:var(--surface-2)">
+                            <div>
+                                <div style="font-weight:500;color:var(--text)">{{ $product->product_name }}</div>
+                                <div style="font-size:0.72rem;color:var(--text-muted)">ID: {{ $product->id }}</div>
+                            </div>
                         </div>
-                    </div>
-                </td>
-                <td><?= e($p['category']) ?></td>
-                <td><?= price($p['price']) ?></td>
-                <td>
-                    <?php    if ($p['stock'] === 0): ?>
-                    <span class="stock-badge stock-out">Out of Stock</span>
-                    <?php    elseif ($p['stock'] <= 5): ?>
-                    <span class="stock-badge stock-low"><?= $p['stock'] ?> left</span>
-                    <?php    else: ?>
-                    <span class="stock-badge stock-in"><?= $p['stock'] ?> in stock</span>
-                    <?php    endif; ?>
-                </td>
-                <td>
-                    <span class="order-status <?= $p['status'] === 'active' ? 'status-delivered' : 'status-processing' ?>">
-                        <?= ucfirst(e($p['status'])) ?>
-                    </span>
-                </td>
-                <td>
-                    <div style="display:flex;gap:0.4rem">
-                        <a href="/admin/pages/product-form.php?id=<?= $p['id'] ?>" class="btn btn-ghost btn-sm">Edit</a>
-                        <a href="/pages/product.php?slug=<?= urlencode(strtolower(str_replace(' ', '-', $p['name']))) ?>"
-                            class="btn btn-ghost btn-sm" target="_blank">View</a>
-                        <button class="btn btn-danger btn-sm"
-                            data-confirm="Delete '<?= e($p['name']) ?>'? This cannot be undone."
-                            onclick="document.location='/admin/pages/product-delete.php?id=<?= $p['id'] ?>'">Del</button>
-                    </div>
-                </td>
-            </tr>
-            <?php endforeach; ?>
+                    </td>
+                    <td>{{ $product->product_category }}</td>
+                    <td>{{ $product->product_price }}</td>
+                    <td>
+                        @if ($product->product_count == 0)
+                            <span class="stock-badge stock-out">Out of Stock</span>
+                        @elseif ($product->product_count <= 5)
+                            <span class="stock-badge stock-low">{{ $product->product_count }} left</span>
+                        @else
+                            <span class="stock-badge stock-in">{{ $product->product_count }} in stock</span>
+                        @endif
+                    </td>
+                    <td>
+                        <span class="order-status <?= 'status' === 'active' ? 'status-delivered' : 'status-processing' ?>">
+                            {{-- {{ ucfirst(e($p['status'])) }} --}}
+                        </span>
+                    </td>
+                    <td>
+                        <div style="display:flex;gap:0.4rem">
+                            <a href="/admin/pages/product-form?id={{ $product->id }}" class="btn btn-ghost btn-sm">Edit</a>
+                            <a href="/pages/product?slug={{ $product->product_name }}" class="btn btn-ghost btn-sm"
+                                target="_blank">View</a>
+                            <button class="btn btn-danger btn-sm"
+                                data-confirm="Delete '{{ $product->product_name }}'? This cannot be undone."
+                                onclick="document.location='/admin/pages/product-delete?id={{ $product->id }}'">Del</button>
+                        </div>
+                    </td>
+                </tr>
+            @endforeach
         </tbody>
     </table>
 </div>
 
 <!-- Pagination -->
 <div style="display:flex;justify-content:space-between;align-items:center;margin-top:1.5rem">
-    <p style="font-size:0.8rem;color:var(--text-muted)">Showing <?= count($products) ?> of <?= count($products) ?>
+    <p style="font-size:0.8rem;color:var(--text-muted)">Showing {{ count($products) }} of {{  count($products) }}
         products</p>
-    <nav class="pagination">
-        <a href="#" class="page-btn active">1</a>
-        <a href="#" class="page-btn">2</a>
-        <a href="#" class="page-btn">›</a>
-    </nav>
+    <x-utils.pagination></x-utils.pagination>
 </div>
 
 <x-admin.footer></x-admin.footer>

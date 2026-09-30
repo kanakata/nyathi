@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\User;
 
 use App\Models\ProductsModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 
-class ShopController extends Controller
+class ShopController
 {
-    private int $perPage = 30;
+    private int $perPage = 9;
 
     private function avail_products(callable $callback, int $page, string $category = "", $paginate = false, int $price = 0)
     {

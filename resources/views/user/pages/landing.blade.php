@@ -117,49 +117,27 @@
     </div>
 </section>
 
-<!-- ========== TESTIMONIALS ========== -->
-<section class="testimonials section">
+<!-- ==========  ========== -->
+<section class="events section">
     <div class="container">
         <div class="section-header">
-            <h2>What Our Clients Say</h2>
+            <h2>What's up in the rugby scene</h2>
             <div class="divider"></div>
         </div>
-        <div class="testimonials-grid">
-            <div class="testimonial-card">
-                <div class="testimonial-stars">★★★★★</div>
-                <p class="testimonial-text">The SA fankit I ordered is absolutely stunning. The quality far exceeded
+        <div class="events-grid">
+            <div class="event-card">
+                <p class="event-text">The SA fankit I ordered is absolutely stunning. The quality far exceeded
                     my expectations — worth every penny.</p>
-                <div class="testimonial-author">
-                    <div class="author-avatar" style="background:var(--surface-2)"></div>
-                    <div>
-                        <div class="author-name">Amara Osei</div>
-                        <div class="author-title">Verified Buyer · Nairobi</div>
-                    </div>
-                </div>
+
             </div>
-            <div class="testimonial-card">
-                <div class="testimonial-stars">★★★★★</div>
-                <p class="testimonial-text">Fast shipping, beautiful packaging, and the boots fits like it was made for
+            <div class="event-card">
+                <p class="event-text">Fast shipping, beautiful packaging, and the boots fits like it was made for
                     me. I've already recommended Luxe to all my friends.</p>
-                <div class="testimonial-author">
-                    <div class="author-avatar" style="background:var(--surface-2)"></div>
-                    <div>
-                        <div class="author-name">Josh Hadi</div>
-                        <div class="author-title">Verified Buyer · Mombasa</div>
-                    </div>
-                </div>
+
             </div>
-            <div class="testimonial-card">
-                <div class="testimonial-stars">★★★★★</div>
-                <p class="testimonial-text">The return process was seamless and the customer service team was incredibly
+            <div class="event-card">
+                <p class="event-text">The return process was seamless and the customer service team was incredibly
                     helpful. This is my new go-to store.</p>
-                <div class="testimonial-author">
-                    <div class="author-avatar" style="background:var(--surface-2)"></div>
-                    <div>
-                        <div class="author-name">James Kariuki</div>
-                        <div class="author-title">Verified Buyer · Nakuru</div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>

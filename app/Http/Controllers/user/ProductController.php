@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\User;
 
 use App\Models\ProductsModel;
 use Exception;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 
-class ProductController extends Controller
+class ProductController
 {
     public function pass_product(string $id)
     {
@@ -23,5 +24,7 @@ class ProductController extends Controller
         }
     }
 
-    public function process_order() {}
+    public function process_order(Request $request){
+        dd($request->input());
+    }
 }

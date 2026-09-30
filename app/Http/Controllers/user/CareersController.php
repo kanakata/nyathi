@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
-
+namespace App\Http\Controllers\User;
 use Illuminate\Http\Request;
 
-class CareersController extends Controller
+class CareersController 
 {
     public function index()
     {

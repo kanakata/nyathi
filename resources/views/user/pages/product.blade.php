@@ -6,9 +6,10 @@
         <nav class="breadcrumb">
             <a href="/">Home</a>
             <span class="breadcrumb-sep">›</span>
-            <a href="/shop/category/{{ urlencode($product->product_category) }}">{{ e($product->product_category) }}</a>
+            <a
+                href="/user/shop/category/{{ urlencode($product->product_category) }}">{{ e($product->product_category) }}</a>
             <span class="breadcrumb-sep">›</span>
-            <a href="/shop">Shop</a>
+            <a href="/user/shop">Shop</a>
             <span class="breadcrumb-sep">›</span>
             <span>{{ e($product->product_name) }}</span>
         </nav>
@@ -42,10 +43,10 @@
                 <h1 class="product-detail-title">Name --- {{ e($product->product_name) }}</h1>
 
                 <!-- Rating -->
-                <div class="product-detail-rating">
+                {{-- <div class="product-detail-rating">
                     <span class="stars">{{ $stars }}</span>
                     <a href="#reviews" class="rating-link">{{ $product->product_reviews }} reviews</a>
-                </div>
+                </div> --}}
 
                 <!-- Price -->
                 <div class="product-detail-price">
@@ -71,25 +72,20 @@
                     <div class="size-options">
                         @foreach (explode(",", $product->product_sizes) as $size)
                             <button class="size-btn">{{ e($size) }}</button>
-                            {{-- <button
-                                class="size-btn {{ in_array($size, $product['unavailable_sizes']) ? 'unavailable' : '' }}"
-                                data-size="{{ e($size) }}" {{ in_array($size, $product['unavailable_sizes']) ? 'disabled'
-                                : '' }}>{{ e($size) }}
-                            </button> --}}
                         @endforeach
                     </div>
                 </div>
 
                 <!-- Colour -->
-                {{-- <div class="variant-group">
+                <div class="variant-group">
                     <div class="variant-label">Colour</div>
                     <div class="color-options">
-                        @foreach (['Camel' => '#8b6f47', 'Black' => '#1a1a1a', 'Ivory' => '#f5f0e8'] as $color)
-                            <div class="color-swatch" style="background:{{ $swatchColors[$color] ?? '#ccc' }}"
+                        @foreach (explode(",", $product->product_color) as $color)
+                            <div class="color-swatch" style="background:{{ $color ?? '#ccc' }}"
                                 title="{{ e($color) }}"></div>
                         @endforeach
                     </div>
-                </div> --}}
+                </div>
 
                 <!-- Quantity + Add to Cart -->
                 <div class="qty-add">
@@ -100,13 +96,13 @@
                     </div>
                     <button class="btn btn-primary" style="flex:1" data-action="add-to-cart"
                         data-id="{{ e($product->id) }}" data-name="{{ e($product->product_name) }}"
-                        data-price="{{ e($product->product_price) }}" data-image="{{ e($product->product_price) }}">Add
-                        to
-                        Cart</button>
+                        data-price="{{ e($product->product_price) }}"
+                        data-image="/assets/images/{{ e($product->product_image) }}">Add
+                        to Cart</button>
                     <button class="btn btn-ghost" data-action="toggle-wishlist" data-id="{{ e($product->id) }}"
                         data-name="{{ e($product->product_name) }}" data-price="{{ e($product->product_price) }}"
-                        data-image="{{ e($product->product_price) }}" style="width:52px;height:52px;padding:0"
-                        aria-label="Add to wishlist">♡</button>
+                        data-image="/assets/images/{{ e($product->product_image) }}"
+                        style="width:52px;height:52px;padding:0" aria-label="Add to wishlist">♡</button>
                 </div>
 
                 <a href="/user/checkout" class="btn btn-outline btn-block">Buy It Now</a>
@@ -117,7 +113,7 @@
                         <div class="feature-icon" style="font-size:1rem">✦</div>
                         <div class="feature-text">
                             <h4>Free Shipping</h4>
-                            <p>On orders over $150</p>
+                            <p>On orders over {{ number_format(13000) }}</p>
                         </div>
                     </div>
                     <div class="feature-item" style="padding:1.25rem">
@@ -126,18 +122,6 @@
                             <h4>Free Returns</h4>
                             <p>Within 30 days</p>
                         </div>
-                    </div>
-                </div>
-
-                <!-- Product Meta -->
-                <div class="product-meta">
-                    {{-- <div class="meta-row"><span class="label">SKU:</span> <span class="value">{{
-    /*e($product['sku'])*/ "" }}</span></div> --}}
-                    <div class="meta-row"><span class="label">Category:</span> <span class="value">{{
-    e($product->product_category) }}</span></div>
-                    <div class="meta-row">
-                        {{-- <span class="label">Tags:</span> --}}
-                        {{-- <span class="value">{{ implode(', ', array_map('e', $product['tags'])) }}</span> --}}
                     </div>
                 </div>
 
@@ -158,14 +142,14 @@
         </div>
 
         <!-- ===== REVIEWS SECTION ===== -->
-        <div id="reviews" style="margin-top:5rem;padding-top:3rem;border-top:1px solid var(--border)">
+        {{-- <div id="reviews" style="margin-top:5rem;padding-top:3rem;border-top:1px solid var(--border)">
             <div class="section-header" style="text-align:left">
                 <h2>Customer Reviews</h2>
                 <div class="divider left"></div>
             </div>
             <!-- Backend: render $reviews here -->
             <p class="text-muted">Reviews are loaded dynamically from your backend.</p>
-        </div>
+        </div> --}}
 
     </div>
 </section>

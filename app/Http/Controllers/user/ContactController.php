@@ -1,18 +1,18 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\User;
 
-use App\Models\OrderModel;
+use App\Models\ContactModel;
 use Illuminate\Http\Request;
 
-class OrderDetailController extends Controller
+class ContactController
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view("user.pages.order-detail");
+        return view("user.pages.contact");
     }
 
     /**
@@ -34,7 +34,7 @@ class OrderDetailController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(OrderModel $orderModel)
+    public function show(ContactModel $contactModel)
     {
         //
     }
@@ -42,7 +42,7 @@ class OrderDetailController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(OrderModel $orderModel)
+    public function edit(ContactModel $contactModel)
     {
         //
     }
@@ -50,7 +50,7 @@ class OrderDetailController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, OrderModel $orderModel)
+    public function update(Request $request, ContactModel $contactModel)
     {
         //
     }
@@ -58,7 +58,7 @@ class OrderDetailController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(OrderModel $orderModel)
+    public function destroy(ContactModel $contactModel)
     {
         //
     }

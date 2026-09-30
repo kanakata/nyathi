@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\User;
 
 use App\Models\DashboardModel;
 use Illuminate\Http\Request;
 
-class DashboardController extends Controller
+class DashboardController 
 {
     /**
      * Display a listing of the resource.

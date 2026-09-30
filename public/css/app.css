@@ -927,22 +927,22 @@ select.form-control {
 }
 
 /* ============================================================
-   TESTIMONIALS
+   eventS
    ============================================================ */
-.testimonials {
+.events {
     background: var(--surface);
 }
-.testimonials-grid {
+.events-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 1px;
 }
-.testimonial-card {
+.event-card {
     background: var(--bg);
     padding: 2.5rem;
     position: relative;
 }
-.testimonial-card::before {
+.event-card::before {
     content: '"';
     font-family: var(--font-display);
     font-size: 6rem;
@@ -953,12 +953,12 @@ select.form-control {
     left: 1.5rem;
     line-height: 1;
 }
-.testimonial-stars {
+.event-stars {
     color: var(--gold);
     font-size: 0.85rem;
     margin-bottom: 1rem;
 }
-.testimonial-text {
+.event-text {
     font-family: var(--font-display);
     font-style: italic;
     font-size: 1.05rem;
@@ -966,7 +966,7 @@ select.form-control {
     line-height: 1.7;
     margin-bottom: 1.5rem;
 }
-.testimonial-author {
+.event-author {
     display: flex;
     align-items: center;
     gap: 0.85rem;
@@ -2206,7 +2206,7 @@ select.form-control {
     .features-grid {
         grid-template-columns: repeat(2, 1fr);
     }
-    .testimonials-grid {
+    .events-grid {
         grid-template-columns: 1fr 1fr;
     }
     .footer-grid {
@@ -2268,7 +2268,7 @@ select.form-control {
     .features-grid {
         grid-template-columns: 1fr;
     }
-    .testimonials-grid {
+    .events-grid {
         grid-template-columns: 1fr;
     }
     .form-row {

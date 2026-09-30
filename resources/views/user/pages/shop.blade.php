@@ -104,8 +104,8 @@
 
                 <x-user.shop_toolbar :product-cumulative="$product_cumulative" :total="$total"></x-user.shop_toolbar>
 
-                <x-user.pagination class="pagination top" :totalPages="$total_pages"
-                    :currentPage="$current_page"></x-user.pagination>
+                <x-utils.pagination class="pagination top" :totalPages="$total_pages"
+                    :currentPage="$current_page"></x-utils.pagination>
 
                 <!-- Products Grid -->
                 <div class="products-grid">
@@ -116,12 +116,42 @@
 
                 <x-user.shop_toolbar :product-cumulative="$product_cumulative" :total="$total"></x-user.shop_toolbar>
 
-                <x-user.pagination class="pagination bottom" :totalPages="$total_pages"
-                    :currentPage="$current_page"></x-user.pagination>
+                <x-utils.pagination class="pagination bottom" :totalPages="$total_pages"
+                    :currentPage="$current_page"></x-utils.pagination>
 
             </div>
         </div>
     </div>
 </section>
+
+<template id="product-template">
+    <div class="product-card">
+        <div class="product-image-wrap">
+            <a class="product-link">
+                <img src="" alt="" />
+            </a>
+            <div class="product-badges">
+                <span class="product-badge"></span>
+            </div>
+            <div class="product-actions-hover">
+                <button class="btn-add-cart"></button>
+                <button class="btn-wishlist">♡</button>
+            </div>
+        </div>
+        <div class="product-info">
+            <div class="product-category"></div>
+            <a class="product-link">
+                <h3 class="product-name"></h3>
+            </a>
+            <div class="product-rating">
+                <span class="stars" title="2 out of 5">★★☆☆☆</span>
+            </div>
+            <div class="product-price">
+                <span class="price-current"></span>
+                <span class="price-old"></span>
+            </div>
+        </div>
+    </div>
+</template>
 
 <x-user.footer></x-user.footer>

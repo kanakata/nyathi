@@ -5,7 +5,7 @@
         (el, ev, fn) => el && el.addEventListener(ev, fn),
     ];
 
-    function announcement() {
+    (function () {
         const announcement_bar = $(".announcement-bar");
         announcement_bar.addEventListener("click", () => {
             announcement_bar.remove();
@@ -17,31 +17,101 @@
             announcement_bar.removeEventListener("click", () => {});
             document.body.setAttribute("style", "overflow: scroll");
         }, 3000);
-    }
-    paginationHandler();
-    function paginationHandler() {
-        const pagination = $$(".pagination .page");
-        const pagination_count = pagination.length / 2;
-        if (pagination_count > 5) {
-        }
-    }
-    (function initHeader() {
-        const header = $(".site-header");
-        if (!header) return;
-        window.addEventListener(
-            "scroll",
-            () => {
-                header.classList.toggle("scrolled", window.scrollY > 60);
-            }
-            // { passive: true }
-        );
     })();
 
-    (function initMobileMenu() {
+    function pagination_handler() {
+        // Assuming $$ is document.querySelectorAll or a similar helper
+        const paginations = Array.from($$(".pagination .page"));
+
+        // Total unique pages (accounting for top/bottom duplicate controls if length / 2 is used)
+        const totalPages = Math.ceil(paginations.length / 2);
+
+        // Only truncate if there are more than 5 total pages
+        if (totalPages > 5) {
+            // Determine current active page index (defaults to 1 if none found)
+            const activePageEl = document.querySelector(
+                ".pagination .page.active"
+            );
+            const currentPage = activePageEl
+                ? parseInt(
+                      activePageEl.dataset.page || activePageEl.textContent,
+                      10
+                  )
+                : 1;
+
+            paginations.forEach((pageEl) => {
+                const pageNum = parseInt(
+                    pageEl.dataset.page || pageEl.textContent,
+                    10
+                );
+
+                // Skip non-numeric buttons (like Prev/Next arrows)
+                if (isNaN(pageNum)) return;
+
+                // Logic to keep Always First Page, Always Last Page, Current Page, and Immediate Neighbors visible
+                const isFirstPage = pageNum === 1;
+                const isLastPage = pageNum === totalPages;
+                const isNearCurrent = Math.abs(pageNum - currentPage) <= 1;
+
+                if (isFirstPage || isLastPage || isNearCurrent) {
+                    pageEl.style.display = ""; // Show element
+
+                    // Remove existing ellipsis indicator if previously added
+                    if (pageEl.classList.contains("has-ellipsis")) {
+                        pageEl.classList.remove("has-ellipsis");
+                    }
+                } else {
+                    pageEl.style.display = "none"; // Hide element
+                }
+            });
+
+            // Insert ellipsis spans where pages are hidden
+            render_ellipses();
+        }
+    }
+
+    function render_ellipses() {
+        // Remove existing ellipsis elements to prevent duplicates on re-render
+        document
+            .querySelectorAll(".pagination .ellipsis")
+            .forEach((el) => el.remove());
+
+        const visiblePages = Array.from(
+            document.querySelectorAll(".pagination .page")
+        ).filter(
+            (el) =>
+                el.style.display !== "none" &&
+                !isNaN(parseInt(el.textContent, 10))
+        );
+
+        for (let i = 0; i < visiblePages.length - 1; i++) {
+            const currentNum = parseInt(visiblePages[i].textContent, 10);
+            const nextNum = parseInt(visiblePages[i + 1].textContent, 10);
+
+            // If gap between consecutive visible pages is greater than 1, insert ellipsis
+            if (nextNum - currentNum > 1) {
+                const ellipsis = document.createElement("span");
+                ellipsis.className = "page ellipsis";
+                ellipsis.textContent = "...";
+                ellipsis.style.pointerEvents = "none"; // Prevent clicks
+
+                visiblePages[i].after(ellipsis);
+            }
+        }
+    }
+
+    (function () {
+        const header = $(".site-header");
+        if (!header) return;
+        window.addEventListener("scroll", () => {
+            header.classList.toggle("scrolled", window.scrollY > 60);
+        });
+    })();
+
+    (function () {
         const hamburger = $(".hamburger");
         const navMenu = $(".nav-menu");
         if (!hamburger || !navMenu) return;
-
         hamburger.addEventListener("click", () => {
             const open = navMenu.classList.toggle("mobile-open");
             hamburger.setAttribute("aria-expanded", open);
@@ -51,11 +121,14 @@
         });
     })();
 
-    (function initSearch() {
-        const overlay = $(".search-overlay");
-        const openBtns = $$('[data-action="open-search"]');
-        const closeBtn = $(".search-close");
-        const input = $(".search-input-wrap input");
+    (function () {
+        const [overlay, openBtns, closeBtn, input] = [
+            $(".search-overlay"),
+            $$('[data-action="open-search"]'),
+            $(".search-close"),
+            $(".search-input-wrap input"),
+        ];
+
         if (!overlay) return;
 
         openBtns.forEach((btn) => {
@@ -64,12 +137,15 @@
                 input?.focus();
             });
         });
+
         closeBtn?.addEventListener("click", () =>
             overlay.classList.remove("open")
         );
+
         overlay.addEventListener("click", (e) => {
             if (e.target === overlay) overlay.classList.remove("open");
         });
+
         document.addEventListener("keydown", (e) => {
             if (e.key === "Escape") overlay.classList.remove("open");
         });
@@ -97,18 +173,20 @@
         }
     })();
 
-    const show_password = $("#show-password") ?? null;
-    if (show_password) {
-        $("#show-password").addEventListener("click", () => {
-            if ($("#password").getAttribute("type") == "password") {
-                $("#password").setAttribute("type", "text");
-                $("#show-password").textContent = "^_^";
-            } else {
-                $("#password").setAttribute("type", "password");
-                $("#show-password").textContent = "~_~";
-            }
-        });
-    }
+    (function () {
+        const show_password = $("#show-password") ?? null;
+        if (show_password) {
+            $("#show-password").addEventListener("click", () => {
+                if ($("#password").getAttribute("type") == "password") {
+                    $("#password").setAttribute("type", "text");
+                    $("#show-password").textContent = "^_^";
+                } else {
+                    $("#password").setAttribute("type", "password");
+                    $("#show-password").textContent = "~_~";
+                }
+            });
+        }
+    })();
 
     const Toast = {
         container: null,
@@ -248,7 +326,7 @@
         },
     };
 
-    function initAddToCart() {
+    function init_add_to_cart() {
         document.addEventListener("click", (e) => {
             const btn = e.target.closest('[data-action="add-to-cart"]');
             if (!btn) return;
@@ -268,7 +346,7 @@
         });
     }
 
-    function initWishlistToggle() {
+    function init_wishlist_toggle() {
         document.addEventListener("click", (e) => {
             const btn = e.target.closest('[data-action="toggle-wishlist"]');
             if (!btn) return;
@@ -284,7 +362,7 @@
             btn.innerHTML = added ? "♥" : "♡";
         });
     }
-    function initGallery() {
+    function init_gallery() {
         const thumbs = $$(".gallery-thumb");
         const main = $(".gallery-main img");
         if (!thumbs.length || !main) return;
@@ -305,7 +383,7 @@
         });
     }
 
-    function initSizeSelector() {
+    function init_size_selector() {
         const sizeBtns = $$(".size-btn:not(.unavailable)");
         sizeBtns.forEach((btn) => {
             btn.addEventListener("click", () => {
@@ -322,7 +400,7 @@
         });
     }
 
-    function initQtyControl() {
+    function init_qty_control() {
         document.addEventListener("click", (e) => {
             const btn = e.target.closest(".qty-btn");
             if (!btn) return;
@@ -337,7 +415,7 @@
         });
     }
 
-    function initCountdown() {
+    function init_countdown() {
         const el = $(".promo-timer");
         if (!el) return;
         const endDate = new Date(el.dataset.end || Date.now() + 86400000 * 3);
@@ -372,7 +450,7 @@
         setInterval(update, 1000);
     }
 
-    function initViewToggle() {
+    function init_view_toggle() {
         const grid = $(".products-grid");
         const btns = $$(".view-btn");
         if (!grid) return;
@@ -389,18 +467,17 @@
         });
     }
 
-    function initSort() {
+    function init_sort() {
         const sel = $(".sort-select");
         if (!sel) return;
         sel.addEventListener("change", () => {
-            // Normally this would trigger a server-side sort via PHP GET param
             const url = new URL(window.location);
             url.searchParams.set("sort", sel.value);
             window.location = url.toString();
         });
     }
 
-    function renderCartPage() {
+    function render_cart_page() {
         const container = $("#cart-items-container");
         if (!container) return;
 
@@ -454,10 +531,10 @@
             )
             .join("");
 
-        updateOrderSummary();
+        update_order_summary();
     }
 
-    function updateOrderSummary() {
+    function update_order_summary() {
         const items = Cart.getItems();
         const subtotal = Cart.getTotal();
         const total = subtotal;
@@ -471,14 +548,14 @@
         set("#summary-total", `Ksh: ${total.toFixed(2)}`);
     }
 
-    function initCartPage() {
+    function init_cart_page() {
         if (!$("#cart-items-container")) return;
-        renderCartPage();
+        render_cart_page();
         document.addEventListener("click", (e) => {
             const removeBtn = e.target.closest(".cart-item-remove");
             if (removeBtn) {
                 Cart.removeItem(removeBtn.dataset.key);
-                renderCartPage();
+                render_cart_page();
             }
             const qtyBtn = e.target.closest(".qty-btn[data-key]");
             if (qtyBtn) {
@@ -490,12 +567,12 @@
                 if (qtyBtn.dataset.action === "inc") val++;
                 if (qtyBtn.dataset.action === "dec") val = Math.max(1, val - 1);
                 Cart.updateQty(qtyBtn.dataset.key, val);
-                renderCartPage();
+                render_cart_page();
             }
         });
     }
 
-    function initWishlistPage() {
+    function init_wishlist_page() {
         const container = $("#wishlist-container");
         if (!container) return;
         const items = Wishlist.getItems();
@@ -533,7 +610,7 @@
             .join("")}</div>`;
     }
 
-    function initCheckoutPage() {
+    function init_checkout_page() {
         const container = $("#checkout-items");
         if (!container) return;
         const items = Cart.getItems();
@@ -542,27 +619,14 @@
                 (i) => `
     <div class="summary-row">
       <span>${i.name} × ${i.qty}</span>
-      <span>$${(i.price * i.qty).toFixed(2)}</span>
+      <span>Ksh: ${(i.price * i.qty).toFixed(2)}</span>
     </div>`
             )
             .join("");
-        updateOrderSummary();
+        update_order_summary();
     }
 
-    function initPasswordToggle() {
-        $$("[data-toggle-password]").forEach((btn) => {
-            btn.addEventListener("click", () => {
-                const input = document.getElementById(
-                    btn.dataset.togglePassword
-                );
-                if (!input) return;
-                input.type = input.type === "password" ? "text" : "password";
-                btn.textContent = input.type === "password" ? "👁" : "🙈";
-            });
-        });
-    }
-
-    function initScrollReveal() {
+    function init_scroll_reveal() {
         const observer = new IntersectionObserver(
             (entries) => {
                 entries.forEach((entry) => {
@@ -590,21 +654,18 @@
         Toast.init();
         Cart.updateBadges();
         Wishlist.updateBadges();
-        announcement();
-        initAddToCart();
-        initWishlistToggle();
-        initGallery();
-        initSizeSelector();
-        initQtyControl();
-        initCountdown();
-        initViewToggle();
-        initSort();
-        initCartPage();
-        initWishlistPage();
-        initCheckoutPage();
-        initPasswordToggle();
-        initScrollReveal();
+        init_add_to_cart();
+        init_wishlist_toggle();
+        init_gallery();
+        init_size_selector();
+        init_qty_control();
+        init_countdown();
+        init_view_toggle();
+        init_sort();
+        init_cart_page();
+        init_wishlist_page();
+        init_checkout_page();
+        init_scroll_reveal();
+        pagination_handler();
     });
 })();
-
-// window.
