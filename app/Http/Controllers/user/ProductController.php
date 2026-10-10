@@ -24,7 +24,9 @@ class ProductController
         }
     }
 
-    public function process_order(Request $request){
-        dd($request->input());
+    public function process_order(Request $request)
+    {
+        // dd($request->input());
+        return view("user.cart.order-confirmation");
     }
 }

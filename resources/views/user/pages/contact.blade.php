@@ -29,8 +29,8 @@
                         <div class="feature-icon">✉</div>
                         <div class="feature-text">
                             <h4>Email</h4>
-                            <a href="mailto:hello@luxeshop.com"
-                                style="color:var(--gold);font-size:0.85rem">hello@luxeshop.com</a>
+                            <a href="mailto:hello@nyathishop.com"
+                                style="color:var(--gold);font-size:0.85rem">hello@nyathishop.com</a>
                         </div>
                     </div>
                     <div class="feature-item" style="padding:0">
@@ -54,8 +54,6 @@
                     <div class="social-links">
                         <a href="#" class="social-link">IG</a>
                         <a href="#" class="social-link">FB</a>
-                        <a href="#" class="social-link">TW</a>
-                        <a href="#" class="social-link">PT</a>
                     </div>
                 </div>
             </div>

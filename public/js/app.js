@@ -1,34 +1,27 @@
 (function () {
-    const [$, $$, on] = [
-        (sel) => document.querySelector(sel),
-        (sel, ctx = document) => [...ctx.querySelectorAll(sel)],
-        (el, ev, fn) => el && el.addEventListener(ev, fn),
-    ];
-
-    (function () {
-        const announcement_bar = $(".announcement-bar");
-        announcement_bar.addEventListener("click", () => {
-            announcement_bar.remove();
-            document.body.setAttribute("style", "overflow: scroll");
-        });
-
-        setTimeout(() => {
-            announcement_bar.remove();
-            announcement_bar.removeEventListener("click", () => {});
-            document.body.setAttribute("style", "overflow: scroll");
-        }, 3000);
-    })();
+    document.addEventListener("DOMContentLoaded", () => {
+        Toast.init();
+        Cart.update_badges();
+        Wishlist.update_badges();
+        add_to_cart();
+        wishlist_toggle();
+        gallery();
+        size_selector();
+        qty_control();
+        countdown();
+        view_toggle();
+        sort();
+        cart_page();
+        wishlist_page();
+        checkout_page();
+        scroll_reveal();
+        pagination_handler();
+    });
 
     function pagination_handler() {
-        // Assuming $$ is document.querySelectorAll or a similar helper
         const paginations = Array.from($$(".pagination .page"));
-
-        // Total unique pages (accounting for top/bottom duplicate controls if length / 2 is used)
         const totalPages = Math.ceil(paginations.length / 2);
-
-        // Only truncate if there are more than 5 total pages
         if (totalPages > 5) {
-            // Determine current active page index (defaults to 1 if none found)
             const activePageEl = document.querySelector(
                 ".pagination .page.active"
             );
@@ -45,10 +38,8 @@
                     10
                 );
 
-                // Skip non-numeric buttons (like Prev/Next arrows)
                 if (isNaN(pageNum)) return;
 
-                // Logic to keep Always First Page, Always Last Page, Current Page, and Immediate Neighbors visible
                 const isFirstPage = pageNum === 1;
                 const isLastPage = pageNum === totalPages;
                 const isNearCurrent = Math.abs(pageNum - currentPage) <= 1;
@@ -56,7 +47,6 @@
                 if (isFirstPage || isLastPage || isNearCurrent) {
                     pageEl.style.display = ""; // Show element
 
-                    // Remove existing ellipsis indicator if previously added
                     if (pageEl.classList.contains("has-ellipsis")) {
                         pageEl.classList.remove("has-ellipsis");
                     }
@@ -65,13 +55,11 @@
                 }
             });
 
-            // Insert ellipsis spans where pages are hidden
             render_ellipses();
         }
     }
 
     function render_ellipses() {
-        // Remove existing ellipsis elements to prevent duplicates on re-render
         document
             .querySelectorAll(".pagination .ellipsis")
             .forEach((el) => el.remove());
@@ -88,7 +76,6 @@
             const currentNum = parseInt(visiblePages[i].textContent, 10);
             const nextNum = parseInt(visiblePages[i + 1].textContent, 10);
 
-            // If gap between consecutive visible pages is greater than 1, insert ellipsis
             if (nextNum - currentNum > 1) {
                 const ellipsis = document.createElement("span");
                 ellipsis.className = "page ellipsis";
@@ -99,14 +86,6 @@
             }
         }
     }
-
-    (function () {
-        const header = $(".site-header");
-        if (!header) return;
-        window.addEventListener("scroll", () => {
-            header.classList.toggle("scrolled", window.scrollY > 60);
-        });
-    })();
 
     (function () {
         const hamburger = $(".hamburger");
@@ -152,28 +131,6 @@
     })();
 
     (function () {
-        const [pagination_top, pagination_bottom] = [
-            $$(".pagination.top .page"),
-            $$(".pagination.bottom .page"),
-        ];
-
-        if (window.screen.width <= 750) {
-            if (pagination_top.length > 10) {
-                pagination_top.forEach((pag) => {
-                    pag.remove();
-                });
-            }
-        }
-        if (window.screen.width <= 750) {
-            if (pagination_bottom.length > 10) {
-                pagination_bottom.forEach((pag) => {
-                    pag.remove();
-                });
-            }
-        }
-    })();
-
-    (function () {
         const show_password = $("#show-password") ?? null;
         if (show_password) {
             $("#show-password").addEventListener("click", () => {
@@ -199,9 +156,16 @@
             const icons = { success: "✓", error: "✕", info: "→", warning: "!" };
             const toast = document.createElement("div");
             toast.className = `toast ${type}`;
-            toast.innerHTML = `<span class="toast-icon">${
-                icons[type] || icons.info
-            }</span><span class="toast-msg">${message}</span>`;
+            const icon = document.createElement("span");
+            icon.classList.add("toast-icon");
+            icon.textContent = icons[type] || icons.info;
+            const mess = document.createElement("span");
+            mess.className = "toast-icon";
+            mess.textContent = message;
+            const toast_children = [icon, mess];
+            for (let i = 0; i < toast_children.length; i++) {
+                toast.appendChild(toast_children[i]);
+            }
             this.container.appendChild(toast);
             setTimeout(() => {
                 toast.style.opacity = "0";
@@ -225,7 +189,7 @@
 
         save(items) {
             localStorage.setItem(this.key, JSON.stringify(items));
-            this.updateBadges();
+            this.update_badges();
             document.dispatchEvent(
                 new CustomEvent("cart:updated", { detail: items })
             );
@@ -269,7 +233,7 @@
             return this.getItems().reduce((sum, i) => sum + i.qty, 0);
         },
 
-        updateBadges() {
+        update_badges() {
             const count = this.getCount();
             $$(".cart-count").forEach((el) => {
                 el.textContent = count;
@@ -291,7 +255,7 @@
 
         save(items) {
             localStorage.setItem(this.key, JSON.stringify(items));
-            this.updateBadges();
+            this.update_badges();
         },
 
         toggle(product) {
@@ -300,11 +264,13 @@
             if (exists) {
                 this.save(items.filter((i) => i.id !== product.id));
                 Toast.show(`Removed from wishlist`, "info");
+                wishlist_page();
                 return false;
             } else {
                 items.push(product);
                 this.save(items);
                 Toast.show(`Added to wishlist`, "success");
+                wishlist_page();
                 return true;
             }
         },
@@ -317,7 +283,7 @@
             return this.getItems().length;
         },
 
-        updateBadges() {
+        update_badges() {
             const count = this.getCount();
             $$(".wishlist-count").forEach((el) => {
                 el.textContent = count;
@@ -326,7 +292,7 @@
         },
     };
 
-    function init_add_to_cart() {
+    function add_to_cart() {
         document.addEventListener("click", (e) => {
             const btn = e.target.closest('[data-action="add-to-cart"]');
             if (!btn) return;
@@ -346,7 +312,7 @@
         });
     }
 
-    function init_wishlist_toggle() {
+    function wishlist_toggle() {
         document.addEventListener("click", (e) => {
             const btn = e.target.closest('[data-action="toggle-wishlist"]');
             if (!btn) return;
@@ -362,7 +328,8 @@
             btn.innerHTML = added ? "♥" : "♡";
         });
     }
-    function init_gallery() {
+
+    function gallery() {
         const thumbs = $$(".gallery-thumb");
         const main = $(".gallery-main img");
         if (!thumbs.length || !main) return;
@@ -383,7 +350,7 @@
         });
     }
 
-    function init_size_selector() {
+    function size_selector() {
         const sizeBtns = $$(".size-btn:not(.unavailable)");
         sizeBtns.forEach((btn) => {
             btn.addEventListener("click", () => {
@@ -400,7 +367,7 @@
         });
     }
 
-    function init_qty_control() {
+    function qty_control() {
         document.addEventListener("click", (e) => {
             const btn = e.target.closest(".qty-btn");
             if (!btn) return;
@@ -415,42 +382,43 @@
         });
     }
 
-    function init_countdown() {
-        const el = $(".promo-timer");
-        if (!el) return;
-        const endDate = new Date(el.dataset.end || Date.now() + 86400000 * 3);
+    function countdown() {
+        if (window.location.pathname != "/") return;
+        const promo_timer = $(".promo-timer");
+        const promo_template = $("#promo-timer").content.cloneNode(true);
+        const end = document.createElement("p");
+        const timer_units = promo_template.querySelectorAll(
+            ".timer-unit .timer-num"
+        );
+        if (!promo_timer) return;
+        const endDate = new Date(
+            promo_timer.dataset.end || Date.now() + 86400000 * 3
+        );
 
         function update() {
             const diff = endDate - Date.now();
             if (diff <= 0) {
-                el.innerHTML = "<p>Offer ended</p>";
+                end.textContent = "Offer ended";
+                promo_timer.appendChild(end);
                 return;
             }
-            const d = Math.floor(diff / 86400000);
-            const h = Math.floor((diff % 86400000) / 3600000);
-            const m = Math.floor((diff % 3600000) / 60000);
-            const s = Math.floor((diff % 60000) / 1000);
+            let clock = [
+                Math.floor(diff / 86400000),
+                Math.floor((diff % 86400000) / 3600000),
+                Math.floor((diff % 3600000) / 60000),
+                Math.floor((diff % 60000) / 1000),
+            ];
             const pad = (n) => String(n).padStart(2, "0");
-            el.innerHTML = `
-      <div class="timer-unit"><div class="timer-num">${pad(
-          d
-      )}</div><div class="timer-label">Days</div></div>
-      <div class="timer-unit"><div class="timer-num">${pad(
-          h
-      )}</div><div class="timer-label">Hours</div></div>
-      <div class="timer-unit"><div class="timer-num">${pad(
-          m
-      )}</div><div class="timer-label">Mins</div></div>
-      <div class="timer-unit"><div class="timer-num">${pad(
-          s
-      )}</div><div class="timer-label">Secs</div></div>
-    `;
+            for (let i = 0; i < timer_units.length; i++) {
+                timer_units[i].textContent = pad(clock[i]);
+            }
+            promo_timer.appendChild(promo_template);
         }
         update();
         setInterval(update, 1000);
     }
 
-    function init_view_toggle() {
+    function view_toggle() {
         const grid = $(".products-grid");
         const btns = $$(".view-btn");
         if (!grid) return;
@@ -467,7 +435,7 @@
         });
     }
 
-    function init_sort() {
+    function sort() {
         const sel = $(".sort-select");
         if (!sel) return;
         sel.addEventListener("change", () => {
@@ -478,77 +446,68 @@
     }
 
     function render_cart_page() {
+        if (window.location.pathname != "/user/cart") return;
         const container = $("#cart-items-container");
+        container.innerHTML = "";
         if (!container) return;
 
         const items = Cart.getItems();
 
         if (!items.length) {
-            container.innerHTML = `
-      <div style="text-align:center;padding:4rem 0">
-        <p style="font-size:3rem;margin-bottom:1rem">🛍️</p>
-        <h3>Your cart is empty</h3>
-        <p style="margin:1rem 0 2rem">Looks like you haven't added anything yet.</p>
-        <a href="/user/shop" class="btn btn-primary">Explore Products</a>
-      </div>`;
+            container.appendChild(
+                $("#empty-cart-template").content.cloneNode(true)
+            );
             return;
         }
 
-        container.innerHTML = items
-            .map(
-                (item) => `
-    <div class="cart-item" data-key="${item.key}">
-      <img class="cart-item-img" src="${
-          item.image || "/assets/images/placeholder.jpg"
-      }" alt="${item.name}">
-      <div>
-        <div class="cart-item-name">${item.name}</div>
-        <div class="cart-item-variant">${[item.size, item.color]
-            .filter(Boolean)
-            .join(" · ")}</div>
-        <div class="cart-item-controls">
-          <div class="qty-control">
-            <button class="qty-btn" data-action="dec" data-key="${
-                item.key
-            }">−</button>
-            <input class="qty-input" type="number" value="${
-                item.qty
-            }" min="1" data-key="${item.key}">
-            <button class="qty-btn" data-action="inc" data-key="${
-                item.key
-            }">+</button>
-          </div>
-          <button class="cart-item-remove" data-key="${
-              item.key
-          }">Remove</button>
-        </div>
-      </div>
-      <div class="cart-item-price">Ksh: ${(item.price * item.qty).toFixed(
-          2
-      )}</div>
-    </div>
-  `
-            )
-            .join("");
+        items.forEach((item) => {
+            const cart_template = $("#cart-template").content.cloneNode(true);
+            cart_template.querySelector(".cart-item").dataset.key = item.key;
+            cart_template.querySelector(
+                ".cart-item .cart-item-remove"
+            ).dataset.key = item.key;
+            cart_template.querySelector(".cart-item img").src =
+                item.image || "/assets/images/placeholder.jpg";
+            cart_template.querySelector(".cart-item img").alt = item.image;
+            cart_template.querySelector(
+                ".cart-item .cart-item-name"
+            ).textContent = item.name;
+            cart_template.querySelector(
+                ".cart-item .cart-item-variant"
+            ).textContent = [item.name, item.color].join(" -.- ");
+            cart_template.querySelector(
+                ".cart-item .cart-item-price"
+            ).textContent = `Ksh: ${price_format(item.price)}`;
+            cart_template.querySelector(
+                ".cart-item .qty-control .qty-btn.dec"
+            ).dataset.key = item.key;
+            cart_template.querySelector(
+                ".cart-item .qty-control .qty-btn.inc"
+            ).dataset.key = item.key;
+            cart_template.querySelector(
+                ".cart-item .qty-control .qty-input"
+            ).dataset.key = item.key;
+            cart_template.querySelector(
+                ".cart-item .qty-control .qty-input"
+            ).value = item.qty;
+            container.appendChild(cart_template);
+        });
 
         update_order_summary();
     }
 
     function update_order_summary() {
-        const items = Cart.getItems();
         const subtotal = Cart.getTotal();
         const total = subtotal;
-
         const set = (sel, val) => {
             const el = $(sel);
             if (el) el.textContent = val;
         };
-        set("#summary-subtotal", `Ksh: ${subtotal.toFixed(2)}`);
-
-        set("#summary-total", `Ksh: ${total.toFixed(2)}`);
+        set("#summary-subtotal", `Ksh: ${price_format(subtotal)}`);
+        set("#summary-total", `Ksh: ${price_format(total)}`);
     }
 
-    function init_cart_page() {
+    function cart_page() {
         if (!$("#cart-items-container")) return;
         render_cart_page();
         document.addEventListener("click", (e) => {
@@ -572,61 +531,77 @@
         });
     }
 
-    function init_wishlist_page() {
+    function wishlist_page() {
+        if (window.location.pathname != "/user/wishlist") return;
         const container = $("#wishlist-container");
+        container.innerHTML = "";
+        const wishlist_grid = document.createElement("div");
+        wishlist_grid.className = "wishlist-grid";
+        container.appendChild(wishlist_grid);
         if (!container) return;
         const items = Wishlist.getItems();
         if (!items.length) {
-            container.innerHTML = `<div style="text-align:center;padding:4rem 0"><p style="font-size:3rem;margin-bottom:1rem">♡</p><h3>Your wishlist is empty</h3><p style="margin:1rem 0 2rem">Save items you love for later.</p><a href="/shop" class="btn btn-primary">Shop Now</a></div>`;
+            container.appendChild($("#empty-wishlist").content.cloneNode(true));
             return;
         }
-        container.innerHTML = `<div class="wishlist-grid">${items
-            .map(
-                (item) => `
-    <div class="product-card">
-      <div class="product-image-wrap">
-        <img src="${item.image || "/assets/images/placeholder.jpg"}" alt="${
-                    item.name
-                }">
-        <div class="product-actions-hover">
-          <button class="btn-add-cart" data-action="add-to-cart" data-id="${
-              item.id
-          }" data-name="${item.name}" data-price="${item.price}" data-image="${
-                    item.image
-                }">Add to Cart</button>
-          <button class="btn-wishlist" data-action="toggle-wishlist" data-id="${
-              item.id
-          }" data-name="${item.name}" data-price="${item.price}">♥</button>
-        </div>
-      </div>
-      <div class="product-info">
-        <div class="product-name">${item.name}</div>
-        <div class="product-price"><span class="price-current">Ksh: ${item.price.toFixed(
-            2
-        )}</span></div>
-      </div>
-    </div>`
-            )
-            .join("")}</div>`;
+        items.forEach((item, index) => {
+            const wishlist_template =
+                $("#wishlist-template").content.cloneNode(true);
+            wishlist_template.querySelector(".product-image-wrap img").src =
+                item.image || "/assets/images/placeholder.jpg";
+            wishlist_template.querySelector(".product-image-wrap img").alt =
+                item.image ?? "";
+            wishlist_template.querySelector(
+                ".product-image-wrap .btn-add-cart"
+            ).dataset.id = item.id;
+            wishlist_template.querySelector(
+                ".product-image-wrap .btn-add-cart"
+            ).dataset.name = item.name;
+            wishlist_template.querySelector(
+                ".product-image-wrap .btn-add-cart"
+            ).dataset.price = item.price;
+            wishlist_template.querySelector(
+                ".product-image-wrap .btn-wishlist"
+            ).dataset.id = item.id;
+            wishlist_template.querySelector(
+                ".product-image-wrap .btn-wishlist"
+            ).dataset.name = item.name;
+            wishlist_template.querySelector(
+                ".product-image-wrap .btn-wishlist"
+            ).dataset.price = item.price;
+            wishlist_template.querySelector(
+                ".product-info .product-price"
+            ).textContent = `Ksh: ${price_format(item.price)}`;
+            wishlist_template.querySelector(
+                ".product-info .product-name"
+            ).textContent = `Wish ${++index}: ${item.name}`;
+
+            $("#wishlist-container .wishlist-grid").appendChild(
+                wishlist_template
+            );
+        });
     }
 
-    function init_checkout_page() {
+    function checkout_page() {
+        if (window.location.pathname != "/user/checkout") return;
         const container = $("#checkout-items");
         if (!container) return;
         const items = Cart.getItems();
-        container.innerHTML = items
-            .map(
-                (i) => `
-    <div class="summary-row">
-      <span>${i.name} × ${i.qty}</span>
-      <span>Ksh: ${(i.price * i.qty).toFixed(2)}</span>
-    </div>`
-            )
-            .join("");
+        items.forEach((item) => {
+            const summary_template =
+                $("#summary-template").content.cloneNode(true);
+            summary_template.querySelector(
+                "#name"
+            ).textContent = `${item.name} × ${item.qty}`;
+            summary_template.querySelector("#price").textContent = `Ksh: ${(
+                item.price * item.qty
+            ).toFixed(2)}`;
+            container.appendChild(summary_template);
+        });
         update_order_summary();
     }
 
-    function init_scroll_reveal() {
+    function scroll_reveal() {
         const observer = new IntersectionObserver(
             (entries) => {
                 entries.forEach((entry) => {
@@ -649,23 +624,4 @@
             observer.observe(el);
         });
     }
-
-    document.addEventListener("DOMContentLoaded", () => {
-        Toast.init();
-        Cart.updateBadges();
-        Wishlist.updateBadges();
-        init_add_to_cart();
-        init_wishlist_toggle();
-        init_gallery();
-        init_size_selector();
-        init_qty_control();
-        init_countdown();
-        init_view_toggle();
-        init_sort();
-        init_cart_page();
-        init_wishlist_page();
-        init_checkout_page();
-        init_scroll_reveal();
-        pagination_handler();
-    });
 })();

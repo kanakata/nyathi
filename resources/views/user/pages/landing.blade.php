@@ -1,16 +1,17 @@
 <x-user.header></x-user.header>
 
-<!-- ========== HERO ========== -->
+{{-- ========== HERO ========== --}}
 <section class="hero">
     <div class="hero-bg"></div>
     <div class="hero-overlay"></div>
     <div class="container">
         <div class="hero-content">
-            <div class="hero-eyebrow">New Collection · Season 2026/2027</div>
+            <div class="hero-eyebrow">Nyathi Collection · <em>Season 2026/2027</em></div>
             <h1>NYATHI <em> Sports wear</em></h1>
             <h1>Buckle up with <em>Intention</em></h1>
-            <p>Timeless pieces crafted for those who understand that true luxury lies in the details — not the label.
-            </p>
+            {{-- <p>Timeless pieces crafted for those who understand that true luxury lies in the details — not the
+                label.
+            </p> --}}
             <div class="hero-actions">
                 <a href="/user/shop" class="btn btn-primary">Explore Collection</a>
                 <a href="/user/categories" class="btn btn-outline">Browse Categories</a>
@@ -23,7 +24,7 @@
     </div>
 </section>
 
-<!-- ========== FEATURES STRIP ========== -->
+{{-- ========== FEATURES STRIP ========== --}}
 <section class="features-strip section-sm">
     <div class="container">
         <div class="features-grid">
@@ -59,7 +60,7 @@
     </div>
 </section>
 
-<!-- ========== CATEGORIES ========== -->
+{{-- ========== CATEGORIES ========== --}}
 <section class="section" style="padding-top:0">
     <div class="container">
         <div class="section-header">
@@ -83,7 +84,7 @@
     </div>
 </section>
 
-<!-- ========== FEATURED PRODUCTS ========== -->
+{{-- ========== FEATURED PRODUCTS ========== --}}
 <section class="section" style="background:var(--surface);padding:5rem 0">
     <div class="container">
         <div class="section-header">
@@ -102,7 +103,7 @@
     </div>
 </section>
 
-<!-- ========== PROMO BANNER ========== -->
+{{-- ========== PROMO BANNER ========== --}}
 <section class="promo-banner">
     <div class="promo-banner-bg"></div>
     <div class="container">
@@ -117,7 +118,7 @@
     </div>
 </section>
 
-<!-- ==========  ========== -->
+{{-- NEWS --}}
 <section class="events section">
     <div class="container">
         <div class="section-header">
@@ -143,7 +144,7 @@
     </div>
 </section>
 
-<!-- ========== NEWSLETTER ========== -->
+{{-- ========== NEWSLETTER ========== --}}
 <section class="newsletter section-sm">
     <div class="container">
         <div class="newsletter-inner">
@@ -156,5 +157,24 @@
         </div>
     </div>
 </section>
+
+<template id="promo-timer">
+    <div class="timer-unit">
+        <div class="timer-num"></div>
+        <div class="timer-label">Days</div>
+    </div>
+    <div class="timer-unit">
+        <div class="timer-num"></div>
+        <div class="timer-label">Hours</div>
+    </div>
+    <div class="timer-unit">
+        <div class="timer-num"></div>
+        <div class="timer-label">Mins</div>
+    </div>
+    <div class="timer-unit">
+        <div class="timer-num"></div>
+        <div class="timer-label">Secs</div>
+    </div>
+</template>
 
 <x-user.footer></x-user.footer>

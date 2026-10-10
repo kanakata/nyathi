@@ -1,4 +1,12 @@
 (function () {
+
+    function init_app() {
+        delegate_pagination_listener();
+        init_current_page();
+        init_category_select();
+        price_range();
+    }
+
     window.addEventListener("load", () => {
         const link = window.location.pathname.split("/").filter((element) => {
             if (element != undefined || element != null) {
@@ -14,11 +22,6 @@
             init_app();
         }
     });
-
-    const [$, $$] = [
-        (sel) => document.querySelector(sel),
-        (sel, ctx = document) => [...ctx.querySelectorAll(sel)],
-    ];
 
     const [categories, clear] = [
         $(".shop-layout .shop-sidebar"),
@@ -38,18 +41,6 @@
             });
         });
     });
-
-    function store(name, data) {
-        localStorage.setItem(name, data);
-    }
-
-    function get(name) {
-        return localStorage.getItem(name);
-    }
-
-    function del(name) {
-        localStorage.removeItem(name);
-    }
 
     function price_range() {
         const slider = $("#price-range");
@@ -158,15 +149,9 @@
     });
 
     function pagination_handler() {
-        // Assuming $$ is document.querySelectorAll or a similar helper
         const paginations = Array.from($$(".pagination .page"));
-
-        // Total unique pages (accounting for top/bottom duplicate controls if length / 2 is used)
         const totalPages = Math.ceil(paginations.length / 2);
-
-        // Only truncate if there are more than 5 total pages
         if (totalPages > 5) {
-            // Determine current active page index (defaults to 1 if none found)
             const activePageEl = document.querySelector(
                 ".pagination .page.active"
             );
@@ -183,10 +168,8 @@
                     10
                 );
 
-                // Skip non-numeric buttons (like Prev/Next arrows)
                 if (isNaN(pageNum)) return;
 
-                // Logic to keep Always First Page, Always Last Page, Current Page, and Immediate Neighbors visible
                 const isFirstPage = pageNum === 1;
                 const isLastPage = pageNum === totalPages;
                 const isNearCurrent = Math.abs(pageNum - currentPage) <= 1;
@@ -194,7 +177,6 @@
                 if (isFirstPage || isLastPage || isNearCurrent) {
                     pageEl.style.display = ""; // Show element
 
-                    // Remove existing ellipsis indicator if previously added
                     if (pageEl.classList.contains("has-ellipsis")) {
                         pageEl.classList.remove("has-ellipsis");
                     }
@@ -203,13 +185,11 @@
                 }
             });
 
-            // Insert ellipsis spans where pages are hidden
             render_ellipses();
         }
     }
 
     function render_ellipses() {
-        // Remove existing ellipsis elements to prevent duplicates on re-render
         document
             .querySelectorAll(".pagination .ellipsis")
             .forEach((el) => el.remove());
@@ -416,10 +396,10 @@
                     categoryDiv.textContent = product.product_category;
                 if (nameH3) nameH3.textContent = product.product_name;
 
-                const currentPriceVal = Number(
+                const currentPriceVal = price_format(
                     product.product_price - product.product_discount
-                ).toFixed(2);
-                const oldPriceVal = Number(product.product_price).toFixed(2);
+                );
+                const oldPriceVal = price_format(product.product_price);
 
                 if (priceCurrent)
                     priceCurrent.textContent = `Ksh: ${currentPriceVal}`;
@@ -429,13 +409,6 @@
             });
         }
         pagination_handler();
-    }
-
-    function init_app() {
-        delegate_pagination_listener();
-        init_current_page();
-        init_category_select();
-        price_range();
     }
 
     function ajax(url, callback) {

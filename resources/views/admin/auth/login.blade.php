@@ -1,10 +1,4 @@
 <?php
-/**
- * Nyathi SHOP — Login Page
- */
-// require_once __DIR__ . '/../includes/config.php';
-// if (isLoggedIn()) redirect('/pages/account.php');
-
 $pageTitle = 'Sign In — Nyathi Shop';
 ?>
 <!DOCTYPE html>
@@ -25,8 +19,8 @@ $pageTitle = 'Sign In — Nyathi Shop';
 
     <div class="auth-page">
 
-        <!-- Visual Side -->
-        <div class="auth-visual" style="display:block;flex:1">
+        {{-- Visual Side --}}
+        {{-- <div class="auth-visual" style="display:block;flex:1">
             <div
                 style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(13,13,13,0.75),rgba(201,169,110,0.12)),url('/assets/images/banners/auth.jpg') center/cover no-repeat">
             </div>
@@ -36,9 +30,9 @@ $pageTitle = 'Sign In — Nyathi Shop';
                     <h2 style="color:#fff;margin-bottom:0.75rem">Welcome back.</h2>
                 </div>
             </div>
-        </div>
+        </div> --}}
 
-        <!-- Form Side -->
+        {{-- Form Side --}}
         <div class="auth-panel">
             <div class="auth-logo">
                 <a href="/" class="logo">Nyathi<span>.</span></a>
@@ -115,7 +109,7 @@ $pageTitle = 'Sign In — Nyathi Shop';
 
     </div>
 
-    <script src="/assets/js/main.js"></script>
+    <script src="/js/app.js"></script>
 </body>
 
 </html>

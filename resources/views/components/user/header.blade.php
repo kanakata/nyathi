@@ -25,7 +25,7 @@
 <body class="{{ e($bodyClass ?? '') }}">
 
     <div class="announcement-bar">
-        ✦ Free shipping on orders over Ksh: {{ number_format(13000) }} &nbsp;|&nbsp; New arrivals every week ✦
+        {{ $promo }}
     </div>
 
     <header class="site-header">
@@ -42,6 +42,7 @@
         </nav>
 
         <div class="nav-actions">
+
             <button class="nav-icon" data-action="open-search" aria-label="Search">
                 <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24">
                     <circle cx="11" cy="11" r="8" />
@@ -49,15 +50,12 @@
                 </svg>
             </button>
 
-
             <a href="/user/wishlist" class="nav-icon" aria-label="Wishlist">
                 <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24">
-                    <path
-                        d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
                 </svg>
                 <span class="badge wishlist-count" style="display:none">0</span>
             </a>
-
 
             <a href="/user/login" class="nav-icon" aria-label="Account">
                 <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24">
@@ -65,7 +63,6 @@
                     <circle cx="12" cy="7" r="4" />
                 </svg>
             </a>
-
 
             <a href="/user/cart" class="nav-icon" aria-label="Cart">
                 <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24">

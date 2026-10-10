@@ -42,4 +42,7 @@ abstract class Controller
         }
         return array_combine($categories_temp, $categories_count);
     }
+
+
+
 }

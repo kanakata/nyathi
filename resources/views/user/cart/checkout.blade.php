@@ -46,11 +46,11 @@
                         <div class="checkout-section-title">Shipping Address</div>
 
                         <div class="form-group">
-                            <label for="country">County</label>
-                            <select id="county" name="country" class="form-control" required>
-                                <option value="">Select county…</option>
-                                @foreach ($counties as $county)
-                                    <option value="{{ $county }}">{{ $county }}</option>
+                            <label for="country">Shipment Location</label>
+                            <select id="shi$shipment_location" name="country" class="form-control" required>
+                                <option value="">Select shipment location…</option>
+                                @foreach ($shipment_locations as $shipment_location)
+                                    <option value="{{ $shipment_location }}">{{ $shipment_location }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -95,4 +95,11 @@
         </form>
     </div>
 </section>
+
+<template id="summary-template">
+    <div class="summary-row">
+        <span id="name"></span>
+        <span id="price"></span>
+    </div>
+</template>
 <x-user.footer></x-user.footer>
