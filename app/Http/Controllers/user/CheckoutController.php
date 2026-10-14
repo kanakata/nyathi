@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\Models\CheckoutModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class CheckoutController
 {
@@ -68,11 +69,11 @@ class CheckoutController
         $this->callback($data);
         return response()->json(['status' => 'success']);
     }
-    function callback($data)
+    private function callback($data)
     {
         // Handle the callback data here
         // You can log it, store it in the database, or perform any other necessary actions
-        \Log::info('MPESA Callback Data: ', $data);
+        Log::info('MPESA Callback Data: ', $data);
     }
     /**
      * Show the form for creating a new resource.

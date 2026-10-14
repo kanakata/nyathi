@@ -61,5 +61,3 @@ $customers = [
     </tbody>
   </table>
 </div>
-
-<x-admin.footer></x-admin.footer>

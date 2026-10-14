@@ -18,75 +18,6 @@
         pagination_handler();
     });
 
-    function pagination_handler() {
-        const paginations = Array.from($$(".pagination .page"));
-        const totalPages = Math.ceil(paginations.length / 2);
-        if (totalPages > 5) {
-            const activePageEl = document.querySelector(
-                ".pagination .page.active"
-            );
-            const currentPage = activePageEl
-                ? parseInt(
-                      activePageEl.dataset.page || activePageEl.textContent,
-                      10
-                  )
-                : 1;
-
-            paginations.forEach((pageEl) => {
-                const pageNum = parseInt(
-                    pageEl.dataset.page || pageEl.textContent,
-                    10
-                );
-
-                if (isNaN(pageNum)) return;
-
-                const isFirstPage = pageNum === 1;
-                const isLastPage = pageNum === totalPages;
-                const isNearCurrent = Math.abs(pageNum - currentPage) <= 1;
-
-                if (isFirstPage || isLastPage || isNearCurrent) {
-                    pageEl.style.display = ""; // Show element
-
-                    if (pageEl.classList.contains("has-ellipsis")) {
-                        pageEl.classList.remove("has-ellipsis");
-                    }
-                } else {
-                    pageEl.style.display = "none"; // Hide element
-                }
-            });
-
-            render_ellipses();
-        }
-    }
-
-    function render_ellipses() {
-        document
-            .querySelectorAll(".pagination .ellipsis")
-            .forEach((el) => el.remove());
-
-        const visiblePages = Array.from(
-            document.querySelectorAll(".pagination .page")
-        ).filter(
-            (el) =>
-                el.style.display !== "none" &&
-                !isNaN(parseInt(el.textContent, 10))
-        );
-
-        for (let i = 0; i < visiblePages.length - 1; i++) {
-            const currentNum = parseInt(visiblePages[i].textContent, 10);
-            const nextNum = parseInt(visiblePages[i + 1].textContent, 10);
-
-            if (nextNum - currentNum > 1) {
-                const ellipsis = document.createElement("span");
-                ellipsis.className = "page ellipsis";
-                ellipsis.textContent = "...";
-                ellipsis.style.pointerEvents = "none"; // Prevent clicks
-
-                visiblePages[i].after(ellipsis);
-            }
-        }
-    }
-
     (function () {
         const hamburger = $(".hamburger");
         const navMenu = $(".nav-menu");
@@ -155,11 +86,11 @@
         show(message, type = "info", duration = 1500) {
             const icons = { success: "✓", error: "✕", info: "→", warning: "!" };
             const toast = document.createElement("div");
-            toast.className = `toast ${type}`;
             const icon = document.createElement("span");
+            const mess = document.createElement("span");
+            toast.className = `toast ${type}`;
             icon.classList.add("toast-icon");
             icon.textContent = icons[type] || icons.info;
-            const mess = document.createElement("span");
             mess.className = "toast-icon";
             mess.textContent = message;
             const toast_children = [icon, mess];

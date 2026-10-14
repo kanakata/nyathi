@@ -24,7 +24,7 @@
 
     <div class="admin-layout">
 
-        <!-- ===== SIDEBAR ===== -->
+        {{-- ===== SIDEBAR ===== --}}
         <aside class="admin-sidebar">
             <div class="admin-logo">
                 <a href="/admin/dashboard" class="logo" style="font-size:1.1rem">Nyathi<span>.</span> <small
@@ -78,12 +78,12 @@
             </nav>
         </aside>
 
-        <!-- ===== MAIN ===== -->
+        {{-- ===== MAIN ===== --}}
         <main class="admin-main">
             <div class="admin-topbar">
                 <h1>{{ e($adminTitle) }}</h1>
                 <div style="display:flex;align-items:center;gap:1rem">
                     <span style="font-size:0.8rem;color:var(--text-muted)">{{ date('l, d M Y') }}</span>
-                    <a href="/admin/account" class="btn btn-ghost btn-sm">My Profile</a>
+                    {{-- <a href="/admin/account" class="btn btn-ghost btn-sm">My Profile</a> --}}
                 </div>
             </div>

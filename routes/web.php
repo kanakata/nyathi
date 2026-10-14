@@ -80,26 +80,24 @@ Route::prefix('admin')->group(function () {
     });
     Route::get('/dashboard', [DashboardController::class, 'index']);
     Route::get('/settings', function () {
-        return view('admin.settings');
+        return view('admin.pages.settings');
     });
     Route::get('/customers', function () {
-        return view('admin.customers');
+        return view('admin.pages.customers');
     });
     Route::get('/products', [ProductsController::class, 'pass_products']);
+    Route::post('/product-save', [ProductsController::class, 'save_product']);
     Route::get('/orders', function () {
-        return view('admin.orders');
+        return view('admin.pages.orders');
     });
     Route::get('/logout', function () {
         return redirect('admin/login');
     });
-    Route::get('/account', function () {
-        return view('admin.account');
-    });
     Route::get('/analytics', function () {
-        return view('admin.analytics');
+        return view('admin.pages.analytics');
     });
     Route::get('/product-form', function () {
-        return view('admin.product-form');
+        return view('admin.pages.product-form');
     });
 });
 

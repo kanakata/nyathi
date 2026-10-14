@@ -1,6 +1,5 @@
 <x-admin.header></x-admin.header>
-
-<!-- Stat Cards -->
+{{-- Stat Cards --}}
 <div class="stat-cards">
     @foreach ($stats as $s)
         <div class="stat-card">
@@ -13,7 +12,7 @@
     @endforeach
 </div>
 
-<!-- Chart Placeholder -->
+{{-- Chart Placeholder --}}
 <div style="display:grid;grid-template-columns:2fr 1fr;gap:1.5rem;margin-bottom:2rem">
     <div class="chart-box">
         <h4>Revenue Overview</h4>
@@ -27,7 +26,7 @@
     </div>
 </div>
 
-<!-- Recent Orders -->
+{{-- Recent Orders --}}
 <div class="chart-box" style="margin-bottom:2rem">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem">
         <h4>Recent Orders</h4>
@@ -64,7 +63,7 @@
     </div>
 </div>
 
-<!-- Top Products -->
+{{-- Top Products --}}
 <div class="chart-box">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem">
         <h4>Top Products This Month</h4>
@@ -95,6 +94,3 @@
         </tbody>
     </table>
 </div>
-
-</main>
-<x-admin.footer></x-admin.footer>

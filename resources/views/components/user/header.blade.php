@@ -24,9 +24,7 @@
 
 <body class="{{ e($bodyClass ?? '') }}">
 
-    <div class="announcement-bar">
-        {{ $promo }}
-    </div>
+    <x-utils.announcement></x-utils.announcement>
 
     <header class="site-header">
 

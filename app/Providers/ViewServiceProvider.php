@@ -3,7 +3,6 @@
 namespace App\Providers;
 
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\User\Controller as UserController;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -20,9 +19,8 @@ class ViewServiceProvider extends ServiceProvider
     /**
      * Bootstrap services.
      */
-    public function boot(UserController $controller): void
+    public function boot(Controller $controller): void
     {
-        
         View::share("promo", $controller->promo());
         View::composer('*', function ($view) {
             ob_start(function ($html) {

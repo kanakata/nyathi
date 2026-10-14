@@ -20,17 +20,14 @@ $pageTitle = 'Sign In — Nyathi Shop';
     <div class="auth-page">
 
         {{-- Visual Side --}}
-        {{-- <div class="auth-visual" style="display:block;flex:1">
-            <div
-                style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(13,13,13,0.75),rgba(201,169,110,0.12)),url('/assets/images/banners/auth.jpg') center/cover no-repeat">
-            </div>
+        <div class="auth-visual" style="display:block;flex:1">
             <div class="auth-visual-content">
                 <a href="/" class="logo">Nyathi<span>.</span></a>
                 <div style="margin-top:3rem">
                     <h2 style="color:#fff;margin-bottom:0.75rem">Welcome back.</h2>
                 </div>
             </div>
-        </div> --}}
+        </div>
 
         {{-- Form Side --}}
         <div class="auth-panel">
@@ -109,7 +106,7 @@ $pageTitle = 'Sign In — Nyathi Shop';
 
     </div>
 
-    <script src="/js/app.js"></script>
+    <script src="/js/utils.js"></script>
 </body>
 
 </html>

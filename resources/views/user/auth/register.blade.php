@@ -16,13 +16,10 @@
 </head>
 
 <body>
-
+    <x-utils.announcement></x-utils.announcement>
     <div class="auth-page">
 
         <div class="auth-visual" style="display:block;flex:1">
-            <div
-                style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(13,13,13,0.75),rgba(201,169,110,0.12)), url('/assets/images/IMG-20260822-WA0023.jpg') center/cover no-repeat">
-            </div>
             <div class="auth-visual-content">
                 <a href="/" class="logo">Nyathi<span>.</span></a>
                 <div style="margin-top:3rem">
@@ -66,7 +63,7 @@
 
                 <div class="form-group">
                     <label for="password">Password</label>
-                    <div style="position:relative">
+                    <div id="password-input" style="position:relative">
                         <input type="password" id="password" name="password" class="form-control" minlength="8"
                             required>
                         <button id="show-password" type="button" data-toggle-password="password">~_~</button>
@@ -96,9 +93,10 @@
 
     </div>
 
+    <script src="/js/utils.js"></script>
     <script src="/js/app.js"></script>
+
     <script>
-        // Password match validation
         document.querySelector('form')?.addEventListener('submit', e => {
             const p1 = document.getElementById('password').value;
             const p2 = document.getElementById('confirm_password').value;

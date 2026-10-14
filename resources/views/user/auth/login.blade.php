@@ -23,13 +23,12 @@ $pageTitle = 'Sign In — Nyathi Shop';
 
 <body>
 
+    <x-utils.announcement></x-utils.announcement>
+
     <div class="auth-page">
 
-        <!-- Visual Side -->
+        {{-- Visual Side --}}
         <div class="auth-visual" style="display:block;flex:1">
-            <div
-                style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(13,13,13,0.75),rgba(201,169,110,0.12)),url('/assets/images/IMG-20260822-WA0023.jpg') center/cover no-repeat">
-            </div>
             <div class="auth-visual-content">
                 <a href="/" class="logo">Nyathi<span>.</span></a>
                 <div style="margin-top:3rem">
@@ -40,7 +39,7 @@ $pageTitle = 'Sign In — Nyathi Shop';
             </div>
         </div>
 
-        <!-- Form Side -->
+        {{-- Form Side --}}
         <div class="auth-panel">
             <div class="auth-logo">
                 <a href="/" class="logo">Nyathi<span>.</span></a>
@@ -72,12 +71,12 @@ $pageTitle = 'Sign In — Nyathi Shop';
                 <div class="form-group">
                     <label for="password" style="display:flex;justify-content:space-between">
                         Password
-                        <a href="/forgot-password" style="color:var(--gold);font-size:0.75rem">Forgot?</a>
+                        <a href="/user/forgot-password" style="color:var(--gold);font-size:0.75rem">Forgot?</a>
                     </label>
-                    <div style="position:relative">
+                    <div id="password-input" style="position:relative">
                         <input type="password" id="password" name="password" class="form-control"
                             autocomplete="current-password" required>
-                        <button id="show-password" type="button" data-toggle-password="password">~_~</button>
+                        <button id="show-password" type="button" data-toggle-password="password" id="show-password">~_~</button>
                     </div>
                 </div>
 
@@ -121,6 +120,7 @@ $pageTitle = 'Sign In — Nyathi Shop';
 
     </div>
 
+    <script src="/js/utils.js"></script>
     <script src="/js/app.js"></script>
 </body>
 

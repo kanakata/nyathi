@@ -11,7 +11,7 @@
     </div>
 </div>
 
-<!-- Mission -->
+{{-- Mission --}}
 <section class="section">
     <div class="container" style="max-width:860px">
         <div class="section-header">
@@ -45,7 +45,7 @@
     </div>
 </section>
 
-<!-- Values -->
+{{-- Values --}}
 <section class="section" style="background:var(--surface)">
     <div class="container">
         <div class="section-header">
@@ -85,8 +85,8 @@
     </div>
 </section>
 
-<!-- Team -->
-<section class="section">
+{{-- Team --}}
+{{-- <section class="section">
     <div class="container">
         <div class="section-header">
             <h2>Meet the Team</h2>
@@ -99,13 +99,13 @@
                         style="width:120px;height:120px;border-radius:50%;background:var(--surface-2);margin:0 auto 1.25rem;border:2px solid var(--gold-dark)">
                     </div>
                     <h4 style="font-family:var(--font-display);font-size:1.1rem;margin-bottom:0.25rem">
-                        {{ e($member['name']) }}
+                        {{ $member['name'] }}
                     </h4>
-                    <p style="font-size:0.78rem;letter-spacing:0.06em;color:var(--gold)">{{ e($member['role']) }}</p>
+                    <p style="font-size:0.78rem;letter-spacing:0.06em;color:var(--gold)">{{ $member['role'] }}</p>
                 </div>
             @endforeach
         </div>
     </div>
-</section>
+</section> --}}
 
 <x-user.footer></x-user.footer>

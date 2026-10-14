@@ -1,5 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap");
 
+@import url("./media.css");
+
 /* ---- CSS Variables ---- */
 :root {
     --bg: #0d0d0d;
@@ -1637,12 +1639,12 @@ select.form-control {
    ============================================================ */
 .auth-page {
     min-height: 100vh;
+    width: 100%;
     display: flex;
     align-items: stretch;
 }
 .auth-visual {
     flex: 1;
-    background: url("../assets/images/fan kit.jpg") center/cover no-repeat;
     position: relative;
     display: none;
 }
@@ -1669,17 +1671,7 @@ select.form-control {
 .auth-visual-content p {
     color: rgba(255, 255, 255, 0.6);
 }
-#show-password {
-    position: absolute;
-    right: 1rem;
-    top: 50%;
-    transform: translateY(-50%);
-    background: none;
-    border: none;
-    color: var(--text-muted);
-    cursor: pointer;
-    font-size: 0.85rem;
-}
+
 .auth-panel {
     width: 100%;
     max-width: 480px;
@@ -1688,6 +1680,20 @@ select.form-control {
     justify-content: center;
     padding: 4rem 3rem;
     background: var(--bg);
+}
+.auth-page #password-input{
+    position: relative;
+    &  #show-password {
+        position: absolute;
+        right: 2;
+        top: 50%;
+        transform: translate(0%, -50%);
+        height: 100%;
+        width: 30px;
+    }
+}
+.auth-page .form-group input {
+    width: 100%;
 }
 .auth-logo {
     margin-bottom: 3rem;
@@ -1832,93 +1838,6 @@ select.form-control {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
     gap: 1.5px;
-}
-
-/* ============================================================
-   ACCOUNT PAGE
-   ============================================================ */
-.account-layout {
-    display: grid;
-    grid-template-columns: 240px 1fr;
-    gap: 3rem;
-    align-items: start;
-}
-.account-nav {
-    position: sticky;
-    top: 90px;
-}
-.account-nav-item {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    padding: 0.85rem 1rem;
-    border-radius: var(--radius);
-    font-size: 0.85rem;
-    color: var(--text-muted);
-    transition: var(--transition);
-    cursor: pointer;
-}
-.account-nav-item:hover,
-.account-nav-item.active {
-    background: var(--surface);
-    color: var(--gold);
-}
-.account-nav-item .icon {
-    width: 16px;
-    text-align: center;
-}
-
-.orders-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-.orders-table th {
-    text-align: left;
-    font-size: 0.7rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    padding: 0.75rem 1rem;
-    border-bottom: 1px solid var(--border);
-}
-.orders-table td {
-    padding: 1rem;
-    font-size: 0.85rem;
-    border-bottom: 1px solid var(--border);
-}
-.order-status {
-    display: inline-block;
-    padding: 0.25rem 0.75rem;
-    border-radius: 50px;
-    font-size: 0.68rem;
-    font-weight: 500;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-}
-.status-delivered {
-    background: rgba(39, 174, 96, 0.15);
-    color: var(--success);
-}
-.status-processing {
-    background: rgba(201, 169, 110, 0.15);
-    color: var(--gold);
-}
-.status-shipped {
-    background: rgba(52, 152, 219, 0.15);
-    color: #3498db;
-}
-.status-cancelled {
-    background: rgba(192, 57, 43, 0.15);
-    color: var(--danger);
-}
-.contact {
-    display: grid;
-    grid-template-columns: 1fr 1.4fr;
-    gap: 5rem;
-    align-items: start;
-    & .card {
-        padding: 2.5rem;
-    }
 }
 
 /* ============================================================

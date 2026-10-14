@@ -13,13 +13,14 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Jost:wght@300;400;500;600&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/app.css">
 </head>
 
 <body>
+    <x-utils.announcement></x-utils.announcement>
     <div class="auth-page" style="justify-content:center">
         <div class="auth-panel" style="max-width:440px">
-            <div class="auth-logo"><a href="/index.php" class="logo">Nyathi<span>.</span></a></div>
+            <div class="auth-logo"><a href="/" class="logo">Nyathi<span>.</span></a></div>
             <h2 class="auth-title">Reset Password</h2>
             <p class="auth-subtitle">Enter your email and we'll send you a reset link.</p>
             <form method="POST" action="/forgot-process">
@@ -29,10 +30,11 @@
                 </div>
                 <button type="submit" class="btn btn-primary btn-block">Send Reset Link</button>
             </form>
-            <p class="auth-footer mt-2"><a href="/login" style="color:var(--gold)">← Back to Sign In</a></p>
+            <p class="auth-footer mt-2"><a href="/user/login" style="color:var(--gold)">← Back to Sign In</a></p>
         </div>
     </div>
-    <script src="/js/main.js"></script>
+    <script src="/js/utils.js"></script>
+    <script src="/js/app.js"></script>
 </body>
 
 </html>

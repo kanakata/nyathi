@@ -1,5 +1,4 @@
 (function () {
-
     function init_app() {
         delegate_pagination_listener();
         init_current_page();
@@ -147,76 +146,6 @@
             update_products(data);
         });
     });
-
-    function pagination_handler() {
-        const paginations = Array.from($$(".pagination .page"));
-        const totalPages = Math.ceil(paginations.length / 2);
-        if (totalPages > 5) {
-            const activePageEl = document.querySelector(
-                ".pagination .page.active"
-            );
-            const currentPage = activePageEl
-                ? parseInt(
-                      activePageEl.dataset.page || activePageEl.textContent,
-                      10
-                  )
-                : 1;
-
-            paginations.forEach((pageEl) => {
-                const pageNum = parseInt(
-                    pageEl.dataset.page || pageEl.textContent,
-                    10
-                );
-
-                if (isNaN(pageNum)) return;
-
-                const isFirstPage = pageNum === 1;
-                const isLastPage = pageNum === totalPages;
-                const isNearCurrent = Math.abs(pageNum - currentPage) <= 1;
-
-                if (isFirstPage || isLastPage || isNearCurrent) {
-                    pageEl.style.display = ""; // Show element
-
-                    if (pageEl.classList.contains("has-ellipsis")) {
-                        pageEl.classList.remove("has-ellipsis");
-                    }
-                } else {
-                    pageEl.style.display = "none"; // Hide element
-                }
-            });
-
-            render_ellipses();
-        }
-    }
-
-    function render_ellipses() {
-        document
-            .querySelectorAll(".pagination .ellipsis")
-            .forEach((el) => el.remove());
-
-        const visiblePages = Array.from(
-            document.querySelectorAll(".pagination .page")
-        ).filter(
-            (el) =>
-                el.style.display !== "none" &&
-                !isNaN(parseInt(el.textContent, 10))
-        );
-
-        for (let i = 0; i < visiblePages.length - 1; i++) {
-            const currentNum = parseInt(visiblePages[i].textContent, 10);
-            const nextNum = parseInt(visiblePages[i + 1].textContent, 10);
-
-            // If gap between consecutive visible pages is greater than 1, insert ellipsis
-            if (nextNum - currentNum > 1) {
-                const ellipsis = document.createElement("span");
-                ellipsis.className = "page ellipsis";
-                ellipsis.textContent = "...";
-                ellipsis.style.pointerEvents = "none"; // Prevent clicks
-
-                visiblePages[i].after(ellipsis);
-            }
-        }
-    }
 
     function update_pagination(data) {
         $$(".pagination .page-btn").forEach((pag) => {

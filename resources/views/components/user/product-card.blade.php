@@ -5,7 +5,7 @@
     $reviews = (int) (/*$product['review_count']*/ "" ?? 0);
     $in_wish = (bool) (/*$product['in_wishlist']*/ "" ?? false);
     $stars = str_repeat('★', round($rating)) . str_repeat('☆', 5 - round($rating));
-    $id = Crypt::encryptString((str($product->id)));
+    $id = Crypt::encryptString((str($product->product_id)));
 @endphp
 <div class="product-card">
 
@@ -32,13 +32,13 @@
         @endif
 
         <div class="product-actions-hover">
-            <button class="btn-add-cart" data-action="add-to-cart" data-id="{{ e($product->id) }}"
+            <button class="btn-add-cart" data-action="add-to-cart" data-id="{{ e($product->product_id) }}"
                 data-name="{{ e($product->product_name) }}" data-price="{{ e($product->product_price) }}"
                 data-image="/assets/images/{{ e($product->product_image ?? '') }}" {{ ($badge === 'sold') ? 'disabled' : '' }}>
                 {{ ($badge === 'sold') ? 'Sold Out' : 'Add to Cart' }}
             </button>
             <button class="btn-wishlist {{   $in_wish ? 'active' : '' }}" data-action="toggle-wishlist" data-id="
-            {{ e($product->id) }}" data-name="{{   e($product->product_name) }}"
+            {{ e($product->product_id) }}" data-name="{{   e($product->product_name) }}"
                 data-price="{{ e($product->product_price) }}"
                 data-image="/assets/images/{{ e($product->product_image ?? '') }}"
                 aria-label="Add to wishlist">{{ $in_wish ? '♥' : '♡' }}</button>

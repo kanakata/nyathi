@@ -7,11 +7,11 @@ use App\Models\ProductsModel;
 abstract class Controller
 {
     private int $per_page = 30;
+
     protected function categories()
     {
         return ProductsModel::categories();
     }
-
     protected function avail_products(string $view)
     {
         $offset = 0;
@@ -22,16 +22,18 @@ abstract class Controller
         $product_cumulative = $current_page * $this->per_page > $total ? $total : $current_page * $this->per_page;
         $total_pages = (int) ceil($total / $this->per_page);
         dd($view);
+
         return view($view, [
-            "products" => $products,
-            "total" => $total,
-            "current_page" => $current_page,
-            "per_page" => $this->per_page,
-            "total_pages" => $total_pages,
-            "product_cumulative" => $product_cumulative,
-            "categories" => $this->pass_categories_count(),
+            'products' => $products,
+            'total' => $total,
+            'current_page' => $current_page,
+            'per_page' => $this->per_page,
+            'total_pages' => $total_pages,
+            'product_cumulative' => $product_cumulative,
+            'categories' => $this->pass_categories_count(),
         ]);
     }
+
     protected function pass_categories_count()
     {
         $categories = ProductsModel::categories();
@@ -40,9 +42,17 @@ abstract class Controller
             array_push($categories_temp, $category->product_category);
             array_push($categories_count, ProductsModel::categories_count($category->product_category));
         }
+
         return array_combine($categories_temp, $categories_count);
     }
 
-
-
+    public function promo() {
+        $promos = collect([
+            "Free shipping on orders over Ksh: 13000 New arrivals every week",
+            "Safari sevens",
+            "Dala sevens"
+            ]
+        );
+        return $promos->random();
+    }
 }

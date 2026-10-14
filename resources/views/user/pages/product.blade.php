@@ -95,11 +95,11 @@
                         <button class="qty-btn" data-action="inc">+</button>
                     </div>
                     <button class="btn btn-primary" style="flex:1" data-action="add-to-cart"
-                        data-id="{{ e($product->id) }}" data-name="{{ e($product->product_name) }}"
+                        data-id="{{ e($product->product_id) }}" data-name="{{ e($product->product_name) }}"
                         data-price="{{ e($product->product_price) }}"
                         data-image="/assets/images/{{ e($product->product_image) }}">Add
                         to Cart</button>
-                    <button class="btn btn-ghost" data-action="toggle-wishlist" data-id="{{ e($product->id) }}"
+                    <button class="btn btn-ghost" data-action="toggle-wishlist" data-id="{{ e($product->product_id) }}"
                         data-name="{{ e($product->product_name) }}" data-price="{{ e($product->product_price) }}"
                         data-image="/assets/images/{{ e($product->product_image) }}"
                         style="width:52px;height:52px;padding:0" aria-label="Add to wishlist">♡</button>

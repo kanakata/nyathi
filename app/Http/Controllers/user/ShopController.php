@@ -21,8 +21,8 @@ class ShopController
 
         $products_id = [];
         foreach ($products as $product) {
-            array_push($products_id, Crypt::encryptString($product->id));
-            unset($product->id);
+            array_push($products_id, Crypt::encryptString($product->product_id));
+            unset($product->product_id);
         }
 
         $json_response = [

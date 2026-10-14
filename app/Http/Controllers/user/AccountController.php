@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\User;
 
-use App\Models\AccountModel;
 use App\Http\Controllers\Controller;
+use App\Models\AccountModel;
 use Illuminate\Http\Request;
 
 class AccountController extends Controller
@@ -13,7 +13,14 @@ class AccountController extends Controller
      */
     public function index()
     {
-        return view("user.pages.account");
+        $user = ['first_name' => 'Amara', 'last_name' => 'Osei', 'email' => 'amara@example.com', 'joined' => 'January 2024'];
+        $orders = [
+            ['id' => 'LX-A4F1E2', 'date' => 'Mar 15, 2025', 'total' => 389.00, 'status' => 'delivered', 'items' => 1],
+            ['id' => 'LX-B8D3F7', 'date' => 'Feb 28, 2025', 'total' => 220.00, 'status' => 'shipped', 'items' => 2],
+            ['id' => 'LX-C2E9A1', 'date' => 'Jan 12, 2025', 'total' => 655.00, 'status' => 'delivered', 'items' => 3],
+        ];
+
+        return view('user.pages.account', ['user' => $user, 'orders' => $orders]);
     }
 
     /**

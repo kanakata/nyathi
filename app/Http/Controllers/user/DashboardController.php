@@ -5,7 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Models\DashboardModel;
 use Illuminate\Http\Request;
 
-class DashboardController 
+class DashboardController
 {
     /**
      * Display a listing of the resource.
@@ -35,7 +35,7 @@ class DashboardController
         ];
 
 
-        return view("admin.dashboard", [
+        return view("admin.pages.dashboard", [
             "stats" => $stats,
             "recentOrders" => $recentOrders,
             "topProducts" => $topProducts

@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\admin;
 
+use App\Http\Controllers\Controller;
 use App\Models\ProductsModel;
+use Illuminate\Http\Request;
 
-class ProductsController
+class ProductsController extends Controller
 {
     private int $per_page = 30;
 
@@ -18,7 +20,7 @@ class ProductsController
         $product_cumulative = $current_page * $this->per_page > $total ? $total : $current_page * $this->per_page;
         $total_pages = (int) ceil($total / $this->per_page);
 
-        return view('admin.products', [
+        return view('admin.pages.products', [
             'products' => $products,
             'total' => $total,
             'current_page' => $current_page,
@@ -27,6 +29,52 @@ class ProductsController
             'product_cumulative' => $product_cumulative,
             'categories' => $this->pass_categories_count(),
         ]);
-        // dd($products);
+    }
+
+    public function save_product(Request $request)
+    {
+        // Validate the request data
+        $validated = $request->validate([
+            'product_name' => ['required', 'max:255', 'string'],
+            'product_brand' => ['required', 'max:255', 'string'],
+            'product_description' => ['required', 'max:255', 'string'],
+            'product_price' => ['required', 'numeric'],
+            'product_discount' => ['nullable', 'numeric'],
+            'product_count' => ['required', 'numeric'],
+            'product_category' => ['required', 'max:255', 'string'],
+            'product_color' => ['required', 'max:255', 'string'],
+            'product_sizes' => ['nullable', 'max:255', 'string'],
+            'product_cupon' => ['nullable', 'max:255', 'string'],
+            'product_image' => ['required', 'max:255', 'string'],
+            'product_images' => ['nullable', 'max:255', 'string'],
+            'product_reviews' => ['nullable', 'numeric'],
+            'product_badge' => ['nullable', 'max:255', 'string'],
+            'product_meta_title' => ['nullable', 'max:255', 'string'],
+            'product_meta_description' => ['nullable', 'max:255', 'string'],
+        ]);
+
+        dd($validated); // Debugging line to check the validated data
+        // Save the validated data to the database
+        $product = new ProductsModel;
+        $product->save_product([
+            'product_name' => $validated['product_name'],
+            'product_brand' => $validated['product_brand'],
+            'product_description' => $validated['product_description'],
+            'product_price' => $validated['product_price'],
+            'product_discount' => $validated['product_discount'] ?? null,
+            'product_count' => $validated['product_count'],
+            'product_category' => $validated['product_category'],
+            'product_color' => $validated['product_color'],
+            'product_sizes' => $validated['product_sizes'] ?? null,
+            'product_cupon' => $validated['product_cupon'] ?? null,
+            'product_image' => $validated['product_image'],
+            'product_images' => $validated['product_images'] ?? null,
+            'product_reviews' => $validated['product_reviews'] ?? null,
+            'product_badge' => $validated['product_badge'] ?? null,
+            'product_meta_title' => $validated['product_meta_title'] ?? null,
+            'product_meta_description' => $validated['product_meta_description'] ?? null,
+        ]);
+
+        return redirect('/admin/products');
     }
 }

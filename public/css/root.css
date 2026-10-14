@@ -1,0 +1,22 @@
+/* ---- CSS Variables ---- */
+:root {
+    --bg: #0d0d0d;
+    --surface: #161616;
+    --surface-2: #1f1f1f;
+    --border: #2a2a2a;
+    --gold: #6e83c9;
+    --gold-light: #8ab5e0;
+    --gold-dark: #58409e;
+    --text: #e8e4de;
+    --text-muted: #7a7570;
+    --white: #ffffff;
+    --danger: #c0392b;
+    --success: #27ae60;
+    --radius: 2px;
+    --radius-md: 6px;
+    --transition: all 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --shadow: 0 8px 40px rgba(0, 0, 0, 0.5);
+    --shadow-gold: 0 4px 24px rgba(201, 169, 110, 0.15);
+    --font-display: "Cormorant Garamond", serif;
+    --font-body: "Jost", sans-serif;
+}
