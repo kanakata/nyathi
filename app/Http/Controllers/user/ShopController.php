@@ -1,15 +1,10 @@
 <?php
-
 namespace App\Http\Controllers\User;
-
 use App\Models\ProductsModel;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
-
 class ShopController
 {
     private int $perPage = 9;
-
     private function avail_products(callable $callback, int $page, string $category = "", $paginate = false, int $price = 0)
     {
         $data = $callback();
@@ -48,7 +43,6 @@ class ShopController
         }
         return array_combine($categories_temp, $categories_count);
     }
-
     public function pass_products_filtered_by_category(string $category)
     {
         $page = $page ?? 1;
@@ -63,7 +57,6 @@ class ShopController
             return ProductsModel::fetch_products_filtered_by_category_and_price(category: str_replace(["+"], " ", $category), price: $price, perPage: $this->perPage, offset: ($this->perPage * $page) - $this->perPage);
         }, page: $page, category: $category, price: $price);
     }
-
     public function pass_products_filtered_by_price(int $price)
     {
         $page = $page ?? 1;
@@ -71,21 +64,18 @@ class ShopController
             return ProductsModel::fetch_product_filtered_by_price(price: $price, perPage: $this->perPage, offset: ($this->perPage * $page) - $this->perPage);
         }, page: $page);
     }
-
     public function pass_requested_categorized_batch_of_products(string $category, int $page = 1)
     {
         return $this->avail_products(function () use ($category, $page) {
             return ProductsModel::fetch_categorized_products(category: str_replace(["+"], " ", $category), perPage: $this->perPage, offset: ($this->perPage * $page) - $this->perPage);
         }, $page, $category);
     }
-
     public function pass_requested_batch_of_products(int $page = 1)
     {
         return $this->avail_products(function () use ($page) {
             return ProductsModel::fetch_products(perPage: $this->perPage, offset: ($this->perPage * $page) - $this->perPage);
         }, $page, paginate: true);
     }
-
     public function pass_products()
     {
         $offset = 0;
@@ -106,7 +96,6 @@ class ShopController
             "categories" => $this->pass_categories_count(),
         ]);
     }
-
     public function pass_categorized_products(string $category, int $page = 1)
     {
         $page = $page ?? 1;

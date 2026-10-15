@@ -18,7 +18,13 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="/css/app.css">
+    {{--
+    <link rel="stylesheet" href="/css/app.css"> --}}
+    @vite(['resources/css/app.css'])
+    @vite([
+        'resources/js/utils.js',
+        'resources/js/app.js',
+    ])
     {{ $extraCss ?? '' }}
 </head>
 
@@ -50,7 +56,8 @@
 
             <a href="/user/wishlist" class="nav-icon" aria-label="Wishlist">
                 <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24">
-                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+                    <path
+                        d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
                 </svg>
                 <span class="badge wishlist-count" style="display:none">0</span>
             </a>

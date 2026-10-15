@@ -147,13 +147,13 @@ $adminSection = 'products';
                     <select name="product_category" class="form-control" required>
                         <option value="">Select category…</option>
                         {{-- Backend: render <option> from $categories --}}
-                        <option value="1" >training</option>
-                        <option value="2" >fan kit</option>
-                        <option value="3" >foot ware</option>
-                        <option value="4" >medical</option>
-                        <option value="4" >protective gear
+                        <option value="training" >training</option>
+                        <option value="fan-kit" >fan kit</option>
+                        <option value="foot-ware" >foot ware</option>
+                        <option value="medical" >medical</option>
+                        <option value="protective-gear" >protective gear
                         </option>
-                        <option value="4" >equipment</option>
+                        <option value="" >equipment</option>
                     </select>
                 </div>
                 <div class="form-group">

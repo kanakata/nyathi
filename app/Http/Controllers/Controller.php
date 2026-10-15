@@ -46,13 +46,5 @@ abstract class Controller
         return array_combine($categories_temp, $categories_count);
     }
 
-    public function promo() {
-        $promos = collect([
-            "Free shipping on orders over Ksh: 13000 New arrivals every week",
-            "Safari sevens",
-            "Dala sevens"
-            ]
-        );
-        return $promos->random();
-    }
+    
 }

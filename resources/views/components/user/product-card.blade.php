@@ -13,12 +13,12 @@
 
         @if($badge == "available")
             <a href="/user/product/{{ $id }}" class="product-link">
-                <img src="/assets/images/{{ e($product->product_image ?? '/IMG-20260822-WA0023.jpg') }}"
-                    alt="{{ e($product->product_name) }}" loading="lazy">
+                <img src="{{ asset("storage/product-images/" . $product->product_image) }}"
+                    alt="{{ $product->product_image}}" loading="lazy">
             </a>
         @else
             <a class="product-link">
-                <img src="/assets/images/{{ e($product->product_image ?? '/IMG-20260822-WA0023.jpg') }}"
+                <img src="{{ asset("storage/product-images/" . $product->product_image) }}"
                     alt="{{ e($product->product_name) }}" loading="lazy">
             </a>
         @endif
@@ -34,13 +34,13 @@
         <div class="product-actions-hover">
             <button class="btn-add-cart" data-action="add-to-cart" data-id="{{ e($product->product_id) }}"
                 data-name="{{ e($product->product_name) }}" data-price="{{ e($product->product_price) }}"
-                data-image="/assets/images/{{ e($product->product_image ?? '') }}" {{ ($badge === 'sold') ? 'disabled' : '' }}>
+                data-image="/assets/images/{{ e(asset("storage/" . $product->product_image) ?? '') }}" {{ ($badge === 'sold') ? 'disabled' : '' }}>
                 {{ ($badge === 'sold') ? 'Sold Out' : 'Add to Cart' }}
             </button>
             <button class="btn-wishlist {{   $in_wish ? 'active' : '' }}" data-action="toggle-wishlist" data-id="
             {{ e($product->product_id) }}" data-name="{{   e($product->product_name) }}"
                 data-price="{{ e($product->product_price) }}"
-                data-image="/assets/images/{{ e($product->product_image ?? '') }}"
+                data-image="/assets/images/{{ e(asset("storage/" . $product->product_image) ?? '') }}"
                 aria-label="Add to wishlist">{{ $in_wish ? '♥' : '♡' }}</button>
         </div>
     </div>

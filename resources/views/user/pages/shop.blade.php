@@ -1,5 +1,4 @@
 <x-user.header></x-user.header>
-
 <!-- Page Hero -->
 <div class="page-hero">
     <div class="container">
@@ -153,5 +152,7 @@
         </div>
     </div>
 </template>
-
+@vite([
+    'resources/js/products.js',
+])
 <x-user.footer></x-user.footer>

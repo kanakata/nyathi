@@ -70,15 +70,15 @@
         </div>
         <div class="categories-grid">
             @foreach ($categories as $cat)
-                <div class="category-card">
-                    <div class="category-bg"
-                        style="background-image:url('/assets/category/{{ $cat->product_category . ".jpg" }}')"></div>
-                    <div class="category-info">
-                        <h3>{{ $cat->product_category }}</h3>
-                        {{-- <p>In Stock {{ $cat->product_count }}</p> --}}
-                        <a href="/user/shop/category/{{ $cat->product_category  }}" class="category-link">Shop Now →</a>
+                    <div class="category-card">
+                        <div class="category-bg"
+                            style="background-image:url('/assets/category/{{ $cat->product_category . ".jpg" }}')"></div>
+                        <div class="category-info">
+                            <h3>{{ $cat->product_category }}</h3>
+                            {{-- <p>In Stock {{ $cat->product_count }}</p> --}}
+                            <a href="/user/shop/category/{{ $cat->product_category  }}" class="category-link">Shop Now →</a>
+                        </div>
                     </div>
-                </div>
             @endforeach
         </div>
     </div>

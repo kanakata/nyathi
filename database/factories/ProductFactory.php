@@ -19,11 +19,11 @@ class ProductFactory extends Factory
     {
         $categories = [
             "foot wear",
-            "protective gear",
+            "protective-gear",
             "medical",
             "equipment",
             "training",
-            "fan kit",
+            "fan-kit",
         ];
 
         $brand = [

@@ -45,15 +45,19 @@ class ProductsController extends Controller
             'product_color' => ['required', 'max:255', 'string'],
             'product_sizes' => ['nullable', 'max:255', 'string'],
             'product_cupon' => ['nullable', 'max:255', 'string'],
-            'product_image' => ['required', 'max:255', 'string'],
-            'product_images' => ['nullable', 'max:255', 'string'],
+            // 'product_image' => ['required', 'max:255', 'string'],
+            // 'product_images' => ['nullable', 'max:255', 'string'],
             'product_reviews' => ['nullable', 'numeric'],
             'product_badge' => ['nullable', 'max:255', 'string'],
             'product_meta_title' => ['nullable', 'max:255', 'string'],
             'product_meta_description' => ['nullable', 'max:255', 'string'],
         ]);
 
-        dd($validated); // Debugging line to check the validated data
+        if ($request->file('product_image')->isValid()) {
+            $file_name = $request->input('product_name') . '.' . $request->file('product_image')->extension();
+            $request->file('product_image')->storeAs('product-images',$file_name, "public");
+        }
+
         // Save the validated data to the database
         $product = new ProductsModel;
         $product->save_product([
@@ -67,7 +71,7 @@ class ProductsController extends Controller
             'product_color' => $validated['product_color'],
             'product_sizes' => $validated['product_sizes'] ?? null,
             'product_cupon' => $validated['product_cupon'] ?? null,
-            'product_image' => $validated['product_image'],
+            'product_image' => $request->input('product_name').'.'.$request->file('product_image')->extension(),
             'product_images' => $validated['product_images'] ?? null,
             'product_reviews' => $validated['product_reviews'] ?? null,
             'product_badge' => $validated['product_badge'] ?? null,

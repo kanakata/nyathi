@@ -25,7 +25,7 @@ return new class extends Migration
             $table->integer("product_count");
             $table->integer("product_discount")->nullable(true);
             $table->string("product_sizes", 60)->nullable(true);
-            $table->integer("product_rating");
+            $table->integer("product_rating")->nullable(true);
             $table->string("product_image", 60)->nullable(true);
             $table->string("product_images", 255)->nullable(true);
             $table->integer("product_reviews")->nullable(true);

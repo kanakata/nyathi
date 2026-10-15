@@ -2,7 +2,8 @@
 
 namespace App\Providers;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\AdsController;
+use App\Http\Controllers\user\AdsController as UserAdsController;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -19,7 +20,7 @@ class ViewServiceProvider extends ServiceProvider
     /**
      * Bootstrap services.
      */
-    public function boot(Controller $controller): void
+    public function boot(UserAdsController $controller): void
     {
         View::share("promo", $controller->promo());
         View::composer('*', function ($view) {

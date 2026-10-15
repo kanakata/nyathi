@@ -64,11 +64,6 @@
 
     </div>
 </footer>
-<script src="/js/utils.js"></script>
-<script src="/js/app.js"></script>
-@if (request()->path() == "user/shop")
-    <script src="/js/products.js"></script>
-@endif
 </body>
 
 </html>
