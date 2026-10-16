@@ -1,6 +1,6 @@
 @php
     use Illuminate\Support\Facades\Crypt;
-    $badge = $product->product_badge;
+    // $product->product_badge = ;
     $rating = (float) ($product->product_rating ?? 0);
     $reviews = (int) (/*$product['review_count']*/ "" ?? 0);
     $in_wish = (bool) (/*$product['in_wishlist']*/ "" ?? false);
@@ -11,7 +11,7 @@
 
     <div class="product-image-wrap">
 
-        @if($badge == "available")
+        @if($product->product_badge == "available")
             <a href="/user/product/{{ $id }}" class="product-link">
                 <img src="{{ asset("storage/product-images/" . $product->product_image) }}"
                     alt="{{ $product->product_image}}" loading="lazy">
@@ -23,10 +23,10 @@
             </a>
         @endif
 
-        @if ($badge)
+        @if ($product->product_badge)
             <div class="product-badges">
-                <span class="product-badge badge-{{ e($badge) }}">
-                    {{ ucfirst(e($badge)) }}
+                <span class="product-badge badge-{{ e($product->product_badge) }}">
+                    {{ ucfirst(e($product->product_badge)) }}
                 </span>
             </div>
         @endif
@@ -34,13 +34,13 @@
         <div class="product-actions-hover">
             <button class="btn-add-cart" data-action="add-to-cart" data-id="{{ e($product->product_id) }}"
                 data-name="{{ e($product->product_name) }}" data-price="{{ e($product->product_price) }}"
-                data-image="/assets/images/{{ e(asset("storage/" . $product->product_image) ?? '') }}" {{ ($badge === 'sold') ? 'disabled' : '' }}>
-                {{ ($badge === 'sold') ? 'Sold Out' : 'Add to Cart' }}
+                data-image="{{ e(asset("storage/" . $product->product_image) ?? '') }}" {{ ($product->product_badge === 'sold') ? 'disabled' : '' }}>
+                {{ ($product->product_badge === 'sold') ? 'Sold Out' : 'Add to Cart' }}
             </button>
             <button class="btn-wishlist {{   $in_wish ? 'active' : '' }}" data-action="toggle-wishlist" data-id="
             {{ e($product->product_id) }}" data-name="{{   e($product->product_name) }}"
                 data-price="{{ e($product->product_price) }}"
-                data-image="/assets/images/{{ e(asset("storage/" . $product->product_image) ?? '') }}"
+                data-image="{{ e(asset("storage/" . $product->product_image) ?? '') }}"
                 aria-label="Add to wishlist">{{ $in_wish ? '♥' : '♡' }}</button>
         </div>
     </div>
@@ -53,7 +53,7 @@
             </div>
         @endif
 
-        @if ($badge == "available")
+        @if ($product->product_badge == "available")
             <a class="product-link" href="/user/product/{{ e($id) }}">
                 <h3 class="product-name">{{ e($product->product_name) }}</h3>
             </a>

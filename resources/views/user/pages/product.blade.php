@@ -1,4 +1,4 @@
-<x-user.header></x-user.header>
+<x-user.header :pageTitle="$product->product_meta_title" :pageDescription="$product->product_meta_description"></x-user.header>
 
 <div class="page-hero">
     <div class="container">
@@ -23,14 +23,14 @@
             <!-- ===== GALLERY ===== -->
             <div class="product-gallery">
                 <div class="gallery-main">
-                    <img title="{{ e($product->product_name) }}" src="/assets/images/{{ e($product->product_image) }}"
+                    <img title="{{ e($product->product_name) }}" src="{{ asset("storage/product-images/" . $product->product_image) }}"
                         alt="{{ e($product->product_name) }}" id="main-image">
                 </div>
                 <div class="gallery-thumbs">
                     @for ($i = 0; $i < count(explode(",", $product->product_images)); $i++)
                         <div class="gallery-thumb {{ $i === 0 ? 'active' : '' }}">
                             <img title="{{ e($product->product_name) }}"
-                                src="/assets/images/{{ e(explode(",", $product->product_images)[$i]) }}"
+                                src="{{ e(explode(",", $product->product_images)[$i]) }}"
                                 alt="View {{ $i + 1 }}">
                         </div>
                     @endfor
@@ -97,11 +97,11 @@
                     <button class="btn btn-primary" style="flex:1" data-action="add-to-cart"
                         data-id="{{ e($product->product_id) }}" data-name="{{ e($product->product_name) }}"
                         data-price="{{ e($product->product_price) }}"
-                        data-image="/assets/images/{{ e($product->product_image) }}">Add
+                        data-image="{{ asset("storage/product-images/" . $product->product_image) }}">Add
                         to Cart</button>
                     <button class="btn btn-ghost" data-action="toggle-wishlist" data-id="{{ e($product->product_id) }}"
                         data-name="{{ e($product->product_name) }}" data-price="{{ e($product->product_price) }}"
-                        data-image="/assets/images/{{ e($product->product_image) }}"
+                        data-image="{{ asset("storage/product-images/" . $product->product_image) }}"
                         style="width:52px;height:52px;padding:0" aria-label="Add to wishlist">♡</button>
                 </div>
 

@@ -1,29 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap");
 
-@import url("./media.css");
+@import url("./root.css");
 
-/* ---- CSS Variables ---- */
-:root {
-    --bg: #0d0d0d;
-    --surface: #161616;
-    --surface-2: #1f1f1f;
-    --border: #2a2a2a;
-    --gold: #6e83c9;
-    --gold-light: #8ab5e0;
-    --gold-dark: #58409e;
-    --text: #e8e4de;
-    --text-muted: #7a7570;
-    --white: #ffffff;
-    --danger: #c0392b;
-    --success: #27ae60;
-    --radius: 2px;
-    --radius-md: 6px;
-    --transition: all 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    --shadow: 0 8px 40px rgba(0, 0, 0, 0.5);
-    --shadow-gold: 0 4px 24px rgba(201, 169, 110, 0.15);
-    --font-display: "Cormorant Garamond", serif;
-    --font-body: "Jost", sans-serif;
-}
+@import url("./media.css");
 
 /* ---- Reset & Base ---- */
 *,
@@ -33,12 +12,13 @@
     margin: 0;
     padding: 0;
 }
+
 html {
     font-size: 16px;
     scroll-behavior: smooth;
 }
 
-body {
+/* body{
     font-family: var(--font-body);
     background: var(--bg);
     color: var(--text);
@@ -46,7 +26,7 @@ body {
     font-weight: 300;
     min-height: 100vh;
     overflow-x: hidden;
-}
+} */
 /* ---- Typography ---- */
 h1,
 h2,
@@ -254,7 +234,7 @@ select.form-control {
     justify-content: space-between;
     padding: 0 10px;
     height: 72px;
-    background: rgba(13, 13, 13, 0.92);
+    background: var(--bg);
     backdrop-filter: blur(20px);
     border-bottom: 1px solid var(--gold-light);
     transition: var(--transition);
@@ -269,7 +249,7 @@ select.form-control {
     font-size: 22px;
     font-weight: 600;
     letter-spacing: 0.08em;
-    color: var(--white);
+    color: var(--text);
     & img {
         height: 55px;
         transform: rotate(90deg);
@@ -898,11 +878,11 @@ select.form-control {
     margin-bottom: 1rem;
 }
 .promo-content h2 {
-    color: var(--white);
+    color: var(--text);
     margin-bottom: 1rem;
 }
 .promo-content p {
-    color: rgba(255, 255, 255, 0.65);
+    color:var(--text);
     margin-bottom: 2rem;
 }
 .promo-timer {
@@ -2097,138 +2077,4 @@ select.form-control {
 }
 .data-table tbody tr:last-child td {
     border-bottom: none;
-}
-
-/* ============================================================
-   RESPONSIVE
-   ============================================================ */
-@media (max-width: 1024px) {
-    .contact {
-        display: flex;
-        flex-direction: column;
-        & .card {
-            width: 100%;
-            padding: 20px;
-        }
-    }
-    .auth-page {
-        display: flex;
-        flex-direction: column;
-    }
-    .auth-visual {
-        display: none;
-    }
-
-    .site-header {
-        padding: 0 2rem;
-    }
-    .categories-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-    .categories-grid .category-card:first-child {
-        grid-row: auto;
-    }
-    .features-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-    .events-grid {
-        grid-template-columns: 1fr 1fr;
-    }
-    .footer-grid {
-        grid-template-columns: 1fr 1fr;
-    }
-    .toolbar-right {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 1rem;
-    }
-    .shop-toolbar {
-        display: flex;
-        flex-direction: column;
-    }
-    .shop-layout {
-        grid-template-columns: 1fr;
-    }
-    .shop-sidebar {
-        position: static;
-    }
-    .product-detail {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-    }
-    .cart-layout {
-        grid-template-columns: 1fr;
-    }
-    .checkout-layout {
-        grid-template-columns: 1fr;
-    }
-    .account-layout {
-        grid-template-columns: 1fr;
-    }
-    .stat-cards {
-        grid-template-columns: repeat(2, 1fr);
-    }
-    .admin-main {
-        padding: 1.5rem;
-    }
-}
-
-@media (max-width: 768px) {
-    .site-header {
-        padding: 0 1.25rem;
-    }
-    .nav-menu {
-        display: none;
-    }
-    .hamburger {
-        display: flex;
-    }
-    .auth-panel {
-        max-width: 100%;
-    }
-    .categories-grid {
-        grid-template-columns: 1fr;
-    }
-    .features-grid {
-        grid-template-columns: 1fr;
-    }
-    .events-grid {
-        grid-template-columns: 1fr;
-    }
-    .form-row {
-        grid-template-columns: 1fr;
-    }
-    .footer-grid {
-        grid-template-columns: 1fr;
-    }
-    .stat-cards {
-        grid-template-columns: 1fr 1fr;
-    }
-    .products-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-    .admin-sidebar {
-        display: none;
-    }
-    .admin-main {
-        margin-left: 0;
-        padding: 1rem;
-    }
-}
-
-@media (max-width: 480px) {
-    .products-grid {
-        grid-template-columns: 1fr;
-    }
-    .hero-actions {
-        flex-direction: column;
-    }
-    .newsletter-form {
-        flex-direction: column;
-    }
-    .newsletter-form .form-control,
-    .newsletter-form .btn {
-        border-radius: var(--radius);
-    }
 }

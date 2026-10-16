@@ -97,7 +97,7 @@ $adminSection = 'products';
                 <div class="checkout-section-title">SEO (optional)</div>
                 <div class="form-group">
                     <label>Meta Title</label>
-                    <input type="text" name="products_meta_title" class="form-control" data-maxlength="60"
+                    <input type="text" name="product_meta_title" class="form-control" data-maxlength="60"
                         value="Shujaa Fan Kit">
                 </div>
                 <div class="form-group">

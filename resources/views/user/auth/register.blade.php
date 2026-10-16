@@ -1,5 +1,5 @@
 @php
-    $pageTitle = 'Create Account — Nyathi Shop';
+$pageTitle = 'Create Account — Nyathi Shop';
 @endphp
 <!DOCTYPE html>
 <html lang="en">
@@ -12,7 +12,7 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Jost:wght@300;400;500;600&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="/css/app.css">
+        @vite(["resources/css/app.css", "resources/js/app.js"])
 </head>
 
 <body>
@@ -92,9 +92,6 @@
         </div>
 
     </div>
-
-    <script src="/js/utils.js"></script>
-    <script src="/js/app.js"></script>
 
     <script>
         document.querySelector('form')?.addEventListener('submit', e => {

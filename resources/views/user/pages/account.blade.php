@@ -1,5 +1,3 @@
-<x-utils.config></x-utils.config>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="/css/app.css">
+    @vite(["resources/css/app.css"])
     <style>
         .account-layout {
             display: grid;
@@ -109,10 +107,9 @@
 </head>
 
 <body>
-    <?php
-$pageTitle = 'My Account — Luxe Shop';
-$activePage = '';
-    ?>
+
+    <x-user.header></x-user.header>
+
     <div class="page-hero">
         <div class="container">
             <h1>My Account</h1>
@@ -124,21 +121,22 @@ $activePage = '';
         <div class="container">
             <div class="account-layout">
 
-                <!-- ===== SIDEBAR NAV ===== -->
+                {{-- ===== SIDEBAR NAV ===== --}}
                 <nav class="account-nav">
                     <a href="#orders" class="account-nav-item active"><span class="icon">📦</span> Orders</a>
-                    <a href="#wishlist" class="account-nav-item"><span class="icon">♡</span> Wishlist</a>
+                    <a href="/user/wishlist" class="account-nav-item"><span class="icon">♡</span> Wishlist</a>
                     <a href="#profile" class="account-nav-item"><span class="icon">◉</span> Profile</a>
+                    <a href="#receipts" class="account-nav-item"><span class="icon">◉</span> Receipts</a>
                     <a href="#address" class="account-nav-item"><span class="icon">◈</span> Addresses</a>
                     <a href="#password" class="account-nav-item"><span class="icon">✦</span> Security</a>
                     <a href="/user/logout" class="account-nav-item" style="margin-top:2rem;color:var(--danger)"><span
                             class="icon">→</span> Sign Out</a>
                 </nav>
 
-                <!-- ===== MAIN CONTENT ===== -->
+                {{-- ===== MAIN CONTENT ===== --}}
                 <div>
 
-                    <!-- Orders -->
+                    {{-- Orders --}}
                     <div id="orders" class="card" style="margin-bottom:2rem;overflow:visible">
                         <div style="padding:1.5rem 2rem;border-bottom:1px solid var(--border)">
                             <h3 style="font-size:1.1rem">Order History</h3>
@@ -175,7 +173,7 @@ $activePage = '';
                         </div>
                     </div>
 
-                    <!-- Profile -->
+                    {{-- Profile --}}
                     <div id="profile" class="card" style="padding:2rem;margin-bottom:2rem">
                         <h3 style="font-size:1.1rem;margin-bottom:1.5rem">Profile Information</h3>
                         <form method="POST" action="/pages/update-profile">
@@ -204,8 +202,8 @@ $activePage = '';
                         </form>
                     </div>
 
-                    <!-- Change Password -->
-                    <div id="password" class="card" style="padding:2rem">
+                    {{-- Change Password --}}
+                    <div id="password" class="card" style="padding:2rem;margin-bottom:2rem">
                         <h3 style="font-size:1.1rem;margin-bottom:1.5rem">Change Password</h3>
                         <form method="POST" action="/auth/change-password">
                             <div class="form-group">
@@ -224,12 +222,49 @@ $activePage = '';
                         </form>
                     </div>
 
+                    {{-- receipts --}}
+                    <div id="receipts" class="card" style="padding:2rem;margin-bottom:2rem">
+                        <div style="padding:1.5rem 2rem;border-bottom:1px solid var(--border)">
+                            <h3 style="font-size:1.1rem">Receipts</h3>
+                        </div>
+                        <div style="overflow-x:auto">
+                            <table class="orders-table">
+                                <thead>
+                                    <tr>
+                                        <th>Order ID</th>
+                                        <th>Date</th>
+                                        <th>Items</th>
+                                        <th>Total</th>
+                                        <th>Status</th>
+                                        <th>Receipt Number</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($orders as $order)
+                                        <tr>
+                                            <td><?= e($order['id']) ?></td>
+                                            <td><?= e($order['date']) ?></td>
+                                            <td><?= $order['items'] ?> item<?= $order['items'] > 1 ? 's' : '' ?></td>
+                                            <td><?= price($order['total']) ?></td>
+                                            <td><span
+                                                    class="order-status status-<?= $order['status'] ?>"><?= ucfirst($order['status']) ?></span>
+                                            </td>
+                                            <td></td>
+                                            <td><a href="/user/receipt/{{ "" }}"
+                                                    class="btn btn-ghost btn-sm">View</a></td>
+                                        </tr>
+                                    @endforeach
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
-    <script src="/js/utils.js"></script>
-    <script src="/js/app.js"></script>
+
 </body>
 
 </html>

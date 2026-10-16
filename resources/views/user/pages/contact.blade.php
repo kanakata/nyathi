@@ -13,9 +13,9 @@
 
 <section class="section">
     <div class="container">
-        <div class="contact">
+        <div style="display:grid;grid-template-columns:1fr 1.4fr;gap:5rem;align-items:start">
 
-            <!-- Info -->
+            {{-- Info --}}
             <div>
                 <h2 style="margin-bottom:1rem">We'd Love to Hear From You</h2>
                 <div class="divider left"></div>
@@ -54,17 +54,19 @@
                     <div class="social-links">
                         <a href="#" class="social-link">IG</a>
                         <a href="#" class="social-link">FB</a>
+                        <a href="#" class="social-link">TW</a>
+                        <a href="#" class="social-link">PT</a>
                     </div>
                 </div>
             </div>
 
-            <!-- Form -->
-            <div class="card">
-                @if (!empty($_GET['sent']))
-                    <div class="alert alert-success">Your message has been received. We'll be in touch soon!</div>
-                @endif
+            {{-- Form --}}
+            <div class="card" style="padding:2.5rem">
+                <?php if (!empty($_GET['sent'])): ?>
+                <div class="alert alert-success">Your message has been received. We'll be in touch soon!</div>
+                <?php endif; ?>
 
-                <form method="POST" action="/pages/contact-process.php">
+                <form method="POST" action="/user/contact-process">
                     <div class="form-row">
                         <div class="form-group">
                             <label for="name">Your Name</label>
@@ -102,6 +104,6 @@
 
         </div>
     </div>
-</section>
+    </section>
 
 <x-user.footer></x-user.footer>

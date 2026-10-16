@@ -10,7 +10,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="{{ e($pageDesc ?? 'Discover curated luxury fashion and lifestyle products.') }}">
+    <meta name="description" content="{{ e($pageDescription ?? 'Discover curated luxury fashion and lifestyle products.') }}">
     <title>{{ e($pageTitle ?? 'Nyathi Shop — Premium Fashion') }}</title>
     <link rel="icon" type="image/svg+xml" href="/nyathi.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -20,15 +20,11 @@
         rel="stylesheet">
     {{--
     <link rel="stylesheet" href="/css/app.css"> --}}
-    @vite(['resources/css/app.css'])
-    @vite([
-        'resources/js/utils.js',
-        'resources/js/app.js',
-    ])
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     {{ $extraCss ?? '' }}
 </head>
 
-<body class="{{ e($bodyClass ?? '') }}">
+<body class="">
 
     <x-utils.announcement></x-utils.announcement>
 
@@ -43,6 +39,8 @@
             <a href="/user/categories" class="{{ $activePage === 'cats' ? 'active' : '' }}">Categories</a>
             <a href="/user/about" class="{{ $activePage === 'about' ? 'active' : '' }}">About</a>
             <a href="/user/contact" class="{{ $activePage === 'contact' ? 'active' : '' }}">Contact</a>
+
+
         </nav>
 
         <div class="nav-actions">
@@ -56,7 +54,7 @@
 
             <a href="/user/wishlist" class="nav-icon" aria-label="Wishlist">
                 <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24">
-                    <path
+                    <path id=""
                         d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
                 </svg>
                 <span class="badge wishlist-count" style="display:none">0</span>
@@ -82,6 +80,20 @@
             <button class="hamburger" aria-label="Menu" aria-expanded="false">
                 <span></span><span></span><span></span>
             </button>
+
+            {{-- background toggle --}}
+
+            <button class="theme-toggle" aria-label="Toggle dark mode">
+                <svg id="theme-icon" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6"
+                    viewBox="0 0 24 24">
+                    <path id="theme-path" d="M12 2a10 10 0 1 0 9.95 11.74A7.5 7.5 0 1 1 12 2z" />
+                </svg>
+            </button>
+
+
+            <script>
+                
+            </script>
         </div>
     </header>
 

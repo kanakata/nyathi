@@ -12,7 +12,7 @@ $pageTitle = 'Sign In — Nyathi Shop';
     <link
         href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Jost:wght@300;400;500;600&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="/css/app.css">
+        @vite(["resources/css/app.css", "resources/js/app.js"])
 </head>
 
 <body>
@@ -77,7 +77,7 @@ $pageTitle = 'Sign In — Nyathi Shop';
                 <button type="submit" class="btn btn-primary btn-block">Sign In</button>
             </form>
 
-            <div class="auth-divider"><span>or continue with</span></div>
+            {{-- <div class="auth-divider"><span>or continue with</span></div>
 
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem">
                 <a href="/auth/oauth.php?provider=google" class="btn btn-ghost">
@@ -100,7 +100,7 @@ $pageTitle = 'Sign In — Nyathi Shop';
                     </svg>
                     Facebook
                 </a>
-            </div>
+            </div> --}}
 
         </div>
 

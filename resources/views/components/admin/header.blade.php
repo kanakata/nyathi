@@ -16,8 +16,13 @@
         href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Jost:wght@300;400;500;600&display=swap"
         rel="stylesheet">
     <script src="/js/chart.umd.min.js"></script>
-    <link rel="stylesheet" href="/css/app.css">
-    <link rel="stylesheet" href="/css/admin.css">
+    @vite([
+        "resources/css/app.css",
+        "resources/css/admin.css",
+        "resources/js/chart.umd.min.js",
+        "resources/js/app.js",
+        "resources/js/admin.js"
+    ])
 </head>
 
 <body class="admin-body">

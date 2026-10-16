@@ -45,7 +45,7 @@ $adminSection = 'products';
                     <td><input type="checkbox" class="row-check" value="{{ $product->product_id }}"></td>
                     <td>
                         <div style="display:flex;align-items:center;gap:0.75rem">
-                            <img src="/assets/images/{{ $product->product_image }}" alt="{{ $product->product_image }}"
+                            <img src="{{  asset("storage/product-images/" . $product->product_image) }}" alt="{{  asset("storage/product-images/" . $product->product_image) }}"
                                 style="width:40px;height:50px;object-fit:cover;border-radius:2px;background:var(--surface-2)">
                             <div>
                                 <div style="font-weight:500;color:var(--text)">{{ $product->product_name }}</div>

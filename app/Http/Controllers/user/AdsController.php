@@ -11,7 +11,7 @@ class AdsController extends Controller
         $promos = collect([
             "Free shipping on orders over Ksh: 13000 New arrivals every week",
             "Safari sevens",
-            "Dala sevens"
+            "Dala sevens",
             ]
         );
         return $promos->random();

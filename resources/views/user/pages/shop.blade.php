@@ -1,5 +1,5 @@
 <x-user.header></x-user.header>
-<!-- Page Hero -->
+{{-- Page Hero --}}
 <div class="page-hero">
     <div class="container">
         <h1>All Products</h1>
@@ -15,7 +15,7 @@
     <div class="container">
         <div class="shop-layout">
 
-            <!-- ===== SIDEBAR FILTERS ===== -->
+            {{-- ===== SIDEBAR FILTERS ===== --}}
             <aside class="shop-sidebar">
 
                 <div class="sidebar-section">
@@ -98,7 +98,7 @@
             </aside>
 
             <div>
-                <!-- Active Filters -->
+                {{-- Active Filters --}}
                 <div class="active-filters"></div>
 
                 <x-user.shop_toolbar :product-cumulative="$product_cumulative" :total="$total"></x-user.shop_toolbar>
@@ -106,7 +106,7 @@
                 <x-utils.pagination class="pagination top" :totalPages="$total_pages"
                     :currentPage="$current_page"></x-utils.pagination>
 
-                <!-- Products Grid -->
+                {{-- Products Grid --}}
                 <div class="products-grid">
                     @foreach ($products as $product)
                         <x-user.product-card :product="$product"></x-user.product-card>
