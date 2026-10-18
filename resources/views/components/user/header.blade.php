@@ -24,7 +24,7 @@
     {{ $extraCss ?? '' }}
 </head>
 
-<body class="">
+<body class="light">
 
     <x-utils.announcement></x-utils.announcement>
 
@@ -92,7 +92,7 @@
 
 
             <script>
-                
+
             </script>
         </div>
     </header>

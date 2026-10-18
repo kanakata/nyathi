@@ -1,5 +1,62 @@
 (function () {
     document.addEventListener("DOMContentLoaded", () => {
+        // set size to shoe sizes if foot-ware category is selected
+        const product_colors_holder = document.querySelectorAll(
+            ".form-check.colors"
+        );
+        const product_sizes_holder = document.querySelector(
+            '.form-check.sizes'
+        );
+
+        const category_select = document.querySelectorAll(
+            ".form-check input[type='radio'][name='product_category']"
+        );
+
+        category_select.forEach((cat) => {
+            cat.addEventListener("click", () => {
+                product_sizes_holder.innerHTML = "";
+                if (cat.value == "foot-ware") {
+                    alert("");
+                    product_sizes(shoe_sizes);
+                } else {
+                    product_sizes(sizes);
+                }
+            });
+        });
+
+        function product_color(colors) {
+            colors.forEach((color) => {
+                const input = document.createElement("input");
+                const label = document.createElement("label");
+                input.type = "checkbox";
+                input.name = "product_colors[]";
+                input.value = color;
+                input.id = `color-${color}`;
+                label.textContent = color;
+                label.setAttribute("for", `color-${color}`);
+                product_colors_holder.appendChild(input);
+                product_colors_holder.appendChild(label);
+            });
+        }
+
+        function product_sizes(sizes) {
+            sizes.forEach((size) => {
+                const input = document.createElement("input");
+                const label = document.createElement("label");
+                input.type = "checkbox";
+                input.name = "product_sizes[]";
+                input.value = size;
+                input.id = `size-${size}`;
+                label.textContent = size;
+                label.setAttribute("for", `size-${size}`);
+                product_sizes_holder.appendChild(input);
+                product_sizes_holder.appendChild(label);
+            });
+        }
+
+        window.addEventListener("load", () => {
+            product_color(colors);
+        });
         /* ---- Active Nav Link ---- */
         const current = window.location.pathname.split("/").pop();
         document.querySelectorAll(".admin-nav-link").forEach((link) => {

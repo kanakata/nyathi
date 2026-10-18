@@ -1,44 +1,46 @@
 (function () {
-    document.addEventListener("DOMContentLoaded", () => {
-        Toast.init();
-        Cart.update_badges();
-        Wishlist.update_badges();
-        add_to_cart();
-        wishlist_toggle();
-        gallery();
-        size_selector();
-        qty_control();
-        countdown();
-        view_toggle();
-        sort();
-        cart_page();
-        wishlist_page();
-        checkout_page();
-        scroll_reveal();
-        pagination_handler();
-        scroll_top();
-        window.scrollTo({ top: 0 });
+
+
+    window.addEventListener("load", () => {
+        document.addEventListener("DOMContentLoaded", () => {
+            Toast.init();
+            theme_toggle();
+            Cart.update_badges();
+            Wishlist.update_badges();
+            add_to_cart();
+            wishlist_toggle();
+            gallery();
+            size_selector();
+            qty_control();
+            countdown();
+            view_toggle();
+            sort();
+            cart_page();
+            wishlist_page();
+            checkout_page();
+            scroll_reveal();
+            pagination_handler();
+            scroll_top();
+            window.scrollTo({ top: 0 });
+        });
     });
 
-    (function () {
+    function theme_toggle() {
         document
             .querySelector(".theme-toggle")
             .addEventListener("click", () => {
                 let theme = get(`nyathi-theme`);
-                if (!theme) {
-                    store(`nyathi-theme`, "dark");
-                    document.body.classList.toggle("dark");
+                if (theme === "dark") {
+                    document.body.classList.remove("dark");
+                    store(`nyathi-theme`, "light");
+                    document.body.classList.add("light");
                 } else {
-                    if (theme == "dark") {
-                        store(`nyathi-theme`, "light");
-                        document.body.classList.toggle("light");
-                    } else {
-                        store(`nyathi-theme`, "dark");
-                        document.body.classList.toggle("dark");
-                    }
+                    document.body.classList.remove("light");
+                    store(`nyathi-theme`, "dark");
+                    document.body.classList.add("dark");
                 }
             });
-    })();
+    }
 
     function price_format(price) {
         let price_string = String(price);

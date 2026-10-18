@@ -27,13 +27,13 @@
                         alt="{{ e($product->product_name) }}" id="main-image">
                 </div>
                 <div class="gallery-thumbs">
-                    @for ($i = 0; $i < count(explode(",", $product->product_images)); $i++)
+                    @foreach (explode(",", $product->product_images) as $i => $image)
                         <div class="gallery-thumb {{ $i === 0 ? 'active' : '' }}">
                             <img title="{{ e($product->product_name) }}"
-                                src="{{ e(explode(",", $product->product_images)[$i]) }}"
+                                src="{{ e(asset("storage/product-images/" . $image)) }}"
                                 alt="View {{ $i + 1 }}">
                         </div>
-                    @endfor
+                    @endforeach
                 </div>
             </div>
 

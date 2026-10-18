@@ -34,7 +34,7 @@
         <div style="text-align:center;padding:2rem;border:1px solid var(--border);border-radius:var(--radius-md)">
             <h3 style="margin-bottom:0.5rem">Still have questions?</h3>
             <p style="margin-bottom:1.5rem">Our support team is happy to help.</p>
-            <a href="/contact" class="btn btn-primary">Contact Us</a>
+            <a href="/user/contact" class="btn btn-primary">Contact Us</a>
         </div>
     </div>
 </section>
