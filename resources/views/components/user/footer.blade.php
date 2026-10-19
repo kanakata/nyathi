@@ -24,7 +24,7 @@
             </div>
 
             <div class="footer-col">
-                <h5>Shop</h5>
+                <h1 class="footer-header">Shop</h1>
                 <ul>
                     <li><a href="/user/shop">All Products</a></li>
                     <li><a href="/user/categories">Categories</a></li>
@@ -32,7 +32,7 @@
             </div>
 
             <div class="footer-col">
-                <h5>Company</h5>
+                <h1 class="footer-header">Company</h1>
                 <ul>
                     <li><a href="/user/about">About Us</a></li>
                     <li><a href="/user/contact">Contact</a></li>
@@ -42,7 +42,7 @@
             </div>
 
             <div class="footer-col">
-                <h5>Support</h5>
+                <h1 class="footer-header">Support</h1>
                 <ul>
                     <li><a href="/user/faq">FAQ</a></li>
                     <li><a href="/user/shipping">Shipping & Returns</a></li>

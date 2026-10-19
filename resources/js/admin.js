@@ -1,62 +1,32 @@
 (function () {
-    document.addEventListener("DOMContentLoaded", () => {
-        // set size to shoe sizes if foot-ware category is selected
-        const product_colors_holder = document.querySelectorAll(
-            ".form-check.colors"
-        );
-        const product_sizes_holder = document.querySelector(
-            '.form-check.sizes'
-        );
+    const product_sizes_holder = document.querySelector(".form-check.sizes");
 
-        const category_select = document.querySelectorAll(
-            ".form-check input[type='radio'][name='product_category']"
-        );
+    const category_select = document.querySelectorAll(
+        ".form-control.category .opt"
+    );
 
-        category_select.forEach((cat) => {
-            cat.addEventListener("click", () => {
-                product_sizes_holder.innerHTML = "";
-                if (cat.value == "foot-ware") {
-                    alert("");
-                    product_sizes(shoe_sizes);
-                } else {
-                    product_sizes(sizes);
-                }
-            });
+    category_select.forEach((category) => {
+        category.addEventListener("click", () => {
+            alert("");
         });
+    });
 
-        function product_color(colors) {
-            colors.forEach((color) => {
-                const input = document.createElement("input");
-                const label = document.createElement("label");
-                input.type = "checkbox";
-                input.name = "product_colors[]";
-                input.value = color;
-                input.id = `color-${color}`;
-                label.textContent = color;
-                label.setAttribute("for", `color-${color}`);
-                product_colors_holder.appendChild(input);
-                product_colors_holder.appendChild(label);
-            });
-        }
-
-        function product_sizes(sizes) {
-            sizes.forEach((size) => {
-                const input = document.createElement("input");
-                const label = document.createElement("label");
-                input.type = "checkbox";
-                input.name = "product_sizes[]";
-                input.value = size;
-                input.id = `size-${size}`;
-                label.textContent = size;
-                label.setAttribute("for", `size-${size}`);
-                product_sizes_holder.appendChild(input);
-                product_sizes_holder.appendChild(label);
-            });
-        }
-
-        window.addEventListener("load", () => {
-            product_color(colors);
+    function product_sizes_handler(sizes) {
+        sizes.forEach((size) => {
+            const input = document.createElement("input");
+            const label = document.createElement("label");
+            input.type = "checkbox";
+            input.name = "product_sizes[]";
+            input.value = size;
+            input.id = `size-${size}`;
+            label.textContent = size;
+            label.setAttribute("for", `size-${size}`);
+            product_sizes_holder.appendChild(input);
+            product_sizes_holder.appendChild(label);
         });
+    }
+    window.addEventListener("DOMContentLoaded", () => {
+
         /* ---- Active Nav Link ---- */
         const current = window.location.pathname.split("/").pop();
         document.querySelectorAll(".admin-nav-link").forEach((link) => {
@@ -148,46 +118,61 @@
             update();
         });
 
-        let bar_revenue = document.getElementById("bar-revenue");
-        // bar_revenue.width = bar_revenue.parentElement.clientWidth;
-        // bar_revenue.height = bar_revenue.parentElement.clientHeight;
-        let scores = [90, 91, 82, 94, 87, 78, 98];
-        let subjects = ["math", "chem", "eng", "kis", "geo", "bus", "phy"];
-        let title = "jane's scores";
-        var chartId = new Chart(bar_revenue.getContext("2d"), {
-            type: "bar",
-            data: {
-                labels: subjects,
-                datasets: [
-                    {
-                        label: title,
-                        data: scores,
+        (function () {
+            if (
+                window.location.pathname == "/admin/dashboard" ||
+                window.location.pathname == "/admin/analytics"
+            ) {
+                let bar_revenue = document.getElementById("bar-revenue");
+                // bar_revenue.width = bar_revenue.parentElement.clientWidth;
+                // bar_revenue.height = bar_revenue.parentElement.clientHeight;
+                let scores = [90, 91, 82, 94, 87, 78, 98];
+                let subjects = [
+                    "math",
+                    "chem",
+                    "eng",
+                    "kis",
+                    "geo",
+                    "bus",
+                    "phy",
+                ];
+                let title = "jane's scores";
+                var chartId = new Chart(bar_revenue.getContext("2d"), {
+                    type: "bar",
+                    data: {
+                        labels: subjects,
+                        datasets: [
+                            {
+                                label: title,
+                                data: scores,
+                            },
+                        ],
                     },
-                ],
-            },
-            options: {
-                responsive: true,
-            },
-        });
+                    options: {
+                        responsive: true,
+                    },
+                });
 
-        let pie_revenue = document.getElementById("pie-revenue");
-        scores = [90, 91, 82, 94, 87, 78, 98];
-        subjects = ["math", "chem", "eng", "kis", "geo", "bus", "phy"];
-        title = "jane's scores";
-        var chartId = new Chart(pie_revenue.getContext("2d"), {
-            type: "pie",
-            data: {
-                labels: subjects,
-                datasets: [
-                    {
-                        label: title,
-                        data: scores,
+                let pie_revenue = document.getElementById("pie-revenue");
+                scores = [90, 91, 82, 94, 87, 78, 98];
+                subjects = ["math", "chem", "eng", "kis", "geo", "bus", "phy"];
+                title = "jane's scores";
+                var chartId = new Chart(pie_revenue.getContext("2d"), {
+                    type: "pie",
+                    data: {
+                        labels: subjects,
+                        datasets: [
+                            {
+                                label: title,
+                                data: scores,
+                            },
+                        ],
                     },
-                ],
-            },
-            options: {
-                responsive: true,
-            },
-        });
+                    options: {
+                        responsive: true,
+                    },
+                });
+            }
+        })();
     });
 })();

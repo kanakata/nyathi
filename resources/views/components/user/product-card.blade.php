@@ -55,11 +55,11 @@
 
         @if ($product->product_badge == "available")
             <a class="product-link" href="/user/product/{{ e($id) }}">
-                <h3 class="product-name">{{ e($product->product_name) }}</h3>
+                <h1 class="product-name">{{ e($product->product_name) }}</h1>
             </a>
         @else
             <a class="product-link">
-                <h3 class="product-name">{{ e($product->product_name) }}</h3>
+                <h1 class="product-name">{{ e($product->product_name) }}</h1>
             </a>
         @endif
 

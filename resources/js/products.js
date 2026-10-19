@@ -5,6 +5,38 @@
         init_category_select();
         price_range();
     }
+    function store(name, data) {
+        localStorage.setItem(name, data);
+    }
+
+    function get(name) {
+        return localStorage.getItem(name) ?? null;
+    }
+
+    function del(name) {
+        localStorage.removeItem(name);
+    }
+
+    function price_format(price) {
+        let price_string = String(price);
+        let formatted_price = [];
+        for (let i = 1; i <= price_string.length; i++) {
+            if (i % 3 == 0) {
+                formatted_price.unshift(
+                    ",",
+                    price_string[price_string.length - i]
+                );
+            } else {
+                formatted_price.unshift(price_string[price_string.length - i]);
+            }
+        }
+        return `${formatted_price.join("")}.00`;
+    }
+    const [$, $$, on] = [
+        (sel) => document.querySelector(sel),
+        (sel, ctx = document) => [...ctx.querySelectorAll(sel)],
+        (el, ev, fn) => el && el.addEventListener(ev, fn),
+    ];
 
     window.addEventListener("load", () => {
         const link = window.location.pathname.split("/").filter((element) => {

@@ -17,14 +17,14 @@
 
         @foreach ($terms as $key => $value)
             <div style="margin-bottom:2.5rem">
-                <h3 style="margin-bottom:0.75rem;color:var(--gold)">{{ e($key) }}</h3>
+                <h1 style="margin-bottom:0.75rem;color:var(--gold);font-size:18px;">{{ e($key) }}</h1>
                 <p style="line-height:1.9">{{ e($value) }}</p>
             </div>
         @endforeach
 
         <div style="margin-top:3rem;padding:1.5rem;border:1px solid var(--border);border-radius:var(--radius-md)">
             <p style="font-size:0.85rem;line-height:1.8">
-                Questions about these terms? <a href="/contact" style="color:var(--gold)">Contact us</a> and we'll be
+                Questions about these terms? <a href="/contact" style="color:var(--link)">Contact us</a> and we'll be
                 happy to help.
             </p>
         </div>

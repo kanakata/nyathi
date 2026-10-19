@@ -42,8 +42,8 @@ class ProductsController extends Controller
             'product_discount' => ['nullable', 'numeric'],
             'product_count' => ['required', 'numeric'],
             'product_category' => ['required', 'max:255', 'string'],
-            'product_color' => ['required', 'max:255', 'array'],
-            'product_sizes' => ['nullable', 'max:255', 'array'],
+            // 'product_color' => ['required', 'max:255', 'array'],
+            // 'product_sizes' => ['nullable', 'max:255', 'array'],
             'product_cupon' => ['nullable', 'max:255', 'string'],
             // 'product_image' => ['required', 'max:255', 'string'],
             // 'product_images' => ['nullable', 'max:255', 'array'],
@@ -52,6 +52,9 @@ class ProductsController extends Controller
             'product_meta_title' => ['nullable', 'max:255', 'string'],
             'product_meta_description' => ['nullable', 'max:255', 'string'],
         ]);
+
+        // handle failed validation
+
 
         if ($request->file('product_image')->isValid()) {
             $file_name = $request->input('product_name') . '.' . $request->file('product_image')->extension();

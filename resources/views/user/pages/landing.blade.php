@@ -31,28 +31,28 @@
             <div class="feature-item">
                 <div class="feature-icon">✦</div>
                 <div class="feature-text">
-                    <h4>Free Shipping</h4>
+                    <h1>Free Shipping</h1>
                     <p>On all orders above Ksh: 5500</p>
                 </div>
             </div>
             <div class="feature-item">
                 <div class="feature-icon">◈</div>
                 <div class="feature-text">
-                    <h4>Easy Returns</h4>
+                    <h1>Easy Returns</h1>
                     <p>30-day hassle-free returns</p>
                 </div>
             </div>
             <div class="feature-item">
                 <div class="feature-icon">◉</div>
                 <div class="feature-text">
-                    <h4>Secure Payment</h4>
+                    <h1>Secure Payment</h1>
                     <p>100% encrypted checkout</p>
                 </div>
             </div>
             <div class="feature-item">
                 <div class="feature-icon">◆</div>
                 <div class="feature-text">
-                    <h4>Quality Promise</h4>
+                    <h1>Quality Promise</h1>
                     <p>Curated premium products only</p>
                 </div>
             </div>
@@ -70,15 +70,15 @@
         </div>
         <div class="categories-grid">
             @foreach ($categories as $cat)
-                    <div class="category-card">
-                        <div class="category-bg"
-                            style="background-image:url('/assets/category/{{ $cat->product_category . ".jpg" }}')"></div>
-                        <div class="category-info">
-                            <h3>{{ $cat->product_category }}</h3>
-                            {{-- <p>In Stock {{ $cat->product_count }}</p> --}}
-                            <a href="/user/shop/category/{{ $cat->product_category  }}" class="category-link">Shop Now →</a>
-                        </div>
+                <div class="category-card">
+                    <div class="category-bg"
+                        style="background-image:url('{{ asset("storage/product-images/" . $cat->product_category . ".jpg") }}')"></div>
+                    <div class="category-info">
+                        <h3>{{ $cat->product_category }}</h3>
+                        {{-- <p>In Stock {{ $cat->product_count }}</p> --}}
+                        <a href="/user/shop/category/{{ $cat->product_category }}" class="category-link">Shop Now →</a>
                     </div>
+                </div>
             @endforeach
         </div>
     </div>

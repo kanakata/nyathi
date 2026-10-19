@@ -22,13 +22,15 @@
                     <button class="clear-filter btn btn-outline btn-sm btn-block">Clear Filter</button>
                 </div>
 
+                {{-- CATEGORIES --}}
                 <div class="sidebar-section">
                     <div class="sidebar-title">Categories</div>
                     <div class="filter-options">
                         @foreach ($categories as $cat => $count)
-                            <label class="filter-option">
+                            <label class="filter-option" for="{{ $cat }}">
                                 <div class="filter-option-left">
-                                    <div class="filter-checkbox" data-category="{{ $cat }}"></div>
+                                    <input class="filter-checkbox" type="checkbox" name="{{ $cat }}" id="{{ $cat }}" data-category="{{ $cat }}">
+                                    {{-- <div class="filter-checkbox" data-category="{{ $cat }}"></div> --}}
                                     <span class="filter-label">{{ $cat . " ($count)" }}</span>
                                 </div>
                             </label>
@@ -36,9 +38,11 @@
                     </div>
                 </div>
 
+                {{-- PRICE RANGE --}}
                 <div class="sidebar-section">
-                    <div class="sidebar-title">Price Range</div>
+                    {{-- <div class="sidebar-title">Price Range</div> --}}
                     <div class="price-range">
+                        <label for="price-range" class="sidebar-title">Price Range</label>
                         <input type="range" id="price-range" min="0" max="13000" value="1500">
                         <div class="price-display">
                             <span>Ksh: 0</span>
@@ -152,6 +156,7 @@
         </div>
     </div>
 </template>
+
 @vite([
     'resources/js/products.js',
 ])

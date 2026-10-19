@@ -1,8 +1,28 @@
-@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap");
+/* @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap'); */
 
-@import url("./root.css");
-
-@import url("./media.css");
+/* ---- CSS Variables ---- */
+:root {
+    --bg: #0d0d0d;
+    --surface: #161616;
+    --surface-2: #1f1f1f;
+    --border: #2a2a2a;
+    --gold: #c9a96e;
+    --gold-light: #e0c48a;
+    --gold-dark: #9e7840;
+    --text: #e8e4de;
+    --text-muted: #86603b;
+    --white: #ffffff;
+    --danger: #c0392b;
+    --success: #27ae60;
+    --radius: 2px;
+    --radius-md: 6px;
+    --transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --shadow: 0 8px 40px rgba(0, 0, 0, 0.5);
+    --shadow-gold: 0 4px 24px rgba(201, 169, 110, 0.15);
+    --font-display: "Cormorant Garamond", serif;
+    --font-body: "Jost", sans-serif;
+    --link: rgb(20, 20, 216);
+}
 
 /* ---- Reset & Base ---- */
 *,
@@ -12,13 +32,12 @@
     margin: 0;
     padding: 0;
 }
-
 html {
     font-size: 16px;
     scroll-behavior: smooth;
 }
 
-/* body{
+body {
     font-family: var(--font-body);
     background: var(--bg);
     color: var(--text);
@@ -26,7 +45,8 @@ html {
     font-weight: 300;
     min-height: 100vh;
     overflow-x: hidden;
-} */
+}
+
 /* ---- Typography ---- */
 h1,
 h2,
@@ -92,21 +112,6 @@ ul {
 }
 .divider.left {
     margin-left: 0;
-}
-.scroll-top {
-    position: fixed;
-    bottom: 10px;
-    right: 10px;
-    height: 40px;
-    width: 40px;
-    border-radius: 4px;
-    background: var(--gold);
-    color: var(--text);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 25px;
-    cursor: pointer;
 }
 
 /* ---- Buttons ---- */
@@ -225,45 +230,38 @@ select.form-control {
 }
 
 /* ============================================================
-   HEADER & NAVIGATION
-   ============================================================ */
+      HEADER & NAVIGATION
+      ============================================================ */
 .site-header {
-    position: relative;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 900;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 10px;
+    padding: 0 4rem;
     height: 72px;
-    background: var(--bg);
+    background: rgba(13, 13, 13, 0.92);
     backdrop-filter: blur(20px);
-    border-bottom: 1px solid var(--gold-light);
+    border-bottom: 1px solid var(--border);
     transition: var(--transition);
 }
 .site-header.scrolled {
+    height: 60px;
     border-bottom-color: var(--gold-dark);
-    transform: translateY(-100px);
 }
 
 .logo {
     font-family: var(--font-display);
-    font-size: 22px;
+    font-size: 1.6rem;
     font-weight: 600;
     letter-spacing: 0.08em;
-    color: var(--text);
-    & img {
-        height: 55px;
-        transform: rotate(90deg);
-    }
+    color: var(--white);
 }
 .logo span {
     color: var(--gold);
-}
-
-.no-products {
-    text-align: center;
-    font-size: 1rem;
-    color: var(--danger);
-    padding: 2rem 0;
 }
 
 .nav-menu {
@@ -406,8 +404,8 @@ select.form-control {
 }
 
 /* ============================================================
-   PAGE LAYOUT
-   ============================================================ */
+      PAGE LAYOUT
+      ============================================================ */
 .page-content {
     padding-top: 72px;
 }
@@ -432,11 +430,11 @@ select.form-control {
 }
 
 /* ============================================================
-   HERO SECTION
-   ============================================================ */
+      HERO SECTION
+      ============================================================ */
 .hero {
     position: relative;
-    height: 80vh;
+    height: 100vh;
     display: flex;
     align-items: center;
     overflow: hidden;
@@ -444,8 +442,8 @@ select.form-control {
 .hero-bg {
     position: absolute;
     inset: 0;
-    /* background: url("/hero.jpg") center/cover no-repeat; */
-    filter: brightness(0.7);
+    /* background: url("../images/banners/hero.jpg") center/cover no-repeat; */
+    filter: brightness(0.35);
     transform: scale(1.05);
     transition: transform 8s ease;
 }
@@ -549,48 +547,28 @@ select.form-control {
 }
 
 /* ============================================================
-   ANNOUNCEMENT BAR
-   ============================================================ */
+      ANNOUNCEMENT BAR
+      ============================================================ */
 .announcement-bar {
-    width: 100vw;
-    height: 60px;
-    display: flex;
-    align-items: center;
-    padding-left: 20px;
-    background: var(--gold-light);
-    color: var(--bg);
-}
-/* .announcement-bar {
-    position: fixed;
-    bottom: 10px;
-    right: 10px;
-    z-index: 1000;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    padding: 1rem 1.5rem;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-left: 3px solid var(--gold);
-    border-radius: var(--radius-md);
-    box-shadow: var(--shadow);
-    width: 280px;
-    animation: slideInRight 0.35s ease;
-    border-left: 3px solid var(--gold);
-    cursor: pointer;
-} */
-.announcement-bar:hover {
     background: var(--gold);
+    color: #0d0d0d;
+    text-align: center;
+    padding: 0.6rem 1rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    position: relative;
+    z-index: 1000;
 }
 
 /* ============================================================
-   PRODUCT GRID & CARDS
-   ============================================================ */
+      PRODUCT GRID & CARDS
+      ============================================================ */
 .products-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
     gap: 1.5px;
-    margin: 20px 0px;
 }
 
 .product-card {
@@ -645,12 +623,9 @@ select.form-control {
     color: #fff;
 }
 .badge-sold {
-    background: var(--danger);
-    color: var(--text);
-}
-.badge-available {
-    background: var(--success);
-    color: var(--text);
+    background: var(--surface);
+    color: var(--text-muted);
+    border: 1px solid var(--border);
 }
 
 .product-actions-hover {
@@ -743,8 +718,8 @@ select.form-control {
 }
 
 /* ============================================================
-   CATEGORIES SECTION
-   ============================================================ */
+      CATEGORIES SECTION
+      ============================================================ */
 .categories-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -765,7 +740,7 @@ select.form-control {
     inset: 0;
     background: var(--surface-2) url("../images/banners/cat1.jpg") center/cover
         no-repeat;
-    filter: brightness(0.6);
+    filter: brightness(0.5);
     transition: transform 0.5s ease, filter 0.5s ease;
 }
 .category-card:hover .category-bg {
@@ -795,24 +770,17 @@ select.form-control {
     font-weight: 500;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: var(--white);
+    color: var(--gold);
     transition: gap 0.2s ease;
-    border: 1px solid var(--gold-light);
-    height: 40px;
-    padding: 3px 10px;
-    box-shadow: var(--shadow-gold);
 }
 .category-link:hover {
     gap: 0.7rem;
-    background: var(--gold);
-    color: var(--text);
 }
 
 /* ============================================================
-   FEATURES STRIP
-   ============================================================ */
+      FEATURES STRIP
+      ============================================================ */
 .features-strip {
-    margin: 50px 0px;
     border-top: 1px solid var(--border);
     border-bottom: 1px solid var(--border);
     background: var(--surface);
@@ -837,7 +805,7 @@ select.form-control {
     color: var(--gold);
     flex-shrink: 0;
 }
-.feature-text h4 {
+.feature-text h1 {
     font-family: var(--font-body);
     font-size: 0.85rem;
     font-weight: 500;
@@ -850,8 +818,8 @@ select.form-control {
 }
 
 /* ============================================================
-   BANNER / PROMO
-   ============================================================ */
+      BANNER / PROMO
+      ============================================================ */
 .promo-banner {
     position: relative;
     overflow: hidden;
@@ -862,7 +830,7 @@ select.form-control {
 .promo-banner-bg {
     position: absolute;
     inset: 0;
-    background: url("../images/banners/promo.jpg") center/cover no-repeat;
+    /* background: url("../images/banners/promo.jpg") center/cover no-repeat; */
     filter: brightness(0.3);
 }
 .promo-content {
@@ -878,11 +846,11 @@ select.form-control {
     margin-bottom: 1rem;
 }
 .promo-content h2 {
-    color: var(--text);
+    color: var(--white);
     margin-bottom: 1rem;
 }
 .promo-content p {
-    color:var(--text);
+    color: rgba(255, 255, 255, 0.65);
     margin-bottom: 2rem;
 }
 .promo-timer {
@@ -908,22 +876,22 @@ select.form-control {
 }
 
 /* ============================================================
-   eventS
-   ============================================================ */
-.events {
+      TESTIMONIALS
+      ============================================================ */
+.testimonials {
     background: var(--surface);
 }
-.events-grid {
+.testimonials-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 1px;
 }
-.event-card {
+.testimonial-card {
     background: var(--bg);
     padding: 2.5rem;
     position: relative;
 }
-.event-card::before {
+.testimonial-card::before {
     content: '"';
     font-family: var(--font-display);
     font-size: 6rem;
@@ -934,12 +902,12 @@ select.form-control {
     left: 1.5rem;
     line-height: 1;
 }
-.event-stars {
+.testimonial-stars {
     color: var(--gold);
     font-size: 0.85rem;
     margin-bottom: 1rem;
 }
-.event-text {
+.testimonial-text {
     font-family: var(--font-display);
     font-style: italic;
     font-size: 1.05rem;
@@ -947,7 +915,7 @@ select.form-control {
     line-height: 1.7;
     margin-bottom: 1.5rem;
 }
-.event-author {
+.testimonial-author {
     display: flex;
     align-items: center;
     gap: 0.85rem;
@@ -971,8 +939,8 @@ select.form-control {
 }
 
 /* ============================================================
-   NEWSLETTER
-   ============================================================ */
+      NEWSLETTER
+      ============================================================ */
 .newsletter {
     background: var(--surface);
     border-top: 1px solid var(--border);
@@ -1003,8 +971,8 @@ select.form-control {
 }
 
 /* ============================================================
-   FOOTER
-   ============================================================ */
+      FOOTER
+      ============================================================ */
 .site-footer {
     background: var(--surface);
     border-top: 1px solid var(--border);
@@ -1089,10 +1057,13 @@ select.form-control {
     border-radius: 2px;
     color: var(--text-muted);
 }
-
+.footer-header {
+    font-size: 18px;
+    padding-bottom: 10px;
+}
 /* ============================================================
-   SHOP PAGE
-   ============================================================ */
+      SHOP PAGE
+      ============================================================ */
 .shop-layout {
     display: grid;
     grid-template-columns: 260px 1fr;
@@ -1277,7 +1248,7 @@ select.form-control {
     justify-content: center;
     align-items: center;
     gap: 0.4rem;
-    margin: 0.5rem;
+    margin-top: 3rem;
 }
 .page-btn {
     min-width: 38px;
@@ -1302,8 +1273,8 @@ select.form-control {
 }
 
 /* ============================================================
-   PRODUCT DETAIL PAGE
-   ============================================================ */
+      PRODUCT DETAIL PAGE
+      ============================================================ */
 .product-detail {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -1498,8 +1469,8 @@ select.form-control {
 }
 
 /* ============================================================
-   CART PAGE
-   ============================================================ */
+      CART PAGE
+      ============================================================ */
 .cart-layout {
     display: grid;
     grid-template-columns: 1fr 360px;
@@ -1542,23 +1513,16 @@ select.form-control {
     gap: 1rem;
 }
 .cart-item-remove {
+    background: none;
+    border: none;
     color: var(--text-muted);
     cursor: pointer;
     font-size: 0.75rem;
-    height: 50px;
-    width: 100px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid var(--danger);
+    text-decoration: underline;
     transition: var(--transition);
-    border-radius: 2px;
-    background: transparent;
-    color: var(--text);
 }
 .cart-item-remove:hover {
-    color: var(--text);
-    background: var(--danger);
+    color: var(--danger);
 }
 .cart-item-price {
     font-family: var(--font-display);
@@ -1614,44 +1578,17 @@ select.form-control {
     border-radius: 0 var(--radius) var(--radius) 0;
 }
 
-
-/* orders */
-.orders-table { width: 100%; border-collapse: collapse; }
-.orders-table th {
-  text-align: left;
-  font-size: 0.7rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  padding: 0.75rem 1rem;
-  border-bottom: 1px solid var(--border);
-}
-.orders-table td {
-  padding: 1rem;
-  font-size: 0.85rem;
-  border-bottom: 1px solid var(--border);
-}
-.order-status {
-  display: inline-block;
-  padding: 0.25rem 0.75rem;
-  border-radius: 50px;
-  font-size: 0.68rem;
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
 /* ============================================================
-   AUTH PAGES
-   ============================================================ */
+      AUTH PAGES
+      ============================================================ */
 .auth-page {
     min-height: 100vh;
-    width: 100%;
     display: flex;
     align-items: stretch;
 }
 .auth-visual {
     flex: 1;
+    background: url("../images/banners/auth.jpg") center/cover no-repeat;
     position: relative;
     display: none;
 }
@@ -1687,20 +1624,6 @@ select.form-control {
     justify-content: center;
     padding: 4rem 3rem;
     background: var(--bg);
-}
-.auth-page #password-input{
-    position: relative;
-    &  #show-password {
-        position: absolute;
-        right: 2;
-        top: 50%;
-        transform: translate(0%, -50%);
-        height: 100%;
-        width: 30px;
-    }
-}
-.auth-page .form-group input {
-    width: 100%;
 }
 .auth-logo {
     margin-bottom: 3rem;
@@ -1746,8 +1669,8 @@ select.form-control {
 }
 
 /* ============================================================
-   PAGE HERO (inner pages)
-   ============================================================ */
+      PAGE HERO (inner pages)
+      ============================================================ */
 .page-hero {
     padding: 5rem 0 3rem;
     text-align: center;
@@ -1774,8 +1697,8 @@ select.form-control {
 }
 
 /* ============================================================
-   CHECKOUT
-   ============================================================ */
+      CHECKOUT
+      ============================================================ */
 .checkout-layout {
     display: grid;
     grid-template-columns: 1fr 380px;
@@ -1839,8 +1762,8 @@ select.form-control {
 }
 
 /* ============================================================
-   WISHLIST
-   ============================================================ */
+      WISHLIST
+      ============================================================ */
 .wishlist-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
@@ -1848,8 +1771,86 @@ select.form-control {
 }
 
 /* ============================================================
-   TOAST NOTIFICATIONS
-   ============================================================ */
+      ACCOUNT PAGE
+      ============================================================ */
+.account-layout {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    gap: 3rem;
+    align-items: start;
+}
+.account-nav {
+    position: sticky;
+    top: 90px;
+}
+.account-nav-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.85rem 1rem;
+    border-radius: var(--radius);
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    transition: var(--transition);
+    cursor: pointer;
+}
+.account-nav-item:hover,
+.account-nav-item.active {
+    background: var(--surface);
+    color: var(--gold);
+}
+.account-nav-item .icon {
+    width: 16px;
+    text-align: center;
+}
+
+.orders-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.orders-table th {
+    text-align: left;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--border);
+}
+.orders-table td {
+    padding: 1rem;
+    font-size: 0.85rem;
+    border-bottom: 1px solid var(--border);
+}
+.order-status {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 50px;
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+.status-delivered {
+    background: rgba(39, 174, 96, 0.15);
+    color: var(--success);
+}
+.status-processing {
+    background: rgba(201, 169, 110, 0.15);
+    color: var(--gold);
+}
+.status-shipped {
+    background: rgba(52, 152, 219, 0.15);
+    color: #3498db;
+}
+.status-cancelled {
+    background: rgba(192, 57, 43, 0.15);
+    color: var(--danger);
+}
+
+/* ============================================================
+      TOAST NOTIFICATIONS
+      ============================================================ */
 .toast-container {
     position: fixed;
     bottom: 2rem;
@@ -1897,8 +1898,8 @@ select.form-control {
 }
 
 /* ============================================================
-   LOADING SPINNER
-   ============================================================ */
+      LOADING SPINNER
+      ============================================================ */
 .spinner {
     width: 40px;
     height: 40px;
@@ -1915,8 +1916,8 @@ select.form-control {
 }
 
 /* ============================================================
-   UTILITY CLASSES
-   ============================================================ */
+      UTILITY CLASSES
+      ============================================================ */
 .text-gold {
     color: var(--gold);
 }
@@ -1976,8 +1977,8 @@ select.form-control {
 }
 
 /* ============================================================
-   ADMIN PANEL
-   ============================================================ */
+      ADMIN PANEL
+      ============================================================ */
 .admin-layout {
     display: flex;
     min-height: 100vh;
@@ -2104,4 +2105,115 @@ select.form-control {
 }
 .data-table tbody tr:last-child td {
     border-bottom: none;
+}
+
+/* ============================================================
+      RESPONSIVE
+      ============================================================ */
+@media (max-width: 1024px) {
+    .site-header {
+        padding: 0 2rem;
+    }
+    .categories-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .categories-grid .category-card:first-child {
+        grid-row: auto;
+    }
+    .features-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .testimonials-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+    .footer-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+    .shop-layout {
+        grid-template-columns: 1fr;
+    }
+    .shop-sidebar {
+        position: static;
+    }
+    .product-detail {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    .cart-layout {
+        grid-template-columns: 1fr;
+    }
+    .checkout-layout {
+        grid-template-columns: 1fr;
+    }
+    .account-layout {
+        grid-template-columns: 1fr;
+    }
+    .stat-cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .admin-main {
+        padding: 1.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .site-header {
+        padding: 0 1.25rem;
+    }
+    .nav-menu {
+        display: none;
+    }
+    .hamburger {
+        display: flex;
+    }
+    .auth-visual {
+        display: none;
+    }
+    .auth-panel {
+        max-width: 100%;
+    }
+    .categories-grid {
+        grid-template-columns: 1fr;
+    }
+    .features-grid {
+        grid-template-columns: 1fr;
+    }
+    .testimonials-grid {
+        grid-template-columns: 1fr;
+    }
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+    .footer-grid {
+        grid-template-columns: 1fr;
+    }
+    .stat-cards {
+        grid-template-columns: 1fr 1fr;
+    }
+    .products-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .admin-sidebar {
+        display: none;
+    }
+    .admin-main {
+        margin-left: 0;
+        padding: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .products-grid {
+        grid-template-columns: 1fr;
+    }
+    .hero-actions {
+        flex-direction: column;
+    }
+    .newsletter-form {
+        flex-direction: column;
+    }
+    .newsletter-form .form-control,
+    .newsletter-form .btn {
+        border-radius: var(--radius);
+    }
 }

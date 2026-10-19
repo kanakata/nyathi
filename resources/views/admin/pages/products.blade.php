@@ -42,7 +42,7 @@ $adminSection = 'products';
         <tbody>
             @foreach ($products as $product)
                 <tr>
-                    <td><input type="checkbox" class="row-check" value="{{ $product->product_id }}"></td>
+                    <td><input type="checkbox" class="row-check" value="{{  $product->product_id }}"></td>
                     <td>
                         <div style="display:flex;align-items:center;gap:0.75rem">
                             <img src="{{  asset("storage/product-images/" . $product->product_image) }}" alt="{{  asset("storage/product-images/" . $product->product_image) }}"
