@@ -13,25 +13,24 @@
     <meta name="description"
         content="{{ e($pageDescription ?? 'Discover curated luxury fashion and lifestyle products.') }}">
     <title>{{ e($pageTitle ?? 'Nyathi Shop — Premium Fashion') }}</title>
-    {{-- <link rel="icon" type="image/svg+xml" href="/nyathi.svg">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> --}}
-    {{-- <link
-        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap"
-        rel="stylesheet"> --}}
-    {{--
-    <link rel="stylesheet" href="/css/app.css"> --}}
-     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    {{ $extraCss ?? '' }}
-    {{-- <style>
-        {{Vite::content('resources/css/app.css')}}
-    </style> --}}
+
+    @if (app()->environment("production"))
+        <link rel="icon" type="image/svg+xml" href="/nyathi.svg">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap"
+            rel="stylesheet">
+        <link rel="stylesheet" href="/css/app.css">
+    @endif
+
+    @vite(['resources/js/app.js'])
+
+    <style>
+        {{ Vite::content('resources/css/app.css') }}
+    </style>
 
 </head>
-
-{{-- <script>
-    {{Vite::content('resources/js/app.js')}}
-</script> --}}
 
 <body>
 

@@ -23,13 +23,13 @@ class ViewServiceProvider extends ServiceProvider
     public function boot(UserAdsController $controller): void
     {
         View::share("promo", $controller->promo());
-        View::composer('*', function ($view) {
-            ob_start(function ($html) {
-                return str_replace(["\n", "\t", "    "], "", $html);
-            });
-            $html = $view;
-            ob_flush();
-            return $html;
-        });
+        // View::composer('*', function ($view) {
+        //     ob_start(function ($html) {
+        //         return str_replace(["\n", "\t", "    "], "", $html);
+        //     });
+        //     $html = $view;
+        //     ob_flush();
+        //     return $html;
+        // });
     }
 }

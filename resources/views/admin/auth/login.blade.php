@@ -35,6 +35,8 @@ $pageTitle = 'Sign In — Nyathi Shop';
                 <a href="/" class="logo">Nyathi<span>.</span></a>
             </div>
             <h2 class="auth-title">Sign In</h2>
+            <p class="auth-subtitle">New here? <a href="/admin/register" style="color:var(--gold)">Create an account</a>
+            </p>
 
             <?php if (!empty($_GET['error'])): ?>
             <div class="alert alert-error"><?= e($_GET['error']) ?></div>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Models\ProductsModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 
 class ProductsController extends Controller
 {
@@ -55,22 +56,22 @@ class ProductsController extends Controller
 
         // handle failed validation
 
-
         if ($request->file('product_image')->isValid()) {
-            $file_name = $request->input('product_name') . '.' . $request->file('product_image')->extension();
-            $request->file('product_image')->storeAs('product-images',$file_name, "public");
+            $file_name = $request->input('product_name').'.'.$request->file('product_image')->extension();
+            $request->file('product_image')->storeAs('product-images', $file_name, 'public');
         }
 
         foreach ($request->file('product_images') as $key => $value) {
             if ($value->isValid()) {
-                $file_name = $request->input('product_name') . '_' . $key . '.' . $value->extension();
-                $value->storeAs('product-images', $file_name, "public");
+                $file_name = $request->input('product_name').'_'.$key.'.'.$value->extension();
+                $value->storeAs('product-images', $file_name, 'public');
             }
         }
 
         // Save the validated data to the database
         $product = new ProductsModel;
         $product->save_product([
+            'product_id' => Crypt::encryptString(time().'_'.$validated['product_name']),
             'product_name' => $validated['product_name'],
             'product_brand' => $validated['product_brand'],
             'product_description' => $validated['product_description'],
@@ -83,7 +84,7 @@ class ProductsController extends Controller
             'product_cupon' => $validated['product_cupon'] ?? null,
             'product_image' => $request->input('product_name').'.'.$request->file('product_image')->extension(),
             'product_images' => implode(',', array_map(function ($key, $value) use ($request) {
-                return $request->input('product_name') . '_' . $key . '.' . $value->extension();
+                return $request->input('product_name').'_'.$key.'.'.$value->extension();
             }, array_keys($request->file('product_images')), $request->file('product_images'))),
             'product_reviews' => $validated['product_reviews'] ?? null,
             'product_badge' => $validated['product_badge'] ?? null,
@@ -94,11 +95,12 @@ class ProductsController extends Controller
         return redirect('/admin/products');
     }
 
-    public function delete_product($id)
+    public function delete_product(int $id)
     {
         $product = ProductsModel::find($id);
         if ($product) {
             $product->delete();
+
             return redirect('/admin/products')->with('success', 'Product deleted successfully.');
         } else {
             return redirect('/admin/products')->with('error', 'Product not found.');

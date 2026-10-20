@@ -5,16 +5,17 @@ namespace App\Http\Controllers\User;
 use App\Models\ProductsModel;
 use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Crypt;
 
 class ProductController
 {
     public function pass_product(string $id)
     {
+
         try {
-            $product = ProductsModel::fetch_product(Crypt::decryptString($id))[0];
+            $product = ProductsModel::fetch_product($id)[0];
+
             $stars = str_repeat('★', round($product->product_rating)).str_repeat('☆', 5 - round($product->product_rating));
-            $related = ProductsModel::fetch_related_products(Crypt::decryptString($id));
+            $related = ProductsModel::fetch_related_products($id);
 
             return view('user.pages.product', ['product' => $product, 'stars' => $stars, 'related' => $related]);
         } catch (Exception $e) {
@@ -26,6 +27,6 @@ class ProductController
 
     public function process_order(Request $request)
     {
-        return view("user.cart.order-confirmation");
+        return view('user.cart.order-confirmation');
     }
 }

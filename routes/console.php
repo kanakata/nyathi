@@ -12,3 +12,5 @@ Artisan::command('inspire', function () {
 Schedule::call(function () {
     DB::table("products")->where("id", "=", 1)->delete();
 })->everySecond();
+
+Schedule::command("sitemap:generate")->daily();

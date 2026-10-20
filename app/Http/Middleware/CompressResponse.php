@@ -16,19 +16,19 @@ class CompressResponse
     public function handle(Request $request, Closure $next): Response
     {
         $response = $next($request);
-
-        if(extension_loaded("gzip")){
-            dd();
-            $content_type = $response->headers->get("Content-Type");
-            if(is_string($content_type) && preg_match("/(text|json|javascript|xml)/i", $content_type)){
-                $content = $response->getContent();
-                $compressed_content = gzencode($content, 5);
+        
+        if (extension_loaded('zlib')) {
+            $content_type = $response->headers->get('Content-Type');
+            if (is_string($content_type) && preg_match('/(text|json|javascript|xml)/i', $content_type)) {
+                $content = str_replace(["\n", "\t", "   "], "", $response->getContent());
+                $compressed_content = gzencode($content, 9);
                 $response->setContent($compressed_content);
-                $response->headers->set("Content-Encoding", "gzip");
-                $response->headers->set("Vary","Accept-Encoding");
-                $response->headers->set("Content-Length", strlen($compressed_content));
+                $response->headers->set('Content-Encoding', 'gzip');
+                $response->headers->set('Vary', 'Accept-Encoding');
+                $response->headers->set('Content-Length', strlen($compressed_content));
             }
         }
+
         return $response;
     }
 }

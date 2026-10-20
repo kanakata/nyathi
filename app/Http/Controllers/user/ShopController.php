@@ -14,12 +14,6 @@ class ShopController
         $product_cumulative = $current_page * $this->perPage > $total ? $total : $current_page * $this->perPage;
         $total_pages = (int) ceil($total / $this->perPage);
 
-        $products_id = [];
-        foreach ($products as $product) {
-            array_push($products_id, Crypt::encryptString($product->product_id));
-            unset($product->product_id);
-        }
-
         $json_response = [
             "products" => $products,
             "total" => $total,
@@ -28,7 +22,6 @@ class ShopController
             "total_pages" => $total_pages,
             "product_cumulative" => $product_cumulative,
             "categories" => $this->pass_categories_count(),
-            "products_id" => $products_id,
         ];
 
         return response()->json($paginate ? array_merge($json_response, ["category" => $category]) : $json_response);

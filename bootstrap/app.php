@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Middleware\CompressResponse;
-use App\Http\Middleware\CspMiddleware;
 use App\Http\Middleware\HeaderMiddleware;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -17,7 +16,6 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->append([
             CompressResponse::class,
             HeaderMiddleware::class,
-            CspMiddleware::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

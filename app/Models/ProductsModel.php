@@ -27,8 +27,10 @@ class ProductsModel extends Model
     {
         return DB::table('products')->where('product_category', '=', $category)->count();
     }
-    public static function fetch_product(int $id)
+    public static function fetch_product(int|string $id)
     {
+        // dd(strlen($id));
+        // dd(DB::table('products')->select('*')->where('product_id', '=', $id)->get());
         return DB::table('products')->select('*')->where('product_id', '=', $id)->get();
     }
     public static function fetch_related_products(int $id)

@@ -12,11 +12,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex">
     <title>{{ e($adminTitle) }} — Nyathi Admin</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    {{--
-    <link
-        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Jost:wght@300;400;500;600&display=swap"
-        rel="stylesheet"> --}}
+
+    @if (app()->environment("production"))
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+
+        <link
+            href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Jost:wght@300;400;500;600&display=swap"
+            rel="stylesheet">
+    @endif
 
     @vite([
         "resources/css/app.css",
